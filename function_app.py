@@ -1,4 +1,5 @@
 import azure.functions as func
+from jinja2 import Template
 import logging
 
 app = func.FunctionApp(
@@ -6,29 +7,25 @@ app = func.FunctionApp(
 )
 
 
-@app.route(route="http_trigger")
-def http_trigger(
+@app.route(route="index")
+def index(
     req: func.HttpRequest,
 ) -> func.HttpResponse:
-    logging.info(
-        "Python HTTP trigger function processed a request."
+    route = req.route_params.get('route')
+    logging.info(f"GET {route}")
+    index_template = Template(
+        f"""<html>
+    <head>
+        <title>{{ title }}</title>
+    </head>
+    <body>
+        <h1>Hello World!</h1>
+    </body>
+</html>"""
     )
-
-    name = req.params.get("name")
-    if not name:
-        try:
-            req_body = req.get_json()
-        except ValueError:
-            pass
-        else:
-            name = req_body.get("name")
-
-    if name:
-        return func.HttpResponse(
-            f"Hello, {name}. This HTTP triggered function executed successfully."
-        )
-    else:
-        return func.HttpResponse(
-            "This HTTP triggered function executed successfully. Pass a name in the query string or in the request body for a personalized response.",
-            status_code=200,
-        )
+    index = index_template.render(title="Joel Vandiver")
+    return func.HttpResponse(
+        index,
+        status_code=200,
+        headers={"Content-Type": "text/html"},
+    )
