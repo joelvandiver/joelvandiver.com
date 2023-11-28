@@ -14,7 +14,7 @@ def index(
     route = req.route_params.get('route')
     logging.info(f"GET {route}")
     index_template = Template(
-        f"""<html>
+        """<html>
     <head>
         <title>{{ title }}</title>
     </head>
