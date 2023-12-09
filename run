@@ -1,0 +1,41 @@
+#!/bin/bash
+
+cmd=$1
+
+version="0.0.0"
+
+shift
+
+help() {
+    echo " Commands:"
+    echo "   install       Install the application"
+    echo "   app           Run the application"
+}
+
+_run_complete()
+{
+    local cur prev opts
+    COMPREPLY=()
+    cur="${COMP_WORDS[COMP_CWORD]}"
+    prev="${COMP_WORDS[COMP_CWORD-1]}"
+    opts="install app"
+
+    if [[ ${cur} == * ]] ; then
+        COMPREPLY=( $(compgen -W "${opts}"  -- ${cur}) )
+        return 0
+    fi
+}
+
+complete -F _run_complete run
+[[ -d venv ]] && . ./venv/bin/activate
+
+case $cmd in
+    "install") 
+        pip install poetry
+        poetry install
+        ;;
+    "app")
+        uvicorn jv_blog.main:app --reload
+        ;;
+    *) help;;
+esac
