@@ -3,6 +3,7 @@ plugins:
   - blog:
       # enabled: false
       blog_toc: true
+  - search
 nav:
   - Home: index.md
   - About: about.md
