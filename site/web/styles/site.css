@@ -1,0 +1,7 @@
+.hide-sidebar .md-sidebar--primary {
+    display: none;
+}
+
+.hide-sidebar .md-content {
+    margin-left: 0;
+}

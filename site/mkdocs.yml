@@ -54,8 +54,11 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
-# extra_javascript:
-#   - javascripts/feedback.js
+extra_javascript:
+  - scripts/site.js
+#   - scripts/feedback.js
+extra_css:
+  - styles/site.css
 extra:
   analytics:
     provider: google
