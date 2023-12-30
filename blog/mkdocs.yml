@@ -23,7 +23,7 @@ theme:
 
     # Palette toggle for dark mode
     - scheme: slate
-      primary: white
+      primary: black
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
