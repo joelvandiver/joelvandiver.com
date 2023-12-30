@@ -6,15 +6,15 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
-        <meta name="description" content="Create Python annotations to document your code.">
+        <meta name="description" content="My git flow has evolved yet again!">
       
       
       
       
-        <link rel="prev" href="../../../../2021/12/03/git-flow-simplified/">
+        <link rel="prev" href="../../../06/08/git-flow/">
       
       
-        <link rel="next" href="../../../06/15/dockerize-your-development-today/">
+        <link rel="next" href="../../../../2023/05/25/python-annotations/">
       
       
       <link rel="icon" href="../../../../../images/favicon.png">
@@ -22,7 +22,7 @@
     
     
       
-        <title>Python Annotations - Joel Vandiver</title>
+        <title>Git Flow Simplified - Joel Vandiver</title>
       
     
     
@@ -74,7 +74,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#dynamic-python" class="md-skip">
+        <a href="#tldr" class="md-skip">
           Skip to content
         </a>
       
@@ -109,7 +109,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Python Annotations
+              Git Flow Simplified
             
           </span>
         </div>
@@ -268,8 +268,50 @@
   
   
   
-    
   
+    <label class="md-nav__title" for="__toc">
+      <span class="md-nav__icon md-icon"></span>
+      Table of contents
+    </label>
+    <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
+      
+        <li class="md-nav__item">
+  <a href="#tldr" class="md-nav__link">
+    <span class="md-ellipsis">
+      TL;DR
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#simple-git-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Simple Git Flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#ci-vs-branching" class="md-nav__link">
+    <span class="md-ellipsis">
+      CI vs Branching
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#still-branch" class="md-nav__link">
+    <span class="md-ellipsis">
+      Still Branch?
+    </span>
+  </a>
+  
+</li>
+      
+    </ul>
   
 </nav>
                   </div>
@@ -306,7 +348,7 @@
                     <li class="md-nav__item">
                       <div class="md-nav__link">
                         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5v-5Z"/></svg>
-                        <time datetime="2023-05-25 00:00:00" class="md-ellipsis">May 25, 2023</time>
+                        <time datetime="2021-12-03 00:00:00" class="md-ellipsis">December 3, 2021</time>
                       </div>
                     </li>
                     
@@ -338,62 +380,87 @@
         
 
 
-<h1 id="dynamic-python">Dynamic Python</h1>
-<p>Python is great language to prototype ideas.  The dynamic runtime opens up some possibilities that are very difficult in statically typed languages.  </p>
-<p>However, there's a catch:  the dynamic runtime should not come at the cost of poor code documentation.  Let's take this simple, arbitrary function:</p>
-<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+  <h1>Git Flow Simplified</h1>
+
+<p>Oh, there are so many ways of managing git repositories.  I've written on this topic before, but as usual, things have changed.  I recently changed teams at work, and with a new team comes a new culture of devops.  </p>
+<h2 id="tldr">TL;DR</h2>
+<blockquote>
+<p>"CI" means to continuously integrate, so sync often.</p>
+</blockquote>
+<h2 id="simple-git-flow">Simple Git Flow</h2>
+<ol>
+<li>Keep to a single trunk (such as <code>/develop</code>)</li>
+<li>Commit on <em>all</em> logically complete units of code.</li>
+<li>Fetch from remote.</li>
+<li>Rebase.</li>
+<li>Push.</li>
+<li>Repeat &gt; 5x/day</li>
+</ol>
+<p>I usually script the above like this:</p>
+<blockquote>
+<p>sync.sh</p>
+</blockquote>
+<div class="language-sh highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
 <span class="normal"><a href="#__codelineno-0-2">2</a></span>
 <span class="normal"><a href="#__codelineno-0-3">3</a></span>
 <span class="normal"><a href="#__codelineno-0-4">4</a></span>
 <span class="normal"><a href="#__codelineno-0-5">5</a></span>
 <span class="normal"><a href="#__codelineno-0-6">6</a></span>
-<span class="normal"><a href="#__codelineno-0-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="w">    </span><span class="sd">&#39;&#39;&#39;Transform this data.&#39;&#39;&#39;</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>    <span class="k">return</span> <span class="p">[</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>        <span class="n">item</span> <span class="o">*</span> <span class="n">idx</span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>    <span class="p">]</span>
+<span class="normal"><a href="#__codelineno-0-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="ch">#!/bin/sh</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nv">message</span><span class="o">=</span><span class="nv">$1</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>git<span class="w"> </span>add<span class="w"> </span>-A
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">message</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>git<span class="w"> </span>fetch
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>git<span class="w"> </span>rebase
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>git<span class="w"> </span>push
 </span></code></pre></div></td></tr></table></div>
-<p>The <code>transform</code> function above is pretty straightforward.  It multiplies the numbers in the list by their index, right?  Let's take it out for a spin:</p>
-<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">transform</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="c1"># [0, 2, 6]</span>
+<h2 id="ci-vs-branching">CI vs Branching</h2>
+<p>By definition "continuous integration" and "branching" are antithetical to each other.  I used to think of "CI" as something the server does to integrate developers code.  But, I now see that the developers' systems are also a point of integration.  </p>
+<p>The goal is to integrate as quickly as possible (hence "continuous").  </p>
+<h2 id="still-branch">Still Branch?</h2>
+<p>Ok, ok, I have to be pragmatic and say that I still branch.  I now use branching for experimental coding, prototyping, and just figuring things out.  But I try to get off the branch within a couple of hours.  </p>
+<p>Quite frankily, if I knew everything about all code that I'll ever need to write, <em>then</em> I would avoid branching completely.  </p>
+<p>So, for branching, I usually script it such as this:</p>
+<blockquote>
+<p>branch.sh</p>
+</blockquote>
+<div class="language-sh highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="ch">#!/bin/sh</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="nv">branch</span><span class="o">=</span><span class="nv">$1</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span><span class="nv">$branch</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span><span class="nv">$branch</span>
 </span></code></pre></div></td></tr></table></div>
-<p>Yep!  That's simple.  But, wait, what about this?</p>
-<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">transform</span><span class="p">([[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]]))</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="p">[[],</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]]</span>
+<p>Then, when I'm ready to merge back to trunk (<code>/develop</code>) I complete my branch:</p>
+<blockquote>
+<p>complete.sh</p>
+</blockquote>
+<div class="language-sh highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="ch">#!/bin/sh</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nv">message</span><span class="o">=</span><span class="nv">$1</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>git<span class="w"> </span>add<span class="w"> </span>-A
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">message</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a>git<span class="w"> </span>push
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="nv">current_branch</span><span class="o">=</span><span class="k">$(</span>git<span class="w"> </span>branch<span class="w"> </span>--show-current<span class="k">)</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a>git<span class="w"> </span>checkout<span class="w"> </span>develop
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a>git<span class="w"> </span>merge<span class="w"> </span>--squash<span class="w"> </span><span class="nv">$current_branch</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">message</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a>git<span class="w"> </span>push<span class="w"> </span><span class="nv">$1</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a>git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span><span class="nv">$current_branch</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--delete<span class="w"> </span><span class="nv">$current_branch</span>
 </span></code></pre></div></td></tr></table></div>
-<p>What's going on here?  Well, nothing in the function said to explicitly work with integers.  How would you restrict the types of inputs so that you can reason about the behavior more simply?  </p>
-<p>Also, there's another problem:  the function signature doesn't inform you of it's behavior.  You have to <strong>read</strong> the function implementation to <em>know</em> what it does.  The function signature is the function name, it's arguments' names and types, and the return type.  We should be able to read the signature <code>def transform(data)</code> and know exactly what's going on.  This problem cannot be over-stated.</p>
-<p>Enter Python type annotations!  </p>
-<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span>
-<span class="normal"><a href="#__codelineno-3-4">4</a></span>
-<span class="normal"><a href="#__codelineno-3-5">5</a></span>
-<span class="normal"><a href="#__codelineno-3-6">6</a></span>
-<span class="normal"><a href="#__codelineno-3-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">def</span> <span class="nf">multiply_by_index</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="w">    </span><span class="sd">&#39;&#39;&#39;Multiply the numbers by their index.&#39;&#39;&#39;</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>    <span class="k">return</span> <span class="p">[</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a>        <span class="n">num</span> <span class="o">*</span> <span class="n">idx</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a>        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a>    <span class="p">]</span>
-</span></code></pre></div></td></tr></table></div>
-<p>Now, the function signature is very informative:  <code>def multiply_by_index(data: list[int]) -&gt; list[int]</code>.  And, the types are restricted at code-time:</p>
-<p><img alt="" src="assets/python-annotations.png" /></p>
-<p>Note that this restriction only applies while coding; the runtime still behaves the same:</p>
-<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
-<span class="normal"><a href="#__codelineno-4-2">2</a></span>
-<span class="normal"><a href="#__codelineno-4-3">3</a></span>
-<span class="normal"><a href="#__codelineno-4-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">multiple_by_index</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">multiple_by_index</span><span class="p">([[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]]))</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="c1"># [0, 2, 6]</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="c1"># [[], [&#39;b&#39;], [&#39;c&#39;, &#39;c&#39;]]</span>
-</span></code></pre></div></td></tr></table></div>
-<p>The runtime/code-time distinction might seem unhelpful, but I have experienced first-hand seeing the benefits of annotations in large codebases.  The clearer function signatures allow me to build up ever more complicated logic while ignoring the implementation details of the simpler functions.</p>
+<p><strong>Note:</strong> I use <code>git merge --squash $current_branch</code> to keep the commits on trunk (<code>/develop</code>) clean.</p>
 
 
 
