@@ -31,11 +31,12 @@ complete -F _run_complete run
 
 case $cmd in
     "install") 
-        pip install poetry
+        python -m venv venv
+        . ./venv/bin/activate
         poetry install
         ;;
     "app")
-        uvicorn jv_blog.main:app --reload
+        mkdocs serve --config-file blog/mkdocs.yml
         ;;
     *) help;;
 esac
