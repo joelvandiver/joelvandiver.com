@@ -486,9 +486,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#git-flow-simplified" class="md-nav__link">
+  <a href="#docker-scratchpad" class="md-nav__link">
     <span class="md-ellipsis">
-      Git Flow Simplified
+      Docker Scratchpad
     </span>
   </a>
   
@@ -792,9 +792,9 @@
 </li>
       
         <li class="md-nav__item">
-  <a href="#git-flow-simplified" class="md-nav__link">
+  <a href="#docker-scratchpad" class="md-nav__link">
     <span class="md-ellipsis">
-      Git Flow Simplified
+      Docker Scratchpad
     </span>
   </a>
   
@@ -1103,7 +1103,7 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
-          <time datetime="2021-12-03 00:00:00">December 3, 2021</time></li>
+          <time datetime="2021-12-07 00:00:00">December 7, 2021</time></li>
         
         
           
@@ -1118,88 +1118,29 @@
     </div>
   </header>
   <div class="md-post__content md-typeset">
-    <h2 id="git-flow-simplified"><a class="toclink" href="2021/12/03/git-flow-simplified/">Git Flow Simplified</a></h2>
-<p>Oh, there are so many ways of managing git repositories.  I've written on this topic before, but as usual, things have changed.  I recently changed teams at work, and with a new team comes a new culture of devops.  </p>
-<h3 id="tldr"><a class="toclink" href="2021/12/03/git-flow-simplified/#tldr">TL;DR</a></h3>
+    <h2 id="docker-scratchpad"><a class="toclink" href="2021/12/07/docker-scratchpad/">Docker Scratchpad</a></h2>
+<p>Docker is great for production use, but have you considered using it to quickly take out tools for a spin?  I find I'm reaching for the following command multiple times throughout the day.</p>
 <blockquote>
-<p>"CI" means to continuously integrate, so sync often.</p>
+<p><code>docker run -it --rm --entrypoint /bin/sh $TOOL</code></p>
 </blockquote>
-<h3 id="simple-git-flow"><a class="toclink" href="2021/12/03/git-flow-simplified/#simple-git-flow">Simple Git Flow</a></h3>
-<ol>
-<li>Keep to a single trunk (such as <code>/develop</code>)</li>
-<li>Commit on <em>all</em> logically complete units of code.</li>
-<li>Fetch from remote.</li>
-<li>Rebase.</li>
-<li>Push.</li>
-<li>Repeat &gt; 5x/day</li>
-</ol>
-<p>I usually script the above like this:</p>
+<p><code>$TOOL</code> can be whatever linux based tool I'm interested in trying out. Let's take out <code>alpine</code> linux for a spin.</p>
 <blockquote>
-<p>sync.sh</p>
+<p><code>docker run -it --rm --entrypoint /bin/sh alpine</code></p>
 </blockquote>
-<div class="language-sh highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">4</a></span>
-<span class="normal"><a href="#__codelineno-0-5">5</a></span>
-<span class="normal"><a href="#__codelineno-0-6">6</a></span>
-<span class="normal"><a href="#__codelineno-0-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="ch">#!/bin/sh</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nv">message</span><span class="o">=</span><span class="nv">$1</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>git<span class="w"> </span>add<span class="w"> </span>-A
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">message</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>git<span class="w"> </span>fetch
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>git<span class="w"> </span>rebase
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>git<span class="w"> </span>push
-</span></code></pre></div></td></tr></table></div>
-<h3 id="ci-vs-branching"><a class="toclink" href="2021/12/03/git-flow-simplified/#ci-vs-branching">CI vs Branching</a></h3>
-<p>By definition "continuous integration" and "branching" are antithetical to each other.  I used to think of "CI" as something the server does to integrate developers code.  But, I now see that the developers' systems are also a point of integration.  </p>
-<p>The goal is to integrate as quickly as possible (hence "continuous").  </p>
-<h3 id="still-branch"><a class="toclink" href="2021/12/03/git-flow-simplified/#still-branch">Still Branch?</a></h3>
-<p>Ok, ok, I have to be pragmatic and say that I still branch.  I now use branching for experimental coding, prototyping, and just figuring things out.  But I try to get off the branch within a couple of hours.  </p>
-<p>Quite frankily, if I knew everything about all code that I'll ever need to write, <em>then</em> I would avoid branching completely.  </p>
-<p>So, for branching, I usually script it such as this:</p>
+<p><img alt="" src="assets/2021-12-07-17-30-23.png" /></p>
+<p>Or, I might spin up a <code>python</code> instance to take a look around Python.</p>
 <blockquote>
-<p>branch.sh</p>
+<p><code>docker run -it --rm --entrypoint /bin/sh python</code></p>
 </blockquote>
-<div class="language-sh highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="ch">#!/bin/sh</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="nv">branch</span><span class="o">=</span><span class="nv">$1</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span><span class="nv">$branch</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span><span class="nv">$branch</span>
-</span></code></pre></div></td></tr></table></div>
-<p>Then, when I'm ready to merge back to trunk (<code>/develop</code>) I complete my branch:</p>
+<p><img alt="" src="assets/2021-12-07-17-29-15.png" /></p>
+<p>It's also great for other languages you might want to take out for a spin, such as:</p>
 <blockquote>
-<p>complete.sh</p>
+<p><code>docker run -it --rm --entrypoint /bin/sh haskell</code></p>
 </blockquote>
-<div class="language-sh highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-2-10">10</a></span>
-<span class="normal"><a href="#__codelineno-2-11">11</a></span>
-<span class="normal"><a href="#__codelineno-2-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="ch">#!/bin/sh</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nv">message</span><span class="o">=</span><span class="nv">$1</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>git<span class="w"> </span>add<span class="w"> </span>-A
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">message</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a>git<span class="w"> </span>push
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="nv">current_branch</span><span class="o">=</span><span class="k">$(</span>git<span class="w"> </span>branch<span class="w"> </span>--show-current<span class="k">)</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a>git<span class="w"> </span>checkout<span class="w"> </span>develop
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a>git<span class="w"> </span>merge<span class="w"> </span>--squash<span class="w"> </span><span class="nv">$current_branch</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">message</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a>git<span class="w"> </span>push<span class="w"> </span><span class="nv">$1</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a>git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span><span class="nv">$current_branch</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--delete<span class="w"> </span><span class="nv">$current_branch</span>
-</span></code></pre></div></td></tr></table></div>
-<p><strong>Note:</strong> I use <code>git merge --squash $current_branch</code> to keep the commits on trunk (<code>/develop</code>) clean.</p>
+<p><img alt="" src="assets/2021-12-07-17-29-53.png" /></p>
+<p>Pretty cool, eh?</p>
     <nav class="md-post__action">
-      <a href="2021/12/03/git-flow-simplified/">
+      <a href="2021/12/07/docker-scratchpad/">
         Continue reading
       </a>
     </nav>
@@ -1213,7 +1154,7 @@
 
 
 <nav class="md-pagination">
-    <span class="md-pagination__current">1</span> <a class="md-pagination__link" href="page/2/">2</a> <a class="md-pagination__link" href="page/3/">3</a> <a class="md-pagination__link" href="page/4/">4</a> <a class="md-pagination__link" href="page/2/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42Z"/></svg></a> <a class="md-pagination__link" href="page/4/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.59 7.41 7 6l6 6-6 6-1.41-1.41L10.17 12 5.59 7.41m6 0L13 6l6 6-6 6-1.41-1.41L16.17 12l-4.58-4.59Z"/></svg></a>
+    <span class="md-pagination__current">1</span> <a class="md-pagination__link" href="page/2/">2</a> <a class="md-pagination__link" href="page/3/">3</a> <span class="md-pagination__dots">..</span> <a class="md-pagination__link" href="page/8/">8</a> <a class="md-pagination__link" href="page/2/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42Z"/></svg></a> <a class="md-pagination__link" href="page/8/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.59 7.41 7 6l6 6-6 6-1.41-1.41L10.17 12 5.59 7.41m6 0L13 6l6 6-6 6-1.41-1.41L16.17 12l-4.58-4.59Z"/></svg></a>
 </nav>
         
       

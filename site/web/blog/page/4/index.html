@@ -457,18 +457,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#meta-programming-code-to-write-code" class="md-nav__link">
+  <a href="#apod-azure-function" class="md-nav__link">
     <span class="md-ellipsis">
-      META Programming - Code to Write Code
+      APOD Azure Function
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#nasa-apod" class="md-nav__link">
+  <a href="#duck-typing" class="md-nav__link">
     <span class="md-ellipsis">
-      NASA APOD
+      Duck Typing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lib-and-coffee" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lib and Coffee
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stringbuilder" class="md-nav__link">
+    <span class="md-ellipsis">
+      StringBuilder
     </span>
   </a>
   
@@ -745,18 +763,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#meta-programming-code-to-write-code" class="md-nav__link">
+  <a href="#apod-azure-function" class="md-nav__link">
     <span class="md-ellipsis">
-      META Programming - Code to Write Code
+      APOD Azure Function
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#nasa-apod" class="md-nav__link">
+  <a href="#duck-typing" class="md-nav__link">
     <span class="md-ellipsis">
-      NASA APOD
+      Duck Typing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#lib-and-coffee" class="md-nav__link">
+    <span class="md-ellipsis">
+      Lib and Coffee
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#stringbuilder" class="md-nav__link">
+    <span class="md-ellipsis">
+      StringBuilder
     </span>
   </a>
   
@@ -783,309 +819,7 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
-          <time datetime="2019-12-07 00:00:00">December 7, 2019</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              3 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="meta-programming-code-to-write-code"><a class="toclink" href="../../2019/12/07/meta-programming---code-to-write-code/">META Programming - Code to Write Code</a></h2>
-<p>As I'm sure any .NET programmer would know, .NET offers a pretty expansive reflection api.  Asking a system to provide reflection information is both a powerful and expensive technique.  It can dramatically reduce the quantity of code, but it comes with the extra overhead in runtime performance.  </p>
-<p>I have come across situations many times where the code I am writing is very repetitive, and the only way to stop the repetition <em>at runtime</em> is with reflection.  </p>
-<h3 id="validation-example"><a class="toclink" href="../../2019/12/07/meta-programming---code-to-write-code/#validation-example">Validation Example</a></h3>
-<p>One common example is validation against table schemas.  If you need to ensure the incoming .NET object will not raise a SQL exception, then you will typically have to check each of the properties on the record <em>per table</em>.  </p>
-<p>Take the following <code>dbo.visits</code> table:</p>
-<div class="language-sql highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span>
-<span class="normal"><a href="#__codelineno-6-3">3</a></span>
-<span class="normal"><a href="#__codelineno-6-4">4</a></span>
-<span class="normal"><a href="#__codelineno-6-5">5</a></span>
-<span class="normal"><a href="#__codelineno-6-6">6</a></span>
-<span class="normal"><a href="#__codelineno-6-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="k">CREATE</span><span class="w"> </span><span class="k">TABLE</span><span class="w"> </span><span class="n">dbo</span><span class="p">.</span><span class="n">visits</span><span class="w"> </span><span class="p">(</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="w">    </span><span class="n">visit_id</span><span class="w"> </span><span class="nb">INT</span><span class="w"> </span><span class="k">PRIMARY</span><span class="w"> </span><span class="k">KEY</span><span class="w"> </span><span class="k">IDENTITY</span><span class="w"> </span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="p">),</span>
-</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="w">    </span><span class="n">first_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="w"> </span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-</span><span id="__span-6-4"><a id="__codelineno-6-4" name="__codelineno-6-4"></a><span class="w">    </span><span class="n">last_name</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="w"> </span><span class="p">(</span><span class="mi">50</span><span class="p">)</span><span class="w"> </span><span class="k">NOT</span><span class="w"> </span><span class="k">NULL</span><span class="p">,</span>
-</span><span id="__span-6-5"><a id="__codelineno-6-5" name="__codelineno-6-5"></a><span class="w">    </span><span class="n">visited_at</span><span class="w"> </span><span class="n">DATETIME</span><span class="p">,</span>
-</span><span id="__span-6-6"><a id="__codelineno-6-6" name="__codelineno-6-6"></a><span class="w">    </span><span class="n">phone</span><span class="w"> </span><span class="nb">VARCHAR</span><span class="p">(</span><span class="mi">20</span><span class="p">)</span>
-</span><span id="__span-6-7"><a id="__codelineno-6-7" name="__codelineno-6-7"></a><span class="p">);</span>
-</span></code></pre></div></td></tr></table></div>
-<p>and corresponding F# record:</p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
-<span class="normal"><a href="#__codelineno-7-2">2</a></span>
-<span class="normal"><a href="#__codelineno-7-3">3</a></span>
-<span class="normal"><a href="#__codelineno-7-4">4</a></span>
-<span class="normal"><a href="#__codelineno-7-5">5</a></span>
-<span class="normal"><a href="#__codelineno-7-6">6</a></span>
-<span class="normal"><a href="#__codelineno-7-7">7</a></span>
-<span class="normal"><a href="#__codelineno-7-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="k">type</span><span class="w"> </span><span class="nc">Visits</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="w">    </span><span class="o">{</span><span class="w">   </span><span class="n">visit_id</span><span class="o">:</span><span class="w"> </span><span class="n">int</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="w">        </span><span class="n">first_name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="w">        </span><span class="n">last_name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="w">        </span><span class="n">visite_at</span><span class="o">:</span><span class="w"> </span><span class="n">DateTime</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="w">        </span><span class="n">phone</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="w">        </span><span class="n">store_id</span><span class="o">:</span><span class="w"> </span><span class="n">int</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="w">        </span><span class="o">}</span>
-</span></code></pre></div></td></tr></table></div>
-<p>To ensure a successful transaction with this record against the database, then you will need to check:</p>
-<ol>
-<li><code>first_name</code> is not null and is 50 characters or less.</li>
-<li><code>last_name</code> is not null and is 50 characters or less.</li>
-<li><code>visited_at</code> is greater than the SQL minimum date.</li>
-<li>...</li>
-</ol>
-<p>This might look something like:</p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-8-10">10</a></span>
-<span class="normal"><a href="#__codelineno-8-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">validate</span><span class="w"> </span><span class="n">visit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">errors</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="w">        </span><span class="o">[</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="w">            </span><span class="s">&quot;first_name&quot;</span><span class="o">,</span><span class="w"> </span><span class="n">visit</span><span class="o">.</span><span class="n">first_name</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">visit</span><span class="o">.</span><span class="n">first_name</span><span class="o">.</span><span class="n">Length</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">50</span><span class="o">,</span><span class="w"> </span><span class="s">&quot;The first_name is required and must be less than or equal to 50 characters.&quot;</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="w">            </span><span class="s">&quot;last_name&quot;</span><span class="o">,</span><span class="w"> </span><span class="n">visit</span><span class="o">.</span><span class="n">last_name</span><span class="w"> </span><span class="o">&lt;&gt;</span><span class="w"> </span><span class="k">null</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="n">visit</span><span class="o">.</span><span class="n">last_name</span><span class="o">.</span><span class="n">Length</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mi">50</span><span class="o">,</span><span class="w"> </span><span class="s">&quot;The last_name is required and must be less than or equal to 50 characters.&quot;</span>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">            </span><span class="c1">// ...</span>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">        </span><span class="o">]</span>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8"></a>
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="w">    </span><span class="k">match</span><span class="w"> </span><span class="n">errors</span><span class="w"> </span><span class="k">with</span><span class="w"> </span>
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Ok</span><span class="w"> </span><span class="n">visit</span>
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11"></a><span class="w">    </span><span class="o">|</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Error</span><span class="w"> </span><span class="n">errors</span>
-</span></code></pre></div></td></tr></table></div>
-<blockquote>
-<p>Note:  You will need to include unit tests of the validation rules from the table schema.</p>
-</blockquote>
-<p>You can see from the <code>validate</code> function above that the pattern of checking each of the fields is <em>very</em> repetitive.</p>
-<blockquote>
-<p><strong><em>'Ain't no body got time for that!'</em></strong></p>
-</blockquote>
-<h3 id="keep-it-dry"><a class="toclink" href="../../2019/12/07/meta-programming---code-to-write-code/#keep-it-dry">Keep it D.R.Y.</a></h3>
-<h4 id="information_schema"><a class="toclink" href="../../2019/12/07/meta-programming---code-to-write-code/#information_schema">INFORMATION_SCHEMA</a></h4>
-<p>The information that we are extracting from the <code>CREATE TABLE</code> can be found in the <code>INFORMATION_SCHEMA</code> in SQL SERVER.  (<em>Other database providers have their own schema querying views.</em>)</p>
-<div class="language-sql highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
-<span class="normal"><a href="#__codelineno-9-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="k">SELECT</span><span class="w"> </span><span class="k">COLUMN_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">IS_NULLABLE</span><span class="p">,</span><span class="w"> </span><span class="n">DATA_TYPE</span><span class="p">,</span><span class="w"> </span><span class="n">CHARACTER_MAXIMUM_LENGTH</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="k">FROM</span><span class="w"> </span><span class="n">INFORMATION_SCHEMA</span><span class="p">.</span><span class="n">COLUMNS</span>
-</span></code></pre></div></td></tr></table></div>
-<table>
-<thead>
-<tr>
-<th>COLUMN_NAME</th>
-<th>IS_NULLABLE</th>
-<th>DATA_TYPE</th>
-<th>CHARACTER_MAXIMUM_LENGTH</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>visit_id</td>
-<td>NO</td>
-<td>int</td>
-<td>NULL</td>
-</tr>
-<tr>
-<td>first_name</td>
-<td>NO</td>
-<td>varchar</td>
-<td>50</td>
-</tr>
-<tr>
-<td>last_name</td>
-<td>NO</td>
-<td>varchar</td>
-<td>50</td>
-</tr>
-<tr>
-<td>visited_at</td>
-<td>YES</td>
-<td>datetime</td>
-<td>NULL</td>
-</tr>
-<tr>
-<td>phone</td>
-<td>YES</td>
-<td>varchar</td>
-<td>20</td>
-</tr>
-</tbody>
-</table>
-<h4 id="f-schema"><a class="toclink" href="../../2019/12/07/meta-programming---code-to-write-code/#f-schema">F# Schema</a></h4>
-<p>Use your standard ORM to query this data out in an <code>fsx</code> script into an F# type:</p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-10-10">10</a></span>
-<span class="normal"><a href="#__codelineno-10-11">11</a></span>
-<span class="normal"><a href="#__codelineno-10-12">12</a></span>
-<span class="normal"><a href="#__codelineno-10-13">13</a></span>
-<span class="normal"><a href="#__codelineno-10-14">14</a></span>
-<span class="normal"><a href="#__codelineno-10-15">15</a></span>
-<span class="normal"><a href="#__codelineno-10-16">16</a></span>
-<span class="normal"><a href="#__codelineno-10-17">17</a></span>
-<span class="normal"><a href="#__codelineno-10-18">18</a></span>
-<span class="normal"><a href="#__codelineno-10-19">19</a></span>
-<span class="normal"><a href="#__codelineno-10-20">20</a></span>
-<span class="normal"><a href="#__codelineno-10-21">21</a></span>
-<span class="normal"><a href="#__codelineno-10-22">22</a></span>
-<span class="normal"><a href="#__codelineno-10-23">23</a></span>
-<span class="normal"><a href="#__codelineno-10-24">24</a></span>
-<span class="normal"><a href="#__codelineno-10-25">25</a></span>
-<span class="normal"><a href="#__codelineno-10-26">26</a></span>
-<span class="normal"><a href="#__codelineno-10-27">27</a></span>
-<span class="normal"><a href="#__codelineno-10-28">28</a></span>
-<span class="normal"><a href="#__codelineno-10-29">29</a></span>
-<span class="normal"><a href="#__codelineno-10-30">30</a></span>
-<span class="normal"><a href="#__codelineno-10-31">31</a></span>
-<span class="normal"><a href="#__codelineno-10-32">32</a></span>
-<span class="normal"><a href="#__codelineno-10-33">33</a></span>
-<span class="normal"><a href="#__codelineno-10-34">34</a></span>
-<span class="normal"><a href="#__codelineno-10-35">35</a></span>
-<span class="normal"><a href="#__codelineno-10-36">36</a></span>
-<span class="normal"><a href="#__codelineno-10-37">37</a></span>
-<span class="normal"><a href="#__codelineno-10-38">38</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="k">type</span><span class="w"> </span><span class="nc">ColumnSchema</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="w">    </span><span class="o">{</span><span class="w">   </span><span class="n">COLUMN_NAME</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="w">        </span><span class="n">IS_NULLABLE</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">        </span><span class="n">DATA_TYPE</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="w">        </span><span class="n">CHARACTER_MAXIMUM_LENGTH</span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w"> </span><span class="n">option</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="w">        </span><span class="o">}</span>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7"></a>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="k">let</span><span class="w"> </span><span class="nv">meta</span><span class="bp">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9"></a>
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="w">    </span><span class="c1">// TODO: Run query...</span>
-</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11"></a>
-</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12"></a><span class="w">    </span><span class="o">[</span>
-</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="w">        </span><span class="o">{</span><span class="w">   </span><span class="n">COLUMN_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;visit_id&quot;</span>
-</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14"></a><span class="w">            </span><span class="n">IS_NULLABLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;NO&quot;</span>
-</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15"></a><span class="w">            </span><span class="n">DATA_TYPE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;int&quot;</span>
-</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16"></a><span class="w">            </span><span class="n">CHARACTER_MAXIMUM_LENGTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">None</span>
-</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17"></a><span class="w">            </span><span class="o">}</span>
-</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18"></a><span class="w">        </span><span class="o">{</span><span class="w">   </span><span class="n">COLUMN_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;first_name&quot;</span>
-</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19"></a><span class="w">            </span><span class="n">IS_NULLABLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;NO&quot;</span>
-</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20"></a><span class="w">            </span><span class="n">DATA_TYPE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;varchar&quot;</span>
-</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21"></a><span class="w">            </span><span class="n">CHARACTER_MAXIMUM_LENGTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Some</span><span class="w"> </span><span class="mi">50</span>
-</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22"></a><span class="w">            </span><span class="o">}</span>
-</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23"></a><span class="w">        </span><span class="o">{</span><span class="w">   </span><span class="n">COLUMN_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;last_name&quot;</span>
-</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24"></a><span class="w">            </span><span class="n">IS_NULLABLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;NO&quot;</span>
-</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25"></a><span class="w">            </span><span class="n">DATA_TYPE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;varchar&quot;</span>
-</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26"></a><span class="w">            </span><span class="n">CHARACTER_MAXIMUM_LENGTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Some</span><span class="w"> </span><span class="mi">50</span>
-</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27"></a><span class="w">            </span><span class="o">}</span>
-</span><span id="__span-10-28"><a id="__codelineno-10-28" name="__codelineno-10-28"></a><span class="w">        </span><span class="o">{</span><span class="w">   </span><span class="n">COLUMN_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;visited_at&quot;</span>
-</span><span id="__span-10-29"><a id="__codelineno-10-29" name="__codelineno-10-29"></a><span class="w">            </span><span class="n">IS_NULLABLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;YES&quot;</span>
-</span><span id="__span-10-30"><a id="__codelineno-10-30" name="__codelineno-10-30"></a><span class="w">            </span><span class="n">DATA_TYPE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;datetime&quot;</span>
-</span><span id="__span-10-31"><a id="__codelineno-10-31" name="__codelineno-10-31"></a><span class="w">            </span><span class="n">CHARACTER_MAXIMUM_LENGTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">None</span>
-</span><span id="__span-10-32"><a id="__codelineno-10-32" name="__codelineno-10-32"></a><span class="w">            </span><span class="o">}</span>
-</span><span id="__span-10-33"><a id="__codelineno-10-33" name="__codelineno-10-33"></a><span class="w">        </span><span class="o">{</span><span class="w">   </span><span class="n">COLUMN_NAME</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;phone&quot;</span>
-</span><span id="__span-10-34"><a id="__codelineno-10-34" name="__codelineno-10-34"></a><span class="w">            </span><span class="n">IS_NULLABLE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;YES&quot;</span>
-</span><span id="__span-10-35"><a id="__codelineno-10-35" name="__codelineno-10-35"></a><span class="w">            </span><span class="n">DATA_TYPE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;varchar&quot;</span>
-</span><span id="__span-10-36"><a id="__codelineno-10-36" name="__codelineno-10-36"></a><span class="w">            </span><span class="n">CHARACTER_MAXIMUM_LENGTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Some</span><span class="w"> </span><span class="mi">20</span>
-</span><span id="__span-10-37"><a id="__codelineno-10-37" name="__codelineno-10-37"></a><span class="w">            </span><span class="o">}</span>
-</span><span id="__span-10-38"><a id="__codelineno-10-38" name="__codelineno-10-38"></a><span class="w">    </span><span class="o">]</span>
-</span></code></pre></div></td></tr></table></div>
-<h3 id="lets-get-meta"><a class="toclink" href="../../2019/12/07/meta-programming---code-to-write-code/#lets-get-meta">Let's Get META</a></h3>
-<p>Convert the repetitive code above into a template.  This is where we treat <strong><em>code as data</em></strong>!</p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-11-10">10</a></span>
-<span class="normal"><a href="#__codelineno-11-11">11</a></span>
-<span class="normal"><a href="#__codelineno-11-12">12</a></span>
-<span class="normal"><a href="#__codelineno-11-13">13</a></span>
-<span class="normal"><a href="#__codelineno-11-14">14</a></span>
-<span class="normal"><a href="#__codelineno-11-15">15</a></span>
-<span class="normal"><a href="#__codelineno-11-16">16</a></span>
-<span class="normal"><a href="#__codelineno-11-17">17</a></span>
-<span class="normal"><a href="#__codelineno-11-18">18</a></span>
-<span class="normal"><a href="#__codelineno-11-19">19</a></span>
-<span class="normal"><a href="#__codelineno-11-20">20</a></span>
-<span class="normal"><a href="#__codelineno-11-21">21</a></span>
-<span class="normal"><a href="#__codelineno-11-22">22</a></span>
-<span class="normal"><a href="#__codelineno-11-23">23</a></span>
-<span class="normal"><a href="#__codelineno-11-24">24</a></span>
-<span class="normal"><a href="#__codelineno-11-25">25</a></span>
-<span class="normal"><a href="#__codelineno-11-26">26</a></span>
-<span class="normal"><a href="#__codelineno-11-27">27</a></span>
-<span class="normal"><a href="#__codelineno-11-28">28</a></span>
-<span class="normal"><a href="#__codelineno-11-29">29</a></span>
-<span class="normal"><a href="#__codelineno-11-30">30</a></span>
-<span class="normal"><a href="#__codelineno-11-31">31</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">requiredStringTemplate</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="o">:</span><span class="w"> </span><span class="n">ColumnSchema</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">COLUMN_NAME</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">max</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">CHARACTER_MAXIMUM_LENGTH</span><span class="o">.</span><span class="n">Value</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">    </span><span class="n">sprintf</span><span class="w"> </span><span class="s">&quot;&quot;&quot;</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="s">    &quot;%s&quot;, x.%s &lt;&gt; null &amp;&amp; x.%s.Length &lt;= %i, &quot;The %s is required and must be less than or equal to %i characters.&quot;</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="s">    &quot;&quot;&quot;</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">max</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="n">max</span>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7"></a>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="c1">// TODO:  Provide other rules.</span>
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9"></a>
-</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="k">let</span><span class="w"> </span><span class="nv">template</span><span class="w"> </span><span class="o">(</span><span class="n">xs</span><span class="o">:</span><span class="w"> </span><span class="n">ColumnSchema</span><span class="w"> </span><span class="kt">list</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">rules</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12"></a><span class="w">        </span><span class="n">xs</span><span class="w"> </span>
-</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13"></a><span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">map</span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
-</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14"></a><span class="w">            </span><span class="k">match</span><span class="w"> </span><span class="o">(</span><span class="n">x</span><span class="o">.</span><span class="n">DATA_TYPE</span><span class="o">,</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">IS_NULLABLE</span><span class="o">,</span><span class="w"> </span><span class="n">x</span><span class="o">.</span><span class="n">CHARACTER_MAXIMUM_LENGTH</span><span class="o">)</span><span class="w"> </span><span class="k">with</span><span class="w"> </span>
-</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15"></a><span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="o">(</span><span class="s">&quot;varchar&quot;</span><span class="o">,</span><span class="w"> </span><span class="s">&quot;NO&quot;</span><span class="o">,</span><span class="w"> </span><span class="n">Some</span><span class="w"> </span><span class="o">_)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">requiredStringTemplate</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">Some</span>
-</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16"></a><span class="w">            </span><span class="c1">// TODO:  Call other rules.</span>
-</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17"></a><span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">None</span><span class="o">)</span>
-</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18"></a><span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">filter</span><span class="w"> </span><span class="nn">Option</span><span class="p">.</span><span class="n">isSome</span>
-</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19"></a><span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="nn">Option</span><span class="p">.</span><span class="n">get</span>
-</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20"></a><span class="w">        </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">fold</span><span class="w"> </span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">b</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot;</span><span class="se">\r\n</span><span class="s">            &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">b</span><span class="o">)</span><span class="w"> </span><span class="s">&quot;&quot;</span>
-</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21"></a><span class="w">    </span><span class="s">&quot;&quot;&quot;</span>
-</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22"></a><span class="s">let validate x = </span>
-</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23"></a><span class="s">    let errors = </span>
-</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24"></a><span class="s">        [</span>
-</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25"></a><span class="s">            %s</span>
-</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26"></a><span class="s">        ]</span>
-</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27"></a>
-</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28"></a><span class="s">    match errors with </span>
-</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29"></a><span class="s">    | [] -&gt; Ok x</span>
-</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30"></a><span class="s">    | _ -&gt; Error errors</span>
-</span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31"></a><span class="s">&quot;&quot;&quot;</span><span class="w"> </span><span class="n">rules</span>
-</span></code></pre></div></td></tr></table></div>
-<h3 id="meta-benefits"><a class="toclink" href="../../2019/12/07/meta-programming---code-to-write-code/#meta-benefits">META Benefits</a></h3>
-<ol>
-<li><strong>META Test</strong> - We can now safely delete our unit tests since we would only need to test the META code.</li>
-<li><strong>Schema Changes</strong> - As the schema evolves in the future, you can simply run this job to generate the final validation code.  This ensures that the database schema is the lone, authoritative source of schema information.</li>
-</ol>
-<h3 id="side-note"><a class="toclink" href="../../2019/12/07/meta-programming---code-to-write-code/#side-note">Side Note</a></h3>
-<p>If you prefer to keep your database schema <em>dumb</em>, then you can move the authoritative source to another format such as <code>yaml</code>.  Then, use that source as your input into the <code>ColumnSchema</code> above.</p>
-<p><strong><em>Pretty sweet!</em></strong></p>
-    <nav class="md-post__action">
-      <a href="../../2019/12/07/meta-programming---code-to-write-code/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2019-09-04 00:00:00">September 4, 2019</time></li>
+          <time datetime="2020-07-07 00:00:00">July 7, 2020</time></li>
         
         
           
@@ -1100,76 +834,456 @@
     </div>
   </header>
   <div class="md-post__content md-typeset">
-    <h2 id="nasa-apod"><a class="toclink" href="../../2019/09/04/nasa-apod/">NASA APOD</a></h2>
-<p>I wanted to add something interesting to my blog, and then I remembered that NASA has an astronomy picture of the day (APOD).</p>
-<p><a href="https://api.nasa.gov/">https://api.nasa.gov/</a></p>
-<p>After requesting my own api key, I was able to issue GET requests to get the photo of the day: <code>fetch("https://api.nasa.gov/planetary/apod?api_key={API_KEY}")</code>.</p>
-<p>Here's a sample from today's response:</p>
+    <h2 id="apod-azure-function"><a class="toclink" href="../../2020/07/07/apod-azure-function/">APOD Azure Function</a></h2>
+<p>I've written about setting up a <a href="./2019-09-04-nasa-apod.html">JS photo script</a> with NASA Astronomy Photo of the Day (APOD).  But, to be honest, I've gotten a little greedy with these photos.  I like that I can go to my blog and get the photo of the day, but I would prefer to keep a cache of previous photos of the day!  </p>
+<h3 id="enter-azure-functions"><a class="toclink" href="../../2020/07/07/apod-azure-function/#enter-azure-functions">Enter Azure Functions</a></h3>
+<p>I already store my blog on an Azure storage account.  Wouldn't it be great if I could automatically get the APOD photo and put it into that storage account?</p>
+<p>Since I wrote the original script in JavaScript, I opted for TypeScript as the Azure Function language of choice.  </p>
+<p>After pulling down an auto-generated Azure Function into VS Code, I did the following.</p>
+<p>First, I setup the dependencies:</p>
 <blockquote>
-<p>Json</p>
+<p>package.json:</p>
 </blockquote>
-<div class="language-json highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span>
-<span class="normal"><a href="#__codelineno-3-4">4</a></span>
-<span class="normal"><a href="#__codelineno-3-5">5</a></span>
-<span class="normal"><a href="#__codelineno-3-6">6</a></span>
-<span class="normal"><a href="#__codelineno-3-7">7</a></span>
-<span class="normal"><a href="#__codelineno-3-8">8</a></span>
-<span class="normal"><a href="#__codelineno-3-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="p">{</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="w">   </span><span class="nt">&quot;date&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;2019-09-04&quot;</span><span class="p">,</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">   </span><span class="nt">&quot;explanation&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;Will the spider ever catch the fly? Not if both are large emission nebulas toward the constellation of the Charioteer (Auriga).  The spider-shaped gas cloud on the left is actually an emission nebula labelled IC 417, while the smaller fly-shaped cloud on the right is dubbed  NGC 1931 and is both an emission nebula and a reflection nebula.  About 10,000 light-years distant, both nebulas harbor young, open star clusters. For scale, the more compact NGC 1931 (Fly) is about 10 light-years across. The featured picture in scientifically-assigned, infrared colors combines images from the Spitzer Space Telescope and the Two Micron All Sky Survey (2MASS).  Spitzer is celebrating its 16th year orbiting the Sun near the Earth.    APOD in other languages: Arabic, Catalan, Chinese (Beijing), Chinese (Taiwan), Croatian, Czech, Dutch, Farsi, French, French, German, Hebrew, Indonesian, Japanese, Korean, Montenegrin, Polish, Russian, Serbian, Slovenian,  Spanish and Ukrainian&quot;</span><span class="p">,</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">   </span><span class="nt">&quot;hdurl&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://apod.nasa.gov/apod/image/1909/SpiderFly_Spitzer2Mass_4165.jpg&quot;</span><span class="p">,</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="w">   </span><span class="nt">&quot;media_type&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;image&quot;</span><span class="p">,</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">   </span><span class="nt">&quot;service_version&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;v1&quot;</span><span class="p">,</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">   </span><span class="nt">&quot;title&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;The Spider Nebula in Infrared&quot;</span><span class="p">,</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">   </span><span class="nt">&quot;url&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;https://apod.nasa.gov/apod/image/1909/SpiderFly_Spitzer2Mass_960.jpg&quot;</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="p">}</span>
+<div class="language-json highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span>
+<span class="normal"><a href="#__codelineno-2-7">7</a></span>
+<span class="normal"><a href="#__codelineno-2-8">8</a></span>
+<span class="normal"><a href="#__codelineno-2-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="w">  </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="w">    </span><span class="nt">&quot;@azure/storage-blob&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^12.2.0-preview.1&quot;</span><span class="p">,</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">    </span><span class="nt">&quot;node-fetch&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^2.6.0&quot;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">  </span><span class="p">},</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">  </span><span class="nt">&quot;devDependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">    </span><span class="nt">&quot;@azure/functions&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.0.2-beta2&quot;</span><span class="p">,</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">    </span><span class="nt">&quot;@types/node-fetch&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^2.5.7&quot;</span><span class="p">,</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">    </span><span class="nt">&quot;typescript&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^3.3.3&quot;</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">  </span><span class="p">}</span>
 </span></code></pre></div></td></tr></table></div>
-<p>With that response, I simply need to extract the url and create an <code>img</code> element when the <code>media_type === "image"</code>.</p>
-<p>Here's the full example:</p>
-<blockquote>
-<p>Html</p>
-</blockquote>
-<div class="language-html highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="p">&lt;</span><span class="nt">div</span> <span class="na">id</span><span class="o">=</span><span class="s">&quot;nasa-img-container&quot;</span><span class="p">&gt;&lt;/</span><span class="nt">div</span><span class="p">&gt;</span>
+<p>Second, I defined the script.  </p>
+<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span>
+<span class="normal"><a href="#__codelineno-3-12">12</a></span>
+<span class="normal"><a href="#__codelineno-3-13">13</a></span>
+<span class="normal"><a href="#__codelineno-3-14">14</a></span>
+<span class="normal"><a href="#__codelineno-3-15">15</a></span>
+<span class="normal"><a href="#__codelineno-3-16">16</a></span>
+<span class="normal"><a href="#__codelineno-3-17">17</a></span>
+<span class="normal"><a href="#__codelineno-3-18">18</a></span>
+<span class="normal"><a href="#__codelineno-3-19">19</a></span>
+<span class="normal"><a href="#__codelineno-3-20">20</a></span>
+<span class="normal"><a href="#__codelineno-3-21">21</a></span>
+<span class="normal"><a href="#__codelineno-3-22">22</a></span>
+<span class="normal"><a href="#__codelineno-3-23">23</a></span>
+<span class="normal"><a href="#__codelineno-3-24">24</a></span>
+<span class="normal"><a href="#__codelineno-3-25">25</a></span>
+<span class="normal"><a href="#__codelineno-3-26">26</a></span>
+<span class="normal"><a href="#__codelineno-3-27">27</a></span>
+<span class="normal"><a href="#__codelineno-3-28">28</a></span>
+<span class="normal"><a href="#__codelineno-3-29">29</a></span>
+<span class="normal"><a href="#__codelineno-3-30">30</a></span>
+<span class="normal"><a href="#__codelineno-3-31">31</a></span>
+<span class="normal"><a href="#__codelineno-3-32">32</a></span>
+<span class="normal"><a href="#__codelineno-3-33">33</a></span>
+<span class="normal"><a href="#__codelineno-3-34">34</a></span>
+<span class="normal"><a href="#__codelineno-3-35">35</a></span>
+<span class="normal"><a href="#__codelineno-3-36">36</a></span>
+<span class="normal"><a href="#__codelineno-3-37">37</a></span>
+<span class="normal"><a href="#__codelineno-3-38">38</a></span>
+<span class="normal"><a href="#__codelineno-3-39">39</a></span>
+<span class="normal"><a href="#__codelineno-3-40">40</a></span>
+<span class="normal"><a href="#__codelineno-3-41">41</a></span>
+<span class="normal"><a href="#__codelineno-3-42">42</a></span>
+<span class="normal"><a href="#__codelineno-3-43">43</a></span>
+<span class="normal"><a href="#__codelineno-3-44">44</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AzureFunction</span><span class="p">,</span><span class="w"> </span><span class="nx">Context</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;@azure/functions&quot;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ContainerClient</span><span class="p">,</span><span class="w"> </span><span class="nx">StorageSharedKeyCredential</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;@azure/storage-blob&quot;</span><span class="p">;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="k">import</span><span class="w"> </span><span class="nx">fetch</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;node-fetch&quot;</span><span class="p">;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="kd">const</span><span class="w"> </span><span class="nx">getFileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">);</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1</span><span class="p">];</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="p">};</span>
+</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="kd">const</span><span class="w"> </span><span class="nx">saveImg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">context</span><span class="o">:</span><span class="w"> </span><span class="kt">Context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">timeStamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">toISOString</span><span class="p">();</span>
+</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="w">    </span><span class="nx">context</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Saving url:  &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">timeStamp</span><span class="p">);</span>
+</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">creds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">StorageSharedKeyCredential</span><span class="p">(</span><span class="s2">&quot;{STORAGE_ACCOUNT_NAME}&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;{STORAGE_ACCOUNT_KEY}&quot;</span><span class="p">);</span>
+</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ContainerClient</span><span class="p">(</span><span class="s2">&quot;{STORAGE_ACCOUNT_URI}/assets/img/apod&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">creds</span><span class="p">)</span>
+</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getFileName</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">blob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">getBlobClient</span><span class="p">(</span><span class="nx">filename</span><span class="p">);</span>
+</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">blob</span><span class="p">.</span><span class="nx">syncCopyFromURL</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
+</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="p">};</span>
+</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20"></a>
+</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21"></a><span class="kd">const</span><span class="w"> </span><span class="nx">sync</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">context</span><span class="o">:</span><span class="w"> </span><span class="kt">Context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">json_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://api.nasa.gov/planetary/apod?api_key={APOD_API_KEY}&quot;</span><span class="p">;</span>
+</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23"></a><span class="w">    </span><span class="nx">context</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Fetching &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">json_url</span><span class="p">);</span>
+</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="nx">json_url</span><span class="p">)</span>
+</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25"></a><span class="w">        </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span><span class="w"> </span><span class="p">})</span>
+</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26"></a><span class="w">        </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">json</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27"></a><span class="w">            </span><span class="kd">const</span><span class="w"> </span><span class="nx">timeStamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">toISOString</span><span class="p">();</span>
+</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28"></a><span class="w">            </span><span class="kd">const</span><span class="w"> </span><span class="nx">img_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">url</span><span class="p">;</span>
+</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">json</span><span class="p">.</span><span class="nx">media_type</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s2">&quot;image&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30"></a><span class="w">                </span><span class="nx">context</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;The json response is not an image: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">img_url</span><span class="p">,</span><span class="w"> </span><span class="nx">timeStamp</span><span class="p">);</span>
+</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31"></a><span class="w">                </span><span class="k">return</span><span class="p">;</span>
+</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32"></a><span class="w">            </span><span class="p">}</span>
+</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33"></a><span class="w">            </span><span class="nx">context</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Fetched &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">json_url</span><span class="p">);</span>
+</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">saveImg</span><span class="p">(</span><span class="nx">img_url</span><span class="p">,</span><span class="w"> </span><span class="nx">context</span><span class="p">);</span>
+</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35"></a><span class="w">        </span><span class="p">});</span>
+</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36"></a><span class="p">};</span>
+</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37"></a>
+</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38"></a><span class="kd">const</span><span class="w"> </span><span class="nx">timerTrigger</span><span class="o">:</span><span class="w"> </span><span class="kt">AzureFunction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">context</span><span class="o">:</span><span class="w"> </span><span class="kt">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">myTimer</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">timeStamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">toISOString</span><span class="p">();</span>
+</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40"></a><span class="w">    </span><span class="nx">context</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Syncing&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">timeStamp</span><span class="p">);</span>
+</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">sync</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
+</span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42"></a><span class="p">};</span>
+</span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43"></a>
+</span><span id="__span-3-44"><a id="__codelineno-3-44" name="__codelineno-3-44"></a><span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">timerTrigger</span><span class="p">;</span>
 </span></code></pre></div></td></tr></table></div>
-<blockquote>
-<p>JavaScript</p>
-</blockquote>
-<div class="language-javascript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-5-10">10</a></span>
-<span class="normal"><a href="#__codelineno-5-11">11</a></span>
-<span class="normal"><a href="#__codelineno-5-12">12</a></span>
-<span class="normal"><a href="#__codelineno-5-13">13</a></span>
-<span class="normal"><a href="#__codelineno-5-14">14</a></span>
-<span class="normal"><a href="#__codelineno-5-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">    </span><span class="nx">fetch</span><span class="p">(</span><span class="s2">&quot;https://api.nasa.gov/planetary/apod?api_key={API_KEY}&quot;</span><span class="p">)</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">        </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">        </span><span class="p">})</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="w">        </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">json</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="o">!</span><span class="nx">json</span><span class="p">.</span><span class="nx">media_type</span><span class="w"> </span><span class="o">===</span><span class="w"> </span><span class="s2">&quot;image&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="p">;</span><span class="w"> </span><span class="p">}</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">url</span><span class="p">;</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="nx">container</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="s2">&quot;nasa-img-container&quot;</span><span class="p">);</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="w">            </span><span class="kd">var</span><span class="w"> </span><span class="nx">img</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nb">document</span><span class="p">.</span><span class="nx">createElement</span><span class="p">(</span><span class="s1">&#39;img&#39;</span><span class="p">);</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="w">            </span><span class="nx">img</span><span class="p">.</span><span class="nx">src</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">src</span><span class="p">;</span>
-</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a><span class="w">            </span><span class="nx">container</span><span class="p">.</span><span class="nx">title</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">explanation</span><span class="p">;</span>
-</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13"></a><span class="w">            </span><span class="nx">container</span><span class="p">.</span><span class="nx">appendChild</span><span class="p">(</span><span class="nx">img</span><span class="p">);</span>
-</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14"></a><span class="w">        </span><span class="p">});</span>
-</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15"></a><span class="p">})();</span>
-</span></code></pre></div></td></tr></table></div>
-<p>Here's my favorite photo I've found in APOD so far:</p>
-<p><img alt="https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/pia22949.jpg" src="https://www.nasa.gov/sites/default/files/styles/full_width_feature/public/thumbnails/image/pia22949.jpg" /></p>
+<p>Third, I set the function to run on a timer since this is the "Photo of the Day".  </p>
+<p>That's it!  Now, I have a simple Azure Function running in the cloud, storing the photos in the cloud, of the astronomy beyond the clouds!  Nice!</p>
     <nav class="md-post__action">
-      <a href="../../2019/09/04/nasa-apod/">
+      <a href="../../2020/07/07/apod-azure-function/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2020-06-07 00:00:00">June 7, 2020</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="duck-typing"><a class="toclink" href="../../2020/06/07/duck-typing/">Duck Typing</a></h2>
+<h3 id="run-time-duck-typing"><a class="toclink" href="../../2020/06/07/duck-typing/#run-time-duck-typing">Run-time Duck Typing</a></h3>
+<p>In a dynamically typed language such as <code>JavaScript</code>, you would <em>infer</em> the type of an object by investigating it's members.  Since <code>JavaScript</code> is not a statically typed language, we cannot trust the type information without checking that at run-time.  It is common to see code such as this in <code>JavaScript</code>.</p>
+<div class="language-javascript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">myObj</span><span class="p">.</span><span class="nx">Id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="w">    </span><span class="nx">doSomethingWithId</span><span class="p">(</span><span class="nx">myObj</span><span class="p">.</span><span class="nx">Id</span><span class="p">);</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<p>That's great that we can support dynamic member checking, but is there a way that we can have the compiler tell us this ahead of time?</p>
+<h3 id="net-generics"><a class="toclink" href="../../2020/06/07/duck-typing/#net-generics">.NET Generics</a></h3>
+<p>Coming from <code>C#</code>, I was already comfortable with generic classes and methods.  These provide a <em>template</em> of a code that can be applied to more specific types.  Generics can lead to better code abstraction and reuse.  You can think of generics as contraints upon the types that are used by the generic class.  </p>
+<p>F# has all of the .NET Generics just like C#.</p>
+<h3 id="compile-time-duck-typing"><a class="toclink" href="../../2020/06/07/duck-typing/#compile-time-duck-typing">Compile-time Duck Typing</a></h3>
+<p>But, F# goes a step further.  F# offers static generic constraints.  </p>
+<p>Whereas C#'s generics are applied to instances of types at run-time, the F#'s <a href="https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/generics/statically-resolved-type-parameters">static type parameters</a> are resolved by the compiler at compile time!</p>
+<p>Let's take an example...</p>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-4-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">open</span><span class="w"> </span><span class="nn">System</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="k">type</span><span class="w"> </span><span class="nc">User</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="w">    </span><span class="o">{</span><span class="w"> </span><span class="n">Id</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Guid</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">      </span><span class="n">Name</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">}</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="k">let</span><span class="w"> </span><span class="nv">inline</span><span class="w"> </span><span class="n">getId</span><span class="w"> </span><span class="o">(</span><span class="n">record</span><span class="o">:</span><span class="w"> </span><span class="o">^</span><span class="n">T</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Guid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(^</span><span class="n">T</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="k">member</span><span class="w"> </span><span class="n">Id</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Guid</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">record</span><span class="o">))</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="k">let</span><span class="w"> </span><span class="nv">luke</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">Guid</span><span class="p">.</span><span class="n">NewGuid</span><span class="bp">()</span><span class="o">;</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Luke Skywalker&quot;</span><span class="w"> </span><span class="o">}</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="k">let</span><span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getId</span><span class="w"> </span><span class="n">luke</span>
+</span></code></pre></div></td></tr></table></div>
+<blockquote>
+<p>Output:</p>
+</blockquote>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
+<span class="normal"><a href="#__codelineno-5-2">2</a></span>
+<span class="normal"><a href="#__codelineno-5-3">3</a></span>
+<span class="normal"><a href="#__codelineno-5-4">4</a></span>
+<span class="normal"><a href="#__codelineno-5-5">5</a></span>
+<span class="normal"><a href="#__codelineno-5-6">6</a></span>
+<span class="normal"><a href="#__codelineno-5-7">7</a></span>
+<span class="normal"><a href="#__codelineno-5-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="k">type</span><span class="w"> </span><span class="nc">User</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="w">  </span><span class="o">{</span><span class="w"> </span><span class="n">Id</span><span class="o">:</span><span class="w"> </span><span class="nn">System</span><span class="p">.</span><span class="n">Guid</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="w">    </span><span class="n">Name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">}</span>
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="k">val</span><span class="w"> </span><span class="k">inline</span><span class="w"> </span><span class="n">getId</span><span class="w"> </span><span class="o">:</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="w">  </span><span class="n">record</span><span class="o">:</span><span class="w"> </span><span class="o">^</span><span class="n">T</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nn">System</span><span class="p">.</span><span class="n">Guid</span><span class="w"> </span><span class="k">when</span><span class="w">  </span><span class="o">^</span><span class="n">T</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="k">member</span><span class="w"> </span><span class="n">get_Id</span><span class="w"> </span><span class="o">:</span><span class="w">  </span><span class="o">^</span><span class="n">T</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nn">System</span><span class="p">.</span><span class="n">Guid</span><span class="o">)</span>
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="k">val</span><span class="w"> </span><span class="n">luke</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">802</span><span class="n">f4714</span><span class="o">-</span><span class="mi">7</span><span class="n">ef7</span><span class="o">-</span><span class="mi">474</span><span class="n">b</span><span class="o">-</span><span class="n">af6b</span><span class="o">-</span><span class="n">f3fa05a661f9</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="w">                    </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Luke Skywalker&quot;</span><span class="w"> </span><span class="o">}</span>
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="k">val</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Guid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">802</span><span class="n">f4714</span><span class="o">-</span><span class="mi">7</span><span class="n">ef7</span><span class="o">-</span><span class="mi">474</span><span class="n">b</span><span class="o">-</span><span class="n">af6b</span><span class="o">-</span><span class="n">f3fa05a661f9</span>
+</span></code></pre></div></td></tr></table></div>
+<p>At first glance, this may seem like nothing special is going on here.  But, note that I am able to apply the <code>getId</code> function to any type that has an <code>Id</code> of type <code>Guid</code>.  This cuts down the impulse to create type inheritance to <em>share</em> simple data structures and methods among types. </p>
+<p>I'm able to apply <em>Duck Typing</em> to types and have the compiler tell me as I'm developing if the type <strong><em>is a duck!</em></strong></p>
+    <nav class="md-post__action">
+      <a href="../../2020/06/07/duck-typing/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2020-05-17 00:00:00">May 17, 2020</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              3 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="lib-and-coffee"><a class="toclink" href="../../2020/05/17/lib-and-coffee/">Lib and Coffee</a></h2>
+<blockquote>
+<p>There's more to software development than code.</p>
+</blockquote>
+<p>You have to verify the system works from end to end.  At some point in the dev cycle you will need to plug it all together to make sure it works as expected.  </p>
+<p>Too much of my career has been focused on ensuring everything works all the time <em>on my system</em>.  As I've grown as a developer, my career has gone through several phases.</p>
+<h3 id="phase-i-manually-verify"><a class="toclink" href="../../2020/05/17/lib-and-coffee/#phase-i-manually-verify">Phase I - Manually Verify</a></h3>
+<p>Change a line of code, then manually verify it worked as expected and didn't break anything else.  Keep the code on your system fully operating with each of the following:</p>
+<ol>
+<li>Database</li>
+<li>API</li>
+<li>Web Services</li>
+<li>UI</li>
+</ol>
+<p>But, a problem quickly arises:  Can you truly verify everyting all the time?</p>
+<h3 id="phase-ii-automatically-verify"><a class="toclink" href="../../2020/05/17/lib-and-coffee/#phase-ii-automatically-verify">Phase II - Automatically Verify</a></h3>
+<p>Enter automated integration testing.  Here's few flavors of integration tests I've written:</p>
+<ol>
+<li>SQL Client Database Tests</li>
+<li>REST API Tests</li>
+<li>Selenium/E2E Tests</li>
+<li>Generative Data LOAD Tests</li>
+<li>PERF Repetition Tests</li>
+</ol>
+<p>It never ceases to amaze me how much there is to do with automated testing.</p>
+<p>These have been great to gain greater confidence in the quality of software.  But, there's a catch.</p>
+<p>Integration testing by definition is more computationally expensive, time extensive, and generally more involved than UNIT testing.  Putting your integration tests into a CI/CD pipeline also proves to be tricky and can be <em>brittle</em>.  </p>
+<h3 id="phase-iii-focus-on-the-unit"><a class="toclink" href="../../2020/05/17/lib-and-coffee/#phase-iii-focus-on-the-unit">Phase III - Focus on the UNIT</a></h3>
+<p>During the next phase in my career, I turned my attention to UNIT testing.  UNIT testing requires direct inheritance of the production code.  This allows the tests to be decoupled from external concerns such as HTTP connections, database connections, file system access and the like.</p>
+<p>I can write what seems like 100s of UNIT tests for every integration test.</p>
+<p>Great!  Now, I can write tests and shorten the feedback loop.  I want to know if I've broken some requirement as soon as possible in the software development cycle.</p>
+<p>Even here there's a <em>catch</em> though.  External dependencies have to be <strong>mocked</strong> out.  Through mocking, you can tell the system to do something <em>instead</em> of actually doing the external work.  But, this process has proved to be pain.  The test code is more complicated, takes longer to write, and is harder to maintain.  </p>
+<h3 id="phase-iv-lib-it"><a class="toclink" href="../../2020/05/17/lib-and-coffee/#phase-iv-lib-it">Phase IV - Lib It!</a></h3>
+<p>Let me just say that one thing I look forward to everyday is what I call "Lib and Coffee".  It's the type of coding that just requires my thoughts, my code, and probably a cup of coffee.  I just have the problem at hand, the knowledge in my mind, and the code on the screen.  </p>
+<p>I startup watchers that run unit tests on file save.  I write a test failure, write the code, then watch the test turn green.  I can be in this zone for hours on end, and at the end, it feels very satisfying to deliver a quality product that is fully tested.  Very nice!</p>
+<p>From a functional programming perspective, the <code>Lib</code> is the library where you put your purely functional code.  The functions are transparent in that they declare the names, their input types, and their output types.  External dependencies are handled some where else.   </p>
+<p>This is the truly <em>zen</em> mode of coding!</p>
+    <nav class="md-post__action">
+      <a href="../../2020/05/17/lib-and-coffee/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2020-05-17 00:00:00">May 17, 2020</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="stringbuilder"><a class="toclink" href="../../2020/05/17/stringbuilder/">StringBuilder</a></h2>
+<p>Numerous .NET resources reference <code>StringBuilder</code> as the preferred method for building strings rather than concatentating.  </p>
+<p>The Microsoft docs describe it this way:</p>
+<blockquote>
+<p>"The String object is immutable. Every time you use one of the methods in the System.String class, you create a new string object in memory, which requires a new allocation of space for that new object. In situations where you need to perform repeated modifications to a string, the overhead associated with creating a new String object can be costly."</p>
+<p><strong><em>Ref</em></strong>:  https://docs.microsoft.com/en-us/dotnet/standard/base-types/stringbuilder</p>
+</blockquote>
+<p>But, just how costly is it?  Let's setup a quick performance test to investigate.  We'll create two functions:  <code>stringAdder</code>, <code>stringBuilder</code>.  Both will ignore the final results since we are investigating performance only.  Also, let's use a simple string of the alphabet.</p>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#__codelineno-0-23">23</a></span>
+<span class="normal"><a href="#__codelineno-0-24">24</a></span>
+<span class="normal"><a href="#__codelineno-0-25">25</a></span>
+<span class="normal"><a href="#__codelineno-0-26">26</a></span>
+<span class="normal"><a href="#__codelineno-0-27">27</a></span>
+<span class="normal"><a href="#__codelineno-0-28">28</a></span>
+<span class="normal"><a href="#__codelineno-0-29">29</a></span>
+<span class="normal"><a href="#__codelineno-0-30">30</a></span>
+<span class="normal"><a href="#__codelineno-0-31">31</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">open</span><span class="w"> </span><span class="nn">System</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="c1">// Simple concatentation</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="k">let</span><span class="w"> </span><span class="nv">stringAdder</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">reduce</span><span class="w"> </span><span class="o">(+)</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">ignore</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="c1">// Build up the final string with StringBuilder</span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="k">let</span><span class="w"> </span><span class="nv">stringBuilder</span><span class="w"> </span><span class="o">(</span><span class="n">xs</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="kt">list</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">buf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nn">Text</span><span class="p">.</span><span class="n">StringBuilder</span><span class="bp">()</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">    </span><span class="n">buf</span><span class="o">.</span><span class="n">Append</span><span class="w"> </span><span class="n">xs</span><span class="o">.</span><span class="n">Head</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">    </span><span class="n">xs</span><span class="o">.</span><span class="n">Tail</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">iter</span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">buf</span><span class="o">.</span><span class="n">Append</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span><span class="o">)</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">    </span><span class="n">buf</span><span class="w"> </span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="k">let</span><span class="w"> </span><span class="nv">genText</span><span class="w"> </span><span class="o">(</span><span class="n">folder</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">unit</span><span class="o">)</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">xs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="k">for</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="o">..</span><span class="n">count</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;abcdefghijklmnopqrstuvwxyz&quot;</span><span class="o">]</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="w">    </span><span class="n">xs</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">folder</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="mi">10</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="mi">100</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="mi">1000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="mi">10000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="mi">100000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
+</span><span id="__span-0-24"><a id="__codelineno-0-24" name="__codelineno-0-24"></a>
+</span><span id="__span-0-25"><a id="__codelineno-0-25" name="__codelineno-0-25"></a><span class="mi">10</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span><span id="__span-0-26"><a id="__codelineno-0-26" name="__codelineno-0-26"></a><span class="mi">100</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span><span id="__span-0-27"><a id="__codelineno-0-27" name="__codelineno-0-27"></a><span class="mi">1000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span><span id="__span-0-28"><a id="__codelineno-0-28" name="__codelineno-0-28"></a><span class="mi">10000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span><span id="__span-0-29"><a id="__codelineno-0-29" name="__codelineno-0-29"></a><span class="mi">100000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span><span id="__span-0-30"><a id="__codelineno-0-30" name="__codelineno-0-30"></a><span class="mi">1000000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span><span id="__span-0-31"><a id="__codelineno-0-31" name="__codelineno-0-31"></a><span class="mi">10000000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Wrapping each of working lines above with <code>#time</code> in fsi generates the following stats.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Count</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Adder</td>
+<td>10</td>
+<td>00:00:00.002</td>
+</tr>
+<tr>
+<td>Adder</td>
+<td>100</td>
+<td>00:00:00.000</td>
+</tr>
+<tr>
+<td>Adder</td>
+<td>1,000</td>
+<td>00:00:00.020</td>
+</tr>
+<tr>
+<td>Adder</td>
+<td>10,000</td>
+<td>00:00:01.629</td>
+</tr>
+<tr>
+<td>Adder</td>
+<td>100,000</td>
+<td>***Overflow</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>10</td>
+<td>00:00:00.001</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>100</td>
+<td>00:00:00.000</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>1,000</td>
+<td>00:00:00.000</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>10,000</td>
+<td>00:00:00.001</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>100,000</td>
+<td>00:00:00.031</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>1,000,000</td>
+<td>00:00:00.292</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>10,000,000</td>
+<td>00:00:03.078</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>100,000,000</td>
+<td>***Overflow</td>
+</tr>
+</tbody>
+</table>
+    <nav class="md-post__action">
+      <a href="../../2020/05/17/stringbuilder/">
         Continue reading
       </a>
     </nav>
@@ -1183,7 +1297,7 @@
 
 
 <nav class="md-pagination">
-  <a class="md-pagination__link" href="../../"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 7.41 17 6l-6 6 6 6 1.41-1.41L13.83 12l4.58-4.59m-6 0L11 6l-6 6 6 6 1.41-1.41L7.83 12l4.58-4.59Z"/></svg></a> <a class="md-pagination__link" href="../3/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.41 16.58 10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.42Z"/></svg></a> <a class="md-pagination__link" href="../../">1</a> <a class="md-pagination__link" href="../2/">2</a> <a class="md-pagination__link" href="../3/">3</a> <span class="md-pagination__current">4</span>  
+  <a class="md-pagination__link" href="../../"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 7.41 17 6l-6 6 6 6 1.41-1.41L13.83 12l4.58-4.59m-6 0L11 6l-6 6 6 6 1.41-1.41L7.83 12l4.58-4.59Z"/></svg></a> <a class="md-pagination__link" href="../3/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.41 16.58 10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.42Z"/></svg></a> <a class="md-pagination__link" href="../../">1</a> <a class="md-pagination__link" href="../2/">2</a> <a class="md-pagination__link" href="../3/">3</a> <span class="md-pagination__current">4</span> <a class="md-pagination__link" href="../5/">5</a> <a class="md-pagination__link" href="../6/">6</a> <span class="md-pagination__dots">..</span> <a class="md-pagination__link" href="../8/">8</a> <a class="md-pagination__link" href="../5/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42Z"/></svg></a> <a class="md-pagination__link" href="../8/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.59 7.41 7 6l6 6-6 6-1.41-1.41L10.17 12 5.59 7.41m6 0L13 6l6 6-6 6-1.41-1.41L16.17 12l-4.58-4.59Z"/></svg></a>
 </nav>
         
       

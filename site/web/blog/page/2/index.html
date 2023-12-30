@@ -457,36 +457,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#git-flow-simplified" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git Flow Simplified
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f-vs-ts-vs-js" class="md-nav__link">
+    <span class="md-ellipsis">
+      F# vs TS vs JS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functional-dependency-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functional Dependency Injection
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#git-flow" class="md-nav__link">
     <span class="md-ellipsis">
       Git Flow
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#avoid-mockingstubbing-services" class="md-nav__link">
-    <span class="md-ellipsis">
-      Avoid Mocking/Stubbing Services
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sql-server-on-docker-with-sqlcmd" class="md-nav__link">
-    <span class="md-ellipsis">
-      SQL SERVER on Docker with SQLCMD
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#apod-azure-function" class="md-nav__link">
-    <span class="md-ellipsis">
-      APOD Azure Function
     </span>
   </a>
   
@@ -763,36 +763,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#git-flow-simplified" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git Flow Simplified
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#f-vs-ts-vs-js" class="md-nav__link">
+    <span class="md-ellipsis">
+      F# vs TS vs JS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#functional-dependency-injection" class="md-nav__link">
+    <span class="md-ellipsis">
+      Functional Dependency Injection
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#git-flow" class="md-nav__link">
     <span class="md-ellipsis">
       Git Flow
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#avoid-mockingstubbing-services" class="md-nav__link">
-    <span class="md-ellipsis">
-      Avoid Mocking/Stubbing Services
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#sql-server-on-docker-with-sqlcmd" class="md-nav__link">
-    <span class="md-ellipsis">
-      SQL SERVER on Docker with SQLCMD
-    </span>
-  </a>
-  
-</li>
-      
-        <li class="md-nav__item">
-  <a href="#apod-azure-function" class="md-nav__link">
-    <span class="md-ellipsis">
-      APOD Azure Function
     </span>
   </a>
   
@@ -812,6 +812,258 @@
       <header class="md-typeset">
         <h1 id="blog">Blog</h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2021-12-03 00:00:00">December 3, 2021</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="git-flow-simplified"><a class="toclink" href="../../2021/12/03/git-flow-simplified/">Git Flow Simplified</a></h2>
+<p>Oh, there are so many ways of managing git repositories.  I've written on this topic before, but as usual, things have changed.  I recently changed teams at work, and with a new team comes a new culture of devops.  </p>
+<h3 id="tldr"><a class="toclink" href="../../2021/12/03/git-flow-simplified/#tldr">TL;DR</a></h3>
+<blockquote>
+<p>"CI" means to continuously integrate, so sync often.</p>
+</blockquote>
+<h3 id="simple-git-flow"><a class="toclink" href="../../2021/12/03/git-flow-simplified/#simple-git-flow">Simple Git Flow</a></h3>
+<ol>
+<li>Keep to a single trunk (such as <code>/develop</code>)</li>
+<li>Commit on <em>all</em> logically complete units of code.</li>
+<li>Fetch from remote.</li>
+<li>Rebase.</li>
+<li>Push.</li>
+<li>Repeat &gt; 5x/day</li>
+</ol>
+<p>I usually script the above like this:</p>
+<blockquote>
+<p>sync.sh</p>
+</blockquote>
+<div class="language-sh highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
+<span class="normal"><a href="#__codelineno-3-2">2</a></span>
+<span class="normal"><a href="#__codelineno-3-3">3</a></span>
+<span class="normal"><a href="#__codelineno-3-4">4</a></span>
+<span class="normal"><a href="#__codelineno-3-5">5</a></span>
+<span class="normal"><a href="#__codelineno-3-6">6</a></span>
+<span class="normal"><a href="#__codelineno-3-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="ch">#!/bin/sh</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="nv">message</span><span class="o">=</span><span class="nv">$1</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>git<span class="w"> </span>add<span class="w"> </span>-A
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">message</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a>git<span class="w"> </span>fetch
+</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a>git<span class="w"> </span>rebase
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a>git<span class="w"> </span>push
+</span></code></pre></div></td></tr></table></div>
+<h3 id="ci-vs-branching"><a class="toclink" href="../../2021/12/03/git-flow-simplified/#ci-vs-branching">CI vs Branching</a></h3>
+<p>By definition "continuous integration" and "branching" are antithetical to each other.  I used to think of "CI" as something the server does to integrate developers code.  But, I now see that the developers' systems are also a point of integration.  </p>
+<p>The goal is to integrate as quickly as possible (hence "continuous").  </p>
+<h3 id="still-branch"><a class="toclink" href="../../2021/12/03/git-flow-simplified/#still-branch">Still Branch?</a></h3>
+<p>Ok, ok, I have to be pragmatic and say that I still branch.  I now use branching for experimental coding, prototyping, and just figuring things out.  But I try to get off the branch within a couple of hours.  </p>
+<p>Quite frankily, if I knew everything about all code that I'll ever need to write, <em>then</em> I would avoid branching completely.  </p>
+<p>So, for branching, I usually script it such as this:</p>
+<blockquote>
+<p>branch.sh</p>
+</blockquote>
+<div class="language-sh highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="ch">#!/bin/sh</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="nv">branch</span><span class="o">=</span><span class="nv">$1</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span><span class="nv">$branch</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span><span class="nv">$branch</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Then, when I'm ready to merge back to trunk (<code>/develop</code>) I complete my branch:</p>
+<blockquote>
+<p>complete.sh</p>
+</blockquote>
+<div class="language-sh highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="ch">#!/bin/sh</span>
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="nv">message</span><span class="o">=</span><span class="nv">$1</span>
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a>git<span class="w"> </span>add<span class="w"> </span>-A
+</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">message</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a>git<span class="w"> </span>push
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="nv">current_branch</span><span class="o">=</span><span class="k">$(</span>git<span class="w"> </span>branch<span class="w"> </span>--show-current<span class="k">)</span>
+</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a>git<span class="w"> </span>checkout<span class="w"> </span>develop
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a>git<span class="w"> </span>merge<span class="w"> </span>--squash<span class="w"> </span><span class="nv">$current_branch</span>
+</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">message</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a>git<span class="w"> </span>push<span class="w"> </span><span class="nv">$1</span>
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a>git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span><span class="nv">$current_branch</span>
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--delete<span class="w"> </span><span class="nv">$current_branch</span>
+</span></code></pre></div></td></tr></table></div>
+<p><strong>Note:</strong> I use <code>git merge --squash $current_branch</code> to keep the commits on trunk (<code>/develop</code>) clean.</p>
+    <nav class="md-post__action">
+      <a href="../../2021/12/03/git-flow-simplified/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2021-09-06 00:00:00">September 6, 2021</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              3 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="f-vs-ts-vs-js"><a class="toclink" href="../../2021/09/06/f-vs-ts-vs-js/">F# vs TS vs JS</a></h2>
+<p>At first glance, you may wonder how F# relates to the TS vs JS debate, but the idea of transpiling from one language to another extends much further than TS to JS.  </p>
+<p><strong>TL;DR</strong> - TS doesn't go far enough in providing tooling to a pre-transpiled JS language.  F# with the <a href="https://fable.io/">Fable</a> compiler goes the necessary distance with type safety, minimal boilerplate, and awesome type inference to boot!  (imo)</p>
+<p>For frontend development, JS <em>is</em> the runtime language.  There isn't really a debate about this because of its ubiquity.  JS is certainly not a <em>perfect</em> language (whatever that means) since it has its quirks and its own boilerplate just like most other languages.  </p>
+<h3 id="quirkiness-and-boilerplate"><a class="toclink" href="../../2021/09/06/f-vs-ts-vs-js/#quirkiness-and-boilerplate">Quirkiness and Boilerplate</a></h3>
+<p>Sure, F# has some of its own quirks, but its boilerplate is significantly reduced.  Also, I've found my thought-experience in F# is much more even and metrical with a step-by-step flow through development.  The mechanics of both TS and JS, on the other hand, consistently feel like an interruption to my thinking.</p>
+<p>My thinking in F# is "I'd like this, and this, and ..." while with TS its "do this, oops, <em>I forgot</em>..also do this...and oh ya...do this."</p>
+<p>It appears to me that TS added significant overhead in boilerplate as compared to JS.  Some of the features of TS have become down-right quirky in trying to strongly type a dynamic language.  For example, inferring the keys of an object literal in a switch statement is just straight-up bizarre!</p>
+<h3 id="type-inference"><a class="toclink" href="../../2021/09/06/f-vs-ts-vs-js/#type-inference">Type Inference</a></h3>
+<p>In TS, I find that I am spending more time explicitly telling the compiler what I want rather than thinking at the higher, more abstract level.  The true goal of abstraction is to improve the <em>semantics</em> of code.  I'm not interested in a language that keeps me from true abstractions.  With improved semantics our language shifts from <em>telling</em> the computer what we want to <em>describing</em> what we want.</p>
+<p>My F# experience has clouded my perspective with TS here.  The F# type inference is absolutely amazing.  F# will most of the time just figure things out without you having to specifically tell it.  My attention in F# is on the <em>semantic</em> abstraction.</p>
+<p>Of course, there's nothing quite like <em>type inference</em> in JS other than your IDE trying to provide some suggestions.  Or, there is the more aggressive type <strong>coercion</strong>!</p>
+<h3 id="type-safety"><a class="toclink" href="../../2021/09/06/f-vs-ts-vs-js/#type-safety">Type Safety</a></h3>
+<p>TS is nice to enforce <strong>type safety</strong>.  But, the longer I've developed the more that I realize that this idea has come to be quite elusive.  Sure, you get some assurances by the compiler telling you when you've made a syntactic error or when the types don't line up in some way. But, I have to admit that I have rarely (if ever) let a syntactic or type error escape development in JS (or T-SQL ... if that counts 🙂).  </p>
+<p>My gravitation towards <strong>type safety</strong> has honestly been to support any developer who may be put on my team regardless of their skill level and attention to detail.  I now realize that this is flawed thinking.  If a developer doesn't have the attention to detail or isn't skilled enough, then I don't want them on my team.  And, that's that.</p>
+<p><strong>Type safety</strong> is not inherently bad, but it should not come at the cost of verbosity.  </p>
+<p>Again, here's where F# wins.  The compiler is even stricter than TS in that it enforces immutability by <strong>default</strong> and through type inference it doesn't come with the extra penalty of verbosity.  </p>
+<h3 id="the-best"><a class="toclink" href="../../2021/09/06/f-vs-ts-vs-js/#the-best">The Best!</a></h3>
+<p>By taking quirkiness, boilerplate, type inference, and type safety into account, F# is the clear winner in my mind.  </p>
+<hr />
+<p>But the story doesn't end there.  There's more to consider with software engineering than the simplicity and expressiveness of the development language.  I have to consider how others will maintain and contribute to the code that I write.  I have to ask larger questions about team dynamics, skill, and openness to change.</p>
+<p>I've recently found myself surrounded by Python developers.  I'm coming from a full-stack .NET team to a tech stack built upon Python.  Python is an interesting language to me with its foundation in academia and its start in Mathematics.  And, it's dynamic (enter 😱)!  </p>
+<p>Taking this into consideration, which language should I use to code the frontend?  </p>
+<p>Honestly, I think I'll just drop down to plain-old JavaScript.  If I can't go the extra step to get the type inference and expressivity of F#, then I'd prefer to avoid TS altogether.  I'm not completely against TS ─ I'll just wait for the <em>right</em> project to come along before I use it.</p>
+    <nav class="md-post__action">
+      <a href="../../2021/09/06/f-vs-ts-vs-js/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2021-06-08 00:00:00">June 8, 2021</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="functional-dependency-injection"><a class="toclink" href="../../2021/06/08/functional-dependency-injection/">Functional <em>Dependency Injection</em></a></h2>
+<p>If you've been developing for at least a year or two with an object oriented language, then you probably have come across the idea of <em>Dependency Injection</em>.  <em>Dependency Injection</em> is useful to isolate dependencies and provide loose coupling of components.  </p>
+<p>Typically, in C# you define interfaces that provide the required dependencies and constructors (and properties) that require those dependencies.  Then, you would implement an IoC container that does the work to construct the actual dependencies at runtime.  </p>
+<p><em>Dependency Injection</em> is great for handling external connections since testing code that calls external connections without injection requires integration.</p>
+<p>I remember struggling with the idea of <em>Dependency Injection</em> for a few years.  I understood the mechanics of what I needed to do to get the system to work, but I didn't really understand <em>why</em> I needed to do them.  </p>
+<p>I then began to break apart the phrase.  What qualifies as a "dependency"?  What does it mean to inject them?  What's the smallest possible interface of a dependency?  </p>
+<p>Later, through my study of F#, I came across the idea that a function is the <em>smallest</em> possible interface.  It defines a name, some input, and some output.  That's it.  </p>
+<p>Aren't all parameters dependencies?  In one sense, yes, but in context to <em>Dependency Injection</em>, no.  The focus on <em>Dependency Injection</em> is on separating the construction of objects from the behavior.  Functions that require parameters may not be created by the client directly.  </p>
+<p>But, to setup functional <em>Dependency Injection</em> with F#, you can put your dependencies behind a computed function.</p>
+<p>Let's take a real world example.</p>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span>
+<span class="normal"><a href="#__codelineno-2-17">17</a></span>
+<span class="normal"><a href="#__codelineno-2-18">18</a></span>
+<span class="normal"><a href="#__codelineno-2-19">19</a></span>
+<span class="normal"><a href="#__codelineno-2-20">20</a></span>
+<span class="normal"><a href="#__codelineno-2-21">21</a></span>
+<span class="normal"><a href="#__codelineno-2-22">22</a></span>
+<span class="normal"><a href="#__codelineno-2-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="k">type</span><span class="w"> </span><span class="nc">HttpResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="c1">// Type to capture the results of an HttpResponseMessage</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="sd">/// Encapsulates the HttpClient SendAsync </span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="k">let</span><span class="w"> </span><span class="nv">request</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">HttpRequestMessage</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Async</span><span class="o">&lt;</span><span class="n">HttpResult</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">    </span><span class="k">fun</span><span class="w"> </span><span class="o">(</span><span class="n">req</span><span class="o">:</span><span class="w"> </span><span class="n">HttpRequestMessage</span><span class="o">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">        </span><span class="n">async</span><span class="w"> </span><span class="o">{</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">            </span><span class="c1">// Handle the lifetime of the client.</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">            </span><span class="k">use</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HttpClient</span><span class="bp">()</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">            </span><span class="c1">// Await the response.</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">            </span><span class="k">let!</span><span class="w"> </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="o">.</span><span class="n">SendAsync</span><span class="o">(</span><span class="n">req</span><span class="o">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Async</span><span class="p">.</span><span class="n">AwaitTask</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="w">            </span><span class="c1">// Map the repsonse to a result </span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="w">            </span><span class="c1">// since the client will soon be disposed.</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">mapToHttpResult</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="w">        </span><span class="o">}</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15"></a>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="k">module</span><span class="w"> </span><span class="nn">Lib</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="w">    </span><span class="sd">/// Fetch the user by name with the `request` function.</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">fetchUserByName</span><span class="w"> </span><span class="o">(</span><span class="n">request</span><span class="o">:</span><span class="w"> </span><span class="n">HttpRequestMessage</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Async</span><span class="o">&lt;</span><span class="n">HttpResult</span><span class="o">&gt;)</span><span class="w"> </span><span class="o">(</span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="w">        </span><span class="c1">// Use `request` to call web service.</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="w">        </span><span class="o">...</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21"></a>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22"></a><span class="sd">/// Get the user by name.</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="k">let</span><span class="w"> </span><span class="nv">getUser</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">Lib</span><span class="p">.</span><span class="n">fetchUserByName</span><span class="w"> </span><span class="n">request</span>
+</span></code></pre></div></td></tr></table></div>
+<p>The critical dependency of <code>Lib.fetchUserByName</code> is required <em>first</em>:  <code>request: HttpRequestMessage -&gt; Async&lt;HttpResult&gt;</code>.  This function will likely make an actual web request and has a pretty hefty, disposable object, <code>HttpClient</code>, backing it.  </p>
+<p>The function, <code>Lib.fetchUserByName</code>, doesn't care about <em>how</em> the http request is made or how the connections and objects are disposed. The <code>getUser</code> also shouldn't care about how to make an http request or even how.  We can now use <code>getUser</code> like this:</p>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">johnOption</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getUser</span><span class="w"> </span><span class="s">&quot;John&quot;</span>
+</span></code></pre></div></td></tr></table></div>
+<p>But, probably the coolest part of all this is that you can swap out dependencies in computing the <code>getUser</code> function as long as the final computed function resolves to <code>string -&gt; User option</code>.  You could, for example, get the user from a SQL database or a NoSQL data store, or whatever!</p>
+    <nav class="md-post__action">
+      <a href="../../2021/06/08/functional-dependency-injection/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
@@ -901,429 +1153,6 @@
   </div>
 </article>
       
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2020-09-12 00:00:00">September 12, 2020</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              2 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="avoid-mockingstubbing-services"><a class="toclink" href="../../2020/09/12/avoid-mockingstubbing-services/">Avoid Mocking/Stubbing Services</a></h2>
-<p>Let's say that we have a function that calls an external service:</p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span>
-<span class="normal"><a href="#__codelineno-3-4">4</a></span>
-<span class="normal"><a href="#__codelineno-3-5">5</a></span>
-<span class="normal"><a href="#__codelineno-3-6">6</a></span>
-<span class="normal"><a href="#__codelineno-3-7">7</a></span>
-<span class="normal"><a href="#__codelineno-3-8">8</a></span>
-<span class="normal"><a href="#__codelineno-3-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">sayHelloToCurrentUser</span><span class="w"> </span><span class="bp">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="w">    </span><span class="c1">// Call External Service</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">    </span><span class="nn">AccountService</span><span class="p">.</span><span class="n">getUsername</span><span class="bp">()</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">sprintf</span><span class="w"> </span><span class="s">&quot;Hello %s!&quot;</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="c1">// Integration Test</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="k">let</span><span class="w"> </span><span class="o">[&lt;</span><span class="n">Fact</span><span class="o">&gt;]</span><span class="w"> </span><span class="n">``should say Hello to the name``</span><span class="bp">()</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">    </span><span class="n">sayHelloToCurrentUser</span><span class="bp">()</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="s">&quot;Hello Joel!&quot;</span>
-</span></code></pre></div></td></tr></table></div>
-<p>That may look simple enough, except that this function is technically an integration function since it makes an external call.  It is difficult to guarantee the service availability and connections in a CI (continuous integration) environment.  </p>
-<p>It is best to isolate the external calls in UNIT tests so that the run time only has to have the code itself to run the tests.</p>
-<p>There are two primary options you can use to isolate the external call.</p>
-<ol>
-<li>Put the service call behind an interface and provide fake implementations with mocking or stubbing.</li>
-<li>Isolate the "testable" functions from the service connections.</li>
-</ol>
-<p>For the first approach, we can provide a callback function to <code>getUsername</code>.</p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-4-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">sayHelloToCurrentUser</span><span class="w"> </span><span class="o">(</span><span class="n">getUsername</span><span class="o">:</span><span class="w"> </span><span class="kt">unit</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="w">    </span><span class="n">getUsername</span><span class="bp">()</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">sprintf</span><span class="w"> </span><span class="s">&quot;Hello %s!&quot;</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="c1">// UNIT Test</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="k">let</span><span class="w"> </span><span class="o">[&lt;</span><span class="n">Fact</span><span class="o">&gt;]</span><span class="w"> </span><span class="n">``should say Hello to the name``</span><span class="bp">()</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">    </span><span class="c1">// Function Stub</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">    </span><span class="k">fun</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;Joel&quot;</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">sayHelloToCurrentUser</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="s">&quot;Hello Joel!&quot;</span>
-</span></code></pre></div></td></tr></table></div>
-<p>The complexity of stubbing a service can grow rather quickly, though.  You can probably imagine that the AccountService has lots of methods exposed.  We would end up putting the service behind a .NET interface so that we can provide a fake implementation in our UNIT tests.  </p>
-<p>But, there's a simpler way.  </p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-5-10">10</a></span>
-<span class="normal"><a href="#__codelineno-5-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="c1">// Lib</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="k">let</span><span class="w"> </span><span class="nv">sayHello</span><span class="w"> </span><span class="n">name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sprintf</span><span class="w"> </span><span class="s">&quot;Hello %s!&quot;</span><span class="w"> </span><span class="n">name</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="c1">// Composition</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="k">let</span><span class="w"> </span><span class="nv">sayHelloToCurrentUser</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">AccountService</span><span class="p">.</span><span class="n">getUsername</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">sayHello</span>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="c1">// UNIT Test</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="k">let</span><span class="w"> </span><span class="o">[&lt;</span><span class="n">Fact</span><span class="o">&gt;]</span><span class="w"> </span><span class="n">``should say Hello to the name``</span><span class="bp">()</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="w">    </span><span class="s">&quot;Joel&quot;</span>
-</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">sayHello</span>
-</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">equal</span><span class="w"> </span><span class="s">&quot;Hello Joel!&quot;</span>
-</span></code></pre></div></td></tr></table></div>
-<p>Now, we are simply isolating the integration point to a module devoted to composition.  </p>
-<p>Now, we just have a simple function in our <code>Lib</code>.  It doesn't require any stubbing or mocking.  Very nice indeed!</p>
-    <nav class="md-post__action">
-      <a href="../../2020/09/12/avoid-mockingstubbing-services/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2020-08-02 00:00:00">August 2, 2020</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              2 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="sql-server-on-docker-with-sqlcmd"><a class="toclink" href="../../2020/08/02/sql-server-on-docker-with-sqlcmd/">SQL SERVER on Docker with SQLCMD</a></h2>
-<p>Let's revisit a previous <a href="/2019-12-07-docker-sql-server/">post</a> about using Docker to create a SQL SERVER image.  Previously, I connected to the DB with SQL SERVER Management Studio (SSMS), but now, I'd like to use <code>sqlcmd</code> to avoid running other tools.</p>
-<p>Let's get the latest mssql image for Linux this time from https://hub.docker.com/_/microsoft-mssql-server.</p>
-<div class="language-powershell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-3-10">10</a></span>
-<span class="normal"><a href="#__codelineno-3-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="c"># Pull the Image</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="n">docker</span> <span class="n">pull</span> <span class="n">mcr</span><span class="p">.</span><span class="n">microsoft</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">mssql</span><span class="p">/</span><span class="n">server</span><span class="p">:</span><span class="n">2019-CU5-ubuntu</span><span class="p">-</span><span class="n">16</span><span class="p">.</span><span class="n">04</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="c"># Run the Container</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="n">docker</span> <span class="n">run</span> <span class="n">-e</span> <span class="s1">&#39;ACCEPT_EULA=Y&#39;</span> <span class="n">-e</span> <span class="s1">&#39;SA_PASSWORD=...&#39;</span> <span class="n">-p</span> <span class="n">1433</span><span class="p">:</span><span class="n">1433</span> <span class="p">-</span><span class="n">-name</span> <span class="n">sql1</span> <span class="n">-d</span> <span class="n">mcr</span><span class="p">.</span><span class="n">microsoft</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">mssql</span><span class="p">/</span><span class="n">server</span><span class="p">:</span><span class="n">2019-CU5-ubuntu</span><span class="p">-</span><span class="n">16</span><span class="p">.</span><span class="n">04</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="c"># Start an Interactive Shell</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="n">docker</span> <span class="n">exec</span> <span class="n">-it</span> <span class="n">sql1</span> <span class="p">/</span><span class="n">bin</span><span class="p">/</span><span class="n">bash</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="c"># Test SQLCMD</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="n">opt</span><span class="p">/</span><span class="n">mssql-tools</span><span class="p">/</span><span class="n">bin</span><span class="p">/</span><span class="n">sqlcmd</span> <span class="p">-?</span>
-</span></code></pre></div></td></tr></table></div>
-<blockquote>
-<p>Output</p>
-</blockquote>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-4-10">10</a></span>
-<span class="normal"><a href="#__codelineno-4-11">11</a></span>
-<span class="normal"><a href="#__codelineno-4-12">12</a></span>
-<span class="normal"><a href="#__codelineno-4-13">13</a></span>
-<span class="normal"><a href="#__codelineno-4-14">14</a></span>
-<span class="normal"><a href="#__codelineno-4-15">15</a></span>
-<span class="normal"><a href="#__codelineno-4-16">16</a></span>
-<span class="normal"><a href="#__codelineno-4-17">17</a></span>
-<span class="normal"><a href="#__codelineno-4-18">18</a></span>
-<span class="normal"><a href="#__codelineno-4-19">19</a></span>
-<span class="normal"><a href="#__codelineno-4-20">20</a></span>
-<span class="normal"><a href="#__codelineno-4-21">21</a></span>
-<span class="normal"><a href="#__codelineno-4-22">22</a></span>
-<span class="normal"><a href="#__codelineno-4-23">23</a></span>
-<span class="normal"><a href="#__codelineno-4-24">24</a></span>
-<span class="normal"><a href="#__codelineno-4-25">25</a></span>
-<span class="normal"><a href="#__codelineno-4-26">26</a></span>
-<span class="normal"><a href="#__codelineno-4-27">27</a></span>
-<span class="normal"><a href="#__codelineno-4-28">28</a></span>
-<span class="normal"><a href="#__codelineno-4-29">29</a></span>
-<span class="normal"><a href="#__codelineno-4-30">30</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a>Microsoft (R) SQL Server Command Line Tool
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>Version 17.5.0002.1 Linux
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a>Copyright (C) 2017 Microsoft Corporation. All rights reserved.
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a>usage: sqlcmd            [-U login id]          [-P password]
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a>  [-S server or Dsn if -D is provided]
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a>  [-H hostname]          [-E trusted connection]
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a>  [-N Encrypt Connection][-C Trust Server Certificate]
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a>  [-d use database name] [-l login timeout]     [-t query timeout]
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10"></a>  [-h headers]           [-s colseparator]      [-w screen width]
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11"></a>  [-a packetsize]        [-e echo input]        [-I Enable Quoted Identifiers]
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12"></a>  [-c cmdend]
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13"></a>  [-q &quot;cmdline query&quot;]   [-Q &quot;cmdline query&quot; and exit]
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14"></a>  [-m errorlevel]        [-V severitylevel]     [-W remove trailing spaces]
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15"></a>  [-u unicode output]    [-r[0|1] msgs to stderr]
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16"></a>  [-i inputfile]         [-o outputfile]
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17"></a>  [-k[1|2] remove[replace] control characters]
-</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18"></a>  [-y variable length type display width]
-</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19"></a>  [-Y fixed length type display width]
-</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20"></a>  [-p[1] print statistics[colon format]]
-</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21"></a>  [-R use client regional setting]
-</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22"></a>  [-K application intent]
-</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23"></a>  [-M multisubnet failover]
-</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24"></a>  [-b On error batch abort]
-</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25"></a>  [-D Dsn flag, indicate -S is Dsn]
-</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26"></a>  [-X[1] disable commands, startup script, environment variables [and exit]]
-</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27"></a>  [-x disable variable substitution]
-</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28"></a>  [-g enable column encryption]
-</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29"></a>  [-G use Azure Active Directory for authentication]
-</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30"></a>  [-? show syntax summary]
-</span></code></pre></div></td></tr></table></div>
-<div class="language-powershell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="c"># Run SQLCMD</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="n">opt</span><span class="p">/</span><span class="n">mssql-tools</span><span class="p">/</span><span class="n">bin</span><span class="p">/</span><span class="n">sqlcmd</span> <span class="n">-S</span> <span class="n">localhost</span> <span class="n">-U</span> <span class="n">sa</span> <span class="n">-P</span> <span class="n">Password12345</span> <span class="n">-Q</span> <span class="s2">&quot;SELECT * FROM INFORMATION_SCHEMA.TABLES&quot;</span>
-</span></code></pre></div></td></tr></table></div>
-<table>
-<thead>
-<tr>
-<th>TABLE_CATALOG</th>
-<th>TABLE_SCHEMA</th>
-<th>TABLE_NAME</th>
-<th>TABLE_TYPE</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>master</td>
-<td>dbo</td>
-<td>spt_fallback_db</td>
-<td>BASE TABLE</td>
-</tr>
-<tr>
-<td>master</td>
-<td>dbo</td>
-<td>spt_fallback_dev</td>
-<td>BASE TABLE</td>
-</tr>
-<tr>
-<td>master</td>
-<td>dbo</td>
-<td>spt_fallback_usg</td>
-<td>BASE TABLE</td>
-</tr>
-<tr>
-<td>master</td>
-<td>dbo</td>
-<td>spt_values</td>
-<td>VIEW</td>
-</tr>
-<tr>
-<td>master</td>
-<td>dbo</td>
-<td>spt_monitor</td>
-<td>BASE TABLE</td>
-</tr>
-<tr>
-<td>master</td>
-<td>dbo</td>
-<td>MSreplication_options</td>
-<td>BASE TABLE</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>Very Nice!</p>
-</blockquote>
-    <nav class="md-post__action">
-      <a href="../../2020/08/02/sql-server-on-docker-with-sqlcmd/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2020-07-07 00:00:00">July 7, 2020</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              2 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="apod-azure-function"><a class="toclink" href="../../2020/07/07/apod-azure-function/">APOD Azure Function</a></h2>
-<p>I've written about setting up a <a href="./2019-09-04-nasa-apod.html">JS photo script</a> with NASA Astronomy Photo of the Day (APOD).  But, to be honest, I've gotten a little greedy with these photos.  I like that I can go to my blog and get the photo of the day, but I would prefer to keep a cache of previous photos of the day!  </p>
-<h3 id="enter-azure-functions"><a class="toclink" href="../../2020/07/07/apod-azure-function/#enter-azure-functions">Enter Azure Functions</a></h3>
-<p>I already store my blog on an Azure storage account.  Wouldn't it be great if I could automatically get the APOD photo and put it into that storage account?</p>
-<p>Since I wrote the original script in JavaScript, I opted for TypeScript as the Azure Function language of choice.  </p>
-<p>After pulling down an auto-generated Azure Function into VS Code, I did the following.</p>
-<p>First, I setup the dependencies:</p>
-<blockquote>
-<p>package.json:</p>
-</blockquote>
-<div class="language-json highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
-<span class="normal"><a href="#__codelineno-2-2">2</a></span>
-<span class="normal"><a href="#__codelineno-2-3">3</a></span>
-<span class="normal"><a href="#__codelineno-2-4">4</a></span>
-<span class="normal"><a href="#__codelineno-2-5">5</a></span>
-<span class="normal"><a href="#__codelineno-2-6">6</a></span>
-<span class="normal"><a href="#__codelineno-2-7">7</a></span>
-<span class="normal"><a href="#__codelineno-2-8">8</a></span>
-<span class="normal"><a href="#__codelineno-2-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="w">  </span><span class="nt">&quot;dependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="w">    </span><span class="nt">&quot;@azure/storage-blob&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^12.2.0-preview.1&quot;</span><span class="p">,</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">    </span><span class="nt">&quot;node-fetch&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^2.6.0&quot;</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">  </span><span class="p">},</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">  </span><span class="nt">&quot;devDependencies&quot;</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">    </span><span class="nt">&quot;@azure/functions&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^1.0.2-beta2&quot;</span><span class="p">,</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">    </span><span class="nt">&quot;@types/node-fetch&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^2.5.7&quot;</span><span class="p">,</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">    </span><span class="nt">&quot;typescript&quot;</span><span class="p">:</span><span class="w"> </span><span class="s2">&quot;^3.3.3&quot;</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">  </span><span class="p">}</span>
-</span></code></pre></div></td></tr></table></div>
-<p>Second, I defined the script.  </p>
-<div class="language-typescript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-3-10">10</a></span>
-<span class="normal"><a href="#__codelineno-3-11">11</a></span>
-<span class="normal"><a href="#__codelineno-3-12">12</a></span>
-<span class="normal"><a href="#__codelineno-3-13">13</a></span>
-<span class="normal"><a href="#__codelineno-3-14">14</a></span>
-<span class="normal"><a href="#__codelineno-3-15">15</a></span>
-<span class="normal"><a href="#__codelineno-3-16">16</a></span>
-<span class="normal"><a href="#__codelineno-3-17">17</a></span>
-<span class="normal"><a href="#__codelineno-3-18">18</a></span>
-<span class="normal"><a href="#__codelineno-3-19">19</a></span>
-<span class="normal"><a href="#__codelineno-3-20">20</a></span>
-<span class="normal"><a href="#__codelineno-3-21">21</a></span>
-<span class="normal"><a href="#__codelineno-3-22">22</a></span>
-<span class="normal"><a href="#__codelineno-3-23">23</a></span>
-<span class="normal"><a href="#__codelineno-3-24">24</a></span>
-<span class="normal"><a href="#__codelineno-3-25">25</a></span>
-<span class="normal"><a href="#__codelineno-3-26">26</a></span>
-<span class="normal"><a href="#__codelineno-3-27">27</a></span>
-<span class="normal"><a href="#__codelineno-3-28">28</a></span>
-<span class="normal"><a href="#__codelineno-3-29">29</a></span>
-<span class="normal"><a href="#__codelineno-3-30">30</a></span>
-<span class="normal"><a href="#__codelineno-3-31">31</a></span>
-<span class="normal"><a href="#__codelineno-3-32">32</a></span>
-<span class="normal"><a href="#__codelineno-3-33">33</a></span>
-<span class="normal"><a href="#__codelineno-3-34">34</a></span>
-<span class="normal"><a href="#__codelineno-3-35">35</a></span>
-<span class="normal"><a href="#__codelineno-3-36">36</a></span>
-<span class="normal"><a href="#__codelineno-3-37">37</a></span>
-<span class="normal"><a href="#__codelineno-3-38">38</a></span>
-<span class="normal"><a href="#__codelineno-3-39">39</a></span>
-<span class="normal"><a href="#__codelineno-3-40">40</a></span>
-<span class="normal"><a href="#__codelineno-3-41">41</a></span>
-<span class="normal"><a href="#__codelineno-3-42">42</a></span>
-<span class="normal"><a href="#__codelineno-3-43">43</a></span>
-<span class="normal"><a href="#__codelineno-3-44">44</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">AzureFunction</span><span class="p">,</span><span class="w"> </span><span class="nx">Context</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;@azure/functions&quot;</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="k">import</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="nx">ContainerClient</span><span class="p">,</span><span class="w"> </span><span class="nx">StorageSharedKeyCredential</span><span class="w"> </span><span class="p">}</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;@azure/storage-blob&quot;</span><span class="p">;</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="k">import</span><span class="w"> </span><span class="nx">fetch</span><span class="w"> </span><span class="kr">from</span><span class="w"> </span><span class="s2">&quot;node-fetch&quot;</span><span class="p">;</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="kd">const</span><span class="w"> </span><span class="nx">getFileName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">s</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">url</span><span class="p">.</span><span class="nx">split</span><span class="p">(</span><span class="s2">&quot;/&quot;</span><span class="p">);</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">l</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">s</span><span class="p">.</span><span class="nx">length</span><span class="p">;</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">s</span><span class="p">[</span><span class="nx">l</span><span class="w"> </span><span class="o">-</span><span class="w"> </span><span class="mf">1</span><span class="p">];</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="p">};</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="kd">const</span><span class="w"> </span><span class="nx">saveImg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">url</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="p">,</span><span class="w"> </span><span class="nx">context</span><span class="o">:</span><span class="w"> </span><span class="kt">Context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12"></a><span class="w">    </span><span class="kd">var</span><span class="w"> </span><span class="nx">timeStamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">toISOString</span><span class="p">();</span>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13"></a><span class="w">    </span><span class="nx">context</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Saving url:  &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">url</span><span class="p">,</span><span class="w"> </span><span class="nx">timeStamp</span><span class="p">);</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">creds</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">StorageSharedKeyCredential</span><span class="p">(</span><span class="s2">&quot;{STORAGE_ACCOUNT_NAME}&quot;</span><span class="p">,</span><span class="w"> </span><span class="s2">&quot;{STORAGE_ACCOUNT_KEY}&quot;</span><span class="p">);</span>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nx">ContainerClient</span><span class="p">(</span><span class="s2">&quot;{STORAGE_ACCOUNT_URI}/assets/img/apod&quot;</span><span class="p">,</span><span class="w"> </span><span class="nx">creds</span><span class="p">)</span>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">filename</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">getFileName</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">blob</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">client</span><span class="p">.</span><span class="nx">getBlobClient</span><span class="p">(</span><span class="nx">filename</span><span class="p">);</span>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">blob</span><span class="p">.</span><span class="nx">syncCopyFromURL</span><span class="p">(</span><span class="nx">url</span><span class="p">);</span>
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19"></a><span class="p">};</span>
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20"></a>
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21"></a><span class="kd">const</span><span class="w"> </span><span class="nx">sync</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">context</span><span class="o">:</span><span class="w"> </span><span class="kt">Context</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">json_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;https://api.nasa.gov/planetary/apod?api_key={APOD_API_KEY}&quot;</span><span class="p">;</span>
-</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23"></a><span class="w">    </span><span class="nx">context</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Fetching &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">json_url</span><span class="p">);</span>
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">fetch</span><span class="p">(</span><span class="nx">json_url</span><span class="p">)</span>
-</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25"></a><span class="w">        </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">response</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"> </span><span class="k">return</span><span class="w"> </span><span class="nx">response</span><span class="p">.</span><span class="nx">json</span><span class="p">();</span><span class="w"> </span><span class="p">})</span>
-</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26"></a><span class="w">        </span><span class="p">.</span><span class="nx">then</span><span class="p">(</span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">json</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27"></a><span class="w">            </span><span class="kd">const</span><span class="w"> </span><span class="nx">timeStamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">toISOString</span><span class="p">();</span>
-</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28"></a><span class="w">            </span><span class="kd">const</span><span class="w"> </span><span class="nx">img_url</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nx">json</span><span class="p">.</span><span class="nx">url</span><span class="p">;</span>
-</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29"></a><span class="w">            </span><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">json</span><span class="p">.</span><span class="nx">media_type</span><span class="w"> </span><span class="o">!==</span><span class="w"> </span><span class="s2">&quot;image&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30"></a><span class="w">                </span><span class="nx">context</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;The json response is not an image: &#39;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">img_url</span><span class="p">,</span><span class="w"> </span><span class="nx">timeStamp</span><span class="p">);</span>
-</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31"></a><span class="w">                </span><span class="k">return</span><span class="p">;</span>
-</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32"></a><span class="w">            </span><span class="p">}</span>
-</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33"></a><span class="w">            </span><span class="nx">context</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&quot;Fetched &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nx">json_url</span><span class="p">);</span>
-</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="nx">saveImg</span><span class="p">(</span><span class="nx">img_url</span><span class="p">,</span><span class="w"> </span><span class="nx">context</span><span class="p">);</span>
-</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35"></a><span class="w">        </span><span class="p">});</span>
-</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36"></a><span class="p">};</span>
-</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37"></a>
-</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38"></a><span class="kd">const</span><span class="w"> </span><span class="nx">timerTrigger</span><span class="o">:</span><span class="w"> </span><span class="kt">AzureFunction</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">async</span><span class="w"> </span><span class="kd">function</span><span class="w"> </span><span class="p">(</span><span class="nx">context</span><span class="o">:</span><span class="w"> </span><span class="kt">Context</span><span class="p">,</span><span class="w"> </span><span class="nx">myTimer</span><span class="o">:</span><span class="w"> </span><span class="kt">any</span><span class="p">)</span><span class="o">:</span><span class="w"> </span><span class="nb">Promise</span><span class="o">&lt;</span><span class="ow">void</span><span class="o">&gt;</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39"></a><span class="w">    </span><span class="kd">const</span><span class="w"> </span><span class="nx">timeStamp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="ow">new</span><span class="w"> </span><span class="nb">Date</span><span class="p">().</span><span class="nx">toISOString</span><span class="p">();</span>
-</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40"></a><span class="w">    </span><span class="nx">context</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;Syncing&#39;</span><span class="p">,</span><span class="w"> </span><span class="nx">timeStamp</span><span class="p">);</span>
-</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41"></a><span class="w">    </span><span class="k">await</span><span class="w"> </span><span class="nx">sync</span><span class="p">(</span><span class="nx">context</span><span class="p">);</span>
-</span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42"></a><span class="p">};</span>
-</span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43"></a>
-</span><span id="__span-3-44"><a id="__codelineno-3-44" name="__codelineno-3-44"></a><span class="k">export</span><span class="w"> </span><span class="k">default</span><span class="w"> </span><span class="nx">timerTrigger</span><span class="p">;</span>
-</span></code></pre></div></td></tr></table></div>
-<p>Third, I set the function to run on a timer since this is the "Photo of the Day".  </p>
-<p>That's it!  Now, I have a simple Azure Function running in the cloud, storing the photos in the cloud, of the astronomy beyond the clouds!  Nice!</p>
-    <nav class="md-post__action">
-      <a href="../../2020/07/07/apod-azure-function/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
       
         
           
@@ -1331,7 +1160,7 @@
 
 
 <nav class="md-pagination">
-  <a class="md-pagination__link" href="../../"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 7.41 17 6l-6 6 6 6 1.41-1.41L13.83 12l4.58-4.59m-6 0L11 6l-6 6 6 6 1.41-1.41L7.83 12l4.58-4.59Z"/></svg></a> <a class="md-pagination__link" href="../../"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.41 16.58 10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.42Z"/></svg></a> <a class="md-pagination__link" href="../../">1</a> <span class="md-pagination__current">2</span> <a class="md-pagination__link" href="../3/">3</a> <a class="md-pagination__link" href="../4/">4</a> <a class="md-pagination__link" href="../3/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42Z"/></svg></a> <a class="md-pagination__link" href="../4/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.59 7.41 7 6l6 6-6 6-1.41-1.41L10.17 12 5.59 7.41m6 0L13 6l6 6-6 6-1.41-1.41L16.17 12l-4.58-4.59Z"/></svg></a>
+  <a class="md-pagination__link" href="../../"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 7.41 17 6l-6 6 6 6 1.41-1.41L13.83 12l4.58-4.59m-6 0L11 6l-6 6 6 6 1.41-1.41L7.83 12l4.58-4.59Z"/></svg></a> <a class="md-pagination__link" href="../../"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.41 16.58 10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.42Z"/></svg></a> <a class="md-pagination__link" href="../../">1</a> <span class="md-pagination__current">2</span> <a class="md-pagination__link" href="../3/">3</a> <a class="md-pagination__link" href="../4/">4</a> <span class="md-pagination__dots">..</span> <a class="md-pagination__link" href="../8/">8</a> <a class="md-pagination__link" href="../3/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42Z"/></svg></a> <a class="md-pagination__link" href="../8/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.59 7.41 7 6l6 6-6 6-1.41-1.41L10.17 12 5.59 7.41m6 0L13 6l6 6-6 6-1.41-1.41L16.17 12l-4.58-4.59Z"/></svg></a>
 </nav>
         
       
