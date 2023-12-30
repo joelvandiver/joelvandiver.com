@@ -1,0 +1,56 @@
+site_name: Joel Vandiver
+plugins:
+  # ref:  https://squidfunk.github.io/mkdocs-material/plugins/blog/
+  - blog:
+      # enabled: false
+      blog_toc: true
+      draft: true
+      pagination_per_page: 4
+      pagination_format: "$link_first $link_previous ~2~ $link_next $link_last"
+      # archive: false
+  - search
+# nav:
+#   - Home: index.md
+#   - About: about.md
+#   # - Projects: projects.md
+#   - Blog: blog/index.md
+#   # - Contact: contact.md
+theme:
+  name: material
+  logo: images/logo.png
+  # custom_dir: docs/overrides
+  favicon: images/favicon.png
+  palette:
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
+
+    # Palette toggle for dark mode
+    - scheme: slate
+      primary: black
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+  features:
+    - content.code.copy
+    - content.code.select
+    - search.share
+    - navigation.tracking
+    - navigation.tabs
+    # - navigation.instant
+    # - navigation.indexes
+markdown_extensions:
+  - pymdownx.highlight:
+      anchor_linenums: true
+      linenums: true
+      line_spans: __span
+      pygments_lang_class: true
+  - pymdownx.inlinehilite
+  - pymdownx.snippets
+  - pymdownx.superfences
+extra:
+  analytics:
+    provider: google
+    property: G-QL8GEFVL1T

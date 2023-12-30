@@ -57,7 +57,16 @@ load() {
 }
 
 build() {
-    mkdocs build --config-file blog/mkdocs.yml --site-dir web
+    mkdocs build --config-file site/mkdocs.yml --site-dir web
+}
+
+serve() {
+    pid=$(lsof -ti:8000)
+    if [[ pid ]]; then
+        echo "Port 8000 is already in use."
+        sudo kill -9 $pid
+    fi
+    mkdocs serve --config-file site/mkdocs.yml
 }
 
 deploy() {
@@ -67,7 +76,7 @@ deploy() {
         exit 1
     fi
     build
-    azcopy sync "blog/web" "$AZURE_BLOB_SAS_URL" --from-to=LocalBlob --put-md5 --recursive --log-level=INFO
+    azcopy sync "site/web" "$AZURE_BLOB_SAS_URL" --from-to=LocalBlob --put-md5 --recursive --log-level=INFO
 }
 
 save() {
@@ -85,7 +94,7 @@ case $cmd in
     #     touch "$PWD/Daily/$(date +%Y-%m-%d)-$1.md"
     #     ;;
     "build") build;;
-    "serve") mkdocs serve --config-file blog/mkdocs.yml;;
+    "serve") serve;;
     "deploy") deploy;;
     "save") save;;
     *) 
