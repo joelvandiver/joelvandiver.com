@@ -1,3 +1,8 @@
+[data-md-color-scheme="slate"] {
+    --md-default-bg-color: black;
+    --md-hue: 260deg;
+}
+
 .hide-sidebar .md-sidebar--primary {
     display: none;
 }

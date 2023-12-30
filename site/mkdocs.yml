@@ -20,7 +20,7 @@ plugins:
 theme:
   name: material
   logo: images/logo.png
-  custom_dir: docs/overrides
+  # custom_dir: docs/overrides
   favicon: images/favicon.png
   icon:
     repo: fontawesome/brands/github
@@ -54,6 +54,8 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+  - attr_list
+  - md_in_html
 extra_javascript:
   - scripts/site.js
 #   - scripts/feedback.js
