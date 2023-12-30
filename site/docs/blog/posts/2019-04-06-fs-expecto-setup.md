@@ -12,7 +12,7 @@ First, let's gather our dependencies.
 
 ```fsharp
 #r @"C:\Users\joelv\.nuget\packages\NETStandard.Library\2.0.3\build\netstandard2.0\ref\netstandard.dll"
-#r @"C:\git\joelvandiver.github.io\packages\Expecto\lib\netstandard2.0\Expecto.dll"
+#r @"C:\git\joelvandiver.com\packages\Expecto\lib\netstandard2.0\Expecto.dll"
 
 open Expecto
 

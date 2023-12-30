@@ -53,7 +53,7 @@ let willRaiseException = workIsNullAmbiguous.Length = 7
 > Output:
 ```fsharp
 System.NullReferenceException: Object reference not set to an instance of an object.
-   at <StartupCode$FSI_0005>.$FSI_0005.main@() in c:\git\joelvandiver.github.io\posts\Guides\Fs\01.Introduction\05.Option\index.fsx:line 25
+   at <StartupCode$FSI_0005>.$FSI_0005.main@() in c:\git\joelvandiver.com\posts\Guides\Fs\01.Introduction\05.Option\index.fsx:line 25
 Stopped due to error
 ```
 

@@ -53,7 +53,7 @@ let outOfBounds = firstList.[100]
 System.ArgumentException: The index was outside the range of elements in the list.
 Parameter name: n
    at Microsoft.FSharp.Collections.PrivateListHelpers.nth[a](FSharpList`1 l, Int32 n)
-   at <StartupCode$FSI_0006>.$FSI_0006.main@() in c:\git\joelvandiver.github.io\posts\Guides\Fs\01.Introduction\04.List\index.fsx:line 6
+   at <StartupCode$FSI_0006>.$FSI_0006.main@() in c:\git\joelvandiver.com\posts\Guides\Fs\01.Introduction\04.List\index.fsx:line 6
 Stopped due to error
 ```
 

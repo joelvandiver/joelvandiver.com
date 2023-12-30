@@ -4,7 +4,7 @@ title: About
 permalink: /about/
 ---
 
-Hi, I'm Joel. I started coding in 2008 with JavaScript as a high school Math teacher.  I had been building a website (back in the Internet dark ages) for my students to learn from.  By this point, I had already flipped my classroom where students would learn from my online videos (see [my original youtube account](https://www.youtube.com/user/joelvandiver)) and then they completed "homework" in the classroom with me to help as their "tutor".  
+I started coding in 2008 with JavaScript as a high school Math teacher.  I had been building a website for my students to learn from.  By this point, I had already flipped my classroom where students would learn from my online videos (see [my original youtube account](https://www.youtube.com/user/joelvandiver)) and then they completed "homework" in the classroom with me to help as their "tutor".  
 
 The deeper I went with coding, the more successful I became at teaching.  I had gotten to the point where I started learning C++!  I figured, "Eh, anyone who's serious about coding has to learn C++."  
 

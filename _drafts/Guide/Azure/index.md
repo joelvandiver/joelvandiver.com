@@ -8,6 +8,6 @@ Azure is an incredibly massive system.  It can be intimidating to learn with how
 
 ## CLI-Only
 
-The [[Azure Portal](https://portal.azure.com/)] is great for learning Azure by creating objects through the forms and [Microsoft Learn](https://learn.microsoft.com/) is great for learning through documentation.  But, in this guide, I will stick the [AZ CLI](https://docs.microsoft.com/en-us/cli/azure/) since I prefer to have full control over what I'm setting up.  
+The [Azure Portal](https://portal.azure.com/)] is great for learning Azure by creating objects through the forms and [Microsoft Learn](https://learn.microsoft.com/) is great for learning through documentation.  But, in this guide, I will stick the [AZ CLI](https://docs.microsoft.com/en-us/cli/azure/) since I prefer to have full control over what I'm setting up.  
 
 Let's dive in!
