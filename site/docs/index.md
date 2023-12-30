@@ -1,6 +1,5 @@
 ---
 title: Home
-description: This is Joel Vandiver's blog home page.
 ---
 
 <!-- ![Image title](https://dummyimage.com/600x400/eee/aaa){ align=left } -->
