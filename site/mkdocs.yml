@@ -50,7 +50,23 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
+extra_javascript:
+  - javascripts/feedback.js
 extra:
   analytics:
     provider: google
     property: G-QL8GEFVL1T
+    feedback:
+      title: Feedback
+      ratings:
+          - icon: material/thumb-up-outline
+            name: This page was helpful
+            data: 1
+            note: >-
+              Thanks for your feedback!
+          - icon: material/thumb-down-outline
+            name: This page could be improved
+            data: 0
+            note: >- 
+              Thanks for your feedback! Help us improve this page by
+              using our <a href="..." target="_blank" rel="noopener">feedback form</a>.
