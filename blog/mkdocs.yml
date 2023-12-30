@@ -1,7 +1,14 @@
 site_name: Joel Vandiver
-# nav:
-#   - Home: index.md
-#   - About: about.md
+plugins:
+  - blog:
+      # enabled: false
+      blog_toc: true
+nav:
+  - Home: index.md
+  - About: about.md
+  # - Projects: projects.md
+  - Blog: blog/index.md
+  # - Contact: contact.md
 theme:
   name: material
   logo: images/logo.png
@@ -23,6 +30,7 @@ theme:
   features:
     - content.code.copy
     - content.code.select
+    # - navigation.indexes
 markdown_extensions:
   - pymdownx.highlight:
       anchor_linenums: true
