@@ -1,3 +1,6 @@
-site_name: My Docs
+site_name: Joel Vandiver
+nav:
+  - Home: index.md
 theme:
   name: material
+  # custom_dir: docs/overrides

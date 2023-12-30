@@ -1,17 +1,8 @@
-# Welcome to MkDocs
+---
+title: Home
+description: This is Joel Vandiver's blog home page.
+---
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+# Joel Vandiver's Blog
 
-## Commands
-
-* `mkdocs new [dir-name]` - Create a new project.
-* `mkdocs serve` - Start the live-reloading docs server.
-* `mkdocs build` - Build the documentation site.
-* `mkdocs -h` - Print help message and exit.
-
-## Project layout
-
-    mkdocs.yml    # The configuration file.
-    docs/
-        index.md  # The documentation homepage.
-        ...       # Other markdown pages, images and other files.
+I intend to use this blog *for* learning.  I do not seek to teach for teaching's sake, but rather I teach *to learn*.  I have so much to unpack, so much to learn, and so much to get excited about!  And, I can't wait to dive in.   
