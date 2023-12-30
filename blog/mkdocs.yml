@@ -1,6 +1,7 @@
 site_name: Joel Vandiver
 nav:
   - Home: index.md
+  - About: about.md
 theme:
   name: material
   # custom_dir: docs/overrides
