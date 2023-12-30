@@ -10,7 +10,9 @@ help() {
     echo " Commands:"
     echo "   install       Install the site"
     echo "   build         Build the site"
-    echo "   app           Run the site"
+    echo "   serve         Serve the site"
+    echo "   deploy        Deploy the site"
+    echo "   save          Save the site"
 }
 
 _run_complete()
@@ -19,7 +21,7 @@ _run_complete()
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
-    opts="install build app"
+    opts="install build serve deploy save"
 
     if [[ ${cur} == * ]] ; then
         COMPREPLY=( $(compgen -W "${opts}"  -- ${cur}) )
@@ -27,20 +29,66 @@ _run_complete()
     fi
 }
 
-complete -F _run_complete run
-[[ -d venv ]] && . ./venv/bin/activate
+install() {
+    if ! command -v azcopy &> /dev/null
+    then    
+        echo "Installing azcopy"
+        curl -L https://aka.ms/downloadazcopy-v10-linux -o azcopy.tar.gz
+        if [[ ! -d /home/$USER/tmp/azcopy ]]; then mkdir -p /home/$USER/tmp/azcopy; fi
+        sudo tar -xzf azcopy.tar.gz -C /home/$USER/tmp/azcopy/
+        azcopy=$(find /home/$USER/tmp/azcopy/ -name azcopy -type f)
+        chmod +x $azcopy
+        sudo cp $azcopy /usr/local/bin/azcopy
+    fi
+    if [[ -d venv ]]; then rm -rf venv/; fi
+    python -m venv venv
+    . ./venv/bin/activate
+    poetry install
+}
+
+load() {
+    complete -F _run_complete run
+    [[ -d venv ]] && . ./venv/bin/activate
+    if [[ ! -f env ]]; then
+        echo "The env file was not found.  Add the AZURE_BLOB_SAS_URL var."
+    else
+        . ./env
+    fi
+}
+
+build() {
+    mkdocs build --config-file blog/mkdocs.yml --site-dir web
+}
+
+deploy() {
+    load
+    if [[ ! -v AZURE_BLOB_SAS_URL ]]; then
+        echo "The AZURE_BLOB_SAS_URL variable is not set."
+        exit 1
+    fi
+    build
+    azcopy sync "blog/web" "$AZURE_BLOB_SAS_URL" --from-to=LocalBlob --put-md5 --recursive --log-level=INFO
+}
+
+save() {
+    deploy
+    git add .
+    read -p "Commit Message: "  msg
+    git commit -m "$msg"
+    git push
+}
 
 case $cmd in
-    "install") 
-        python -m venv venv
-        . ./venv/bin/activate
-        poetry install
-        ;;
-    "build")
-        mkdocs build --config-file blog/mkdocs.yml --site-dir web
-        ;;
-    "app")
-        mkdocs serve --config-file blog/mkdocs.yml
-        ;;
-    *) help;;
+    "install") install;;
+    # "post")
+    #     echo "Generate a post"
+    #     touch "$PWD/Daily/$(date +%Y-%m-%d)-$1.md"
+    #     ;;
+    "build") build;;
+    "serve") mkdocs serve --config-file blog/mkdocs.yml;;
+    "deploy") deploy;;
+    "save") save;;
+    *) 
+        load
+        help;;
 esac
