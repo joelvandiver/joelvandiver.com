@@ -8,8 +8,9 @@ shift
 
 help() {
     echo " Commands:"
-    echo "   install       Install the application"
-    echo "   app           Run the application"
+    echo "   install       Install the site"
+    echo "   build         Build the site"
+    echo "   app           Run the site"
 }
 
 _run_complete()
@@ -18,7 +19,7 @@ _run_complete()
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
-    opts="install app"
+    opts="install build app"
 
     if [[ ${cur} == * ]] ; then
         COMPREPLY=( $(compgen -W "${opts}"  -- ${cur}) )
@@ -34,6 +35,9 @@ case $cmd in
         python -m venv venv
         . ./venv/bin/activate
         poetry install
+        ;;
+    "build")
+        mkdocs build --config-file blog/mkdocs.yml --site-dir web
         ;;
     "app")
         mkdocs serve --config-file blog/mkdocs.yml
