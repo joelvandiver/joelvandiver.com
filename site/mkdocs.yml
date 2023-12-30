@@ -1,4 +1,6 @@
 site_name: Joel Vandiver
+repo_url: https://github.com/joelvandiver/joelvandiver.com
+repo_name: joelvandiver.com
 plugins:
   # ref:  https://squidfunk.github.io/mkdocs-material/plugins/blog/
   - blog:
@@ -18,8 +20,10 @@ plugins:
 theme:
   name: material
   logo: images/logo.png
-  # custom_dir: docs/overrides
+  custom_dir: docs/overrides
   favicon: images/favicon.png
+  icon:
+    repo: fontawesome/brands/github
   palette:
     # Palette toggle for light mode
     - scheme: default
@@ -50,8 +54,8 @@ markdown_extensions:
   - pymdownx.inlinehilite
   - pymdownx.snippets
   - pymdownx.superfences
-extra_javascript:
-  - javascripts/feedback.js
+# extra_javascript:
+#   - javascripts/feedback.js
 extra:
   analytics:
     provider: google
