@@ -4,10 +4,10 @@ site_name: Joel Vandiver
 #   - About: about.md
 theme:
   name: material
+  logo: images/logo.png
   # custom_dir: docs/overrides
   favicon: images/favicon.png
-  palette: 
-
+  palette:
     # Palette toggle for light mode
     - scheme: default
       toggle:
@@ -16,6 +16,7 @@ theme:
 
     # Palette toggle for dark mode
     - scheme: slate
+      primary: white
       toggle:
         icon: material/brightness-4
         name: Switch to light mode

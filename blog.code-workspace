@@ -1,20 +1,14 @@
 {
 	"folders": [
-		{
-			"path": "."
-		},
-		{
-			"path": "../joelvandiver.github.io"
-		},
-		{
-			"path": "../blog"
-		},
-		{
-			"path": "../blobx"
-		},
-		{
-			"path": "../learn"
-		}
-	],
+        {
+            "path": "."
+        },
+        {
+            "path": "../joelvandiver.github.io"
+        },
+        {
+            "path": "../learn"
+        }
+    ],
     "settings": {}
 }
