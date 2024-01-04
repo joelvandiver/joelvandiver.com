@@ -36,7 +36,7 @@ theme:
     - content.code.copy
     - content.code.select
     - search.share
-    # - navigation.tracking
+    - navigation.tracking
     # - navigation.tabs
     # - navigation.instant
     # - navigation.indexes
