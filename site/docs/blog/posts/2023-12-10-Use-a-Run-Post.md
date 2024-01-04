@@ -9,7 +9,7 @@ categories:
 
 ## Why `run`?
 
-This `run` script was inspired by `npm run` scripts.  Moving your development flow to a run script allows you to setup environments, install, or anything else you need to develop your project.  The `run` script also allows your to consolidate your scripts into a single script.  You'd likely have an `install.sh` script, another for `test.sh`, etc.
+This `run` script was inspired by `npm run` scripts.  Moving your development flow to a run script allows you to setup environments, install, or anything else you need to develop your project.  The `run` script also allows you to consolidate your scripts into a single script.  You'd likely have an `install.sh` script, another for `test.sh`, etc.
 
 ## How to `run`?
 
@@ -30,6 +30,7 @@ Setup a run script for quick development.
 
 ```bash
 $ touch run
+$ chmod +x run
 ```
 
 > Add the run script:
