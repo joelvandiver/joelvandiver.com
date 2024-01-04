@@ -11,38 +11,33 @@ plugins:
       pagination_format: "$link_first $link_previous ~2~ $link_next $link_last"
       # archive: false
   - search
-# nav:
-#   - Home: index.md
-#   - About: about.md
-#   # - Projects: projects.md
-#   - Blog: blog/index.md
-#   # - Contact: contact.md
+nav:
+  - Home: index.md
+  - Blog: blog/index.md
 theme:
   name: material
   logo: images/logo.png
-  # custom_dir: docs/overrides
   favicon: images/favicon.png
   icon:
     repo: fontawesome/brands/github
   palette:
-    # Palette toggle for light mode
-    - scheme: default
-      toggle:
-        icon: material/brightness-7 
-        name: Switch to dark mode
-
     # Palette toggle for dark mode
     - scheme: slate
       primary: black
       toggle:
         icon: material/brightness-4
         name: Switch to light mode
+    # Palette toggle for light mode
+    - scheme: default
+      toggle:
+        icon: material/brightness-7 
+        name: Switch to dark mode
   features:
     - content.code.copy
     - content.code.select
     - search.share
-    - navigation.tracking
-    - navigation.tabs
+    # - navigation.tracking
+    # - navigation.tabs
     # - navigation.instant
     # - navigation.indexes
 markdown_extensions:
