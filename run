@@ -76,7 +76,8 @@ deploy() {
         exit 1
     fi
     build
-    azcopy sync "site/web" "$AZURE_BLOB_SAS_URL" --from-to=LocalBlob --put-md5 --recursive --log-level=INFO
+    # azcopy sync "site/web" "$AZURE_BLOB_SAS_URL" --from-to=LocalBlob --put-md5 --recursive --log-level=INFO
+    azcopy sync "site/web" "$AZURE_BLOB_SAS_URL" --delete-destination=true --from-to=LocalBlob --put-md5 --recursive --log-level=INFO
 }
 
 save() {

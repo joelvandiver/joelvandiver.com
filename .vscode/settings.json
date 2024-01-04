@@ -5,7 +5,7 @@
         "**/.hg": true,
         "**/CVS": true,
         "**/.DS_Store": true,
-        "**/site/web": true,
+        // "**/site/web": true,
         "**/Thumbs.db": true
     }
 }
