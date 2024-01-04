@@ -3,6 +3,8 @@ layout: post
 title: T-SQL Recursive CTE (*Common Table Expression*)
 date: 2020-02-24
 description: "CTEs are useful for modeling queries that operate on recursive structures."
+categories:
+    - T-SQL
 ---
 
 CTEs are useful for modeling queries that operate on recursive structures.

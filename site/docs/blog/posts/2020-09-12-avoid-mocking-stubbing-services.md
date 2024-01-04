@@ -3,6 +3,8 @@ layout: post
 title: Avoid Mocking/Stubbing Services
 date: 2020-09-12
 description: "Mocking versus stubbing test interfaces"
+categories:
+    - Architecture
 ---
 
 Let's say that we have a function that calls an external service:

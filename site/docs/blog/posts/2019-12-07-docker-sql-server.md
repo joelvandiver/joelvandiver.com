@@ -2,6 +2,9 @@
 layout: post
 title: Docker SQL SERVER
 date: 2019-12-07
+categories:
+    - Docker
+    - SQL SERVER
 ---
 
 # SQL SERVER on Docker

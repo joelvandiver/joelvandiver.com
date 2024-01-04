@@ -3,6 +3,8 @@ layout: post
 title: ASP.NET Core Dependency Injection
 date: 2019-09-21
 description: "ASP.NET Core has a nice dependency injection system that works great for object-oriented languages like C#.  F# can be written in an object-oriented way, but is there a way to inject dependencies in a functional style?"
+categories:
+    - FSharp
 ---
 
 ASP.NET Core has a nice dependency injection system that works great for object-oriented languages like C#.  F# can be written in an object-oriented way, but is there a way to inject dependencies in a functional style?

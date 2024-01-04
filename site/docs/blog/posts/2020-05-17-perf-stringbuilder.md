@@ -3,6 +3,8 @@ layout: post
 title: StringBuilder
 date: 2020-05-17
 description: "Numerous .NET resources reference `StringBuilder` as the preferred method for building strings rather than concatentating."
+categories:
+    - FSharp
 ---
 
 Numerous .NET resources reference `StringBuilder` as the preferred method for building strings rather than concatentating.  

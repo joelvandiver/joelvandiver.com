@@ -3,6 +3,8 @@ layout: post
 title: Git Release Notes
 date: 2021-03-31
 description: "Adding Simple Git Release Notes to Your CI"
+categories:
+    - Git
 ---
 
 The problem often arises in software engineering to capture release notes for your end users.  The situation quickly complicates because the notion of "end users" changes per environment.  The developers may be using a DEV environment while the QA may be using another.  And, then you may need another UAT environment with the primary stake holders.  Each of these environments should have a some form of documentation for the release.  

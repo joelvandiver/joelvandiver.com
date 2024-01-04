@@ -3,6 +3,8 @@ layout: post
 title: F# vs TS vs JS
 date: 2021-09-06
 description: "Considerations for my next stage in UI development"
+categories:
+    - Frontend
 ---
 
 At first glance, you may wonder how F# relates to the TS vs JS debate, but the idea of transpiling from one language to another extends much further than TS to JS.  

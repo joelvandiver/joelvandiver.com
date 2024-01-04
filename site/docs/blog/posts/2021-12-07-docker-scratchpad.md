@@ -3,6 +3,8 @@ layout: post
 title: Docker Scratchpad
 date: 2021-12-07
 description: Take tools out for a spin with docker.
+categories:
+    - Docker
 ---
 
 Docker is great for production use, but have you considered using it to quickly take out tools for a spin?  I find I'm reaching for the following command multiple times throughout the day.

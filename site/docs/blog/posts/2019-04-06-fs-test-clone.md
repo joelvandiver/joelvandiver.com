@@ -3,6 +3,8 @@ layout: post
 title: Test with Clone and Generator
 date: 2019-04-06
 description: "One of the primary goals of each unit test is to ensure that the test code is as decoupled from the source code as possible.  Usually, the test should only have code specific to its concerns.  "
+categories:
+    - FSharp
 ---
 
 One of the primary goals of each unit test is to ensure that the test code is as decoupled from the source code as possible.  Usually, the test should only have code specific to its concerns.  

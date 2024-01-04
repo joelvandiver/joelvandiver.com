@@ -3,9 +3,11 @@ layout: post
 title: Python Annotations
 date: 2023-05-25
 description: Create Python annotations to document your code.
+categories:
+    - Python
 ---
 
-# Dynamic Python
+# Python Annotations
 
 Python is great language to prototype ideas.  The dynamic runtime opens up some possibilities that are very difficult in statically typed languages.  
 

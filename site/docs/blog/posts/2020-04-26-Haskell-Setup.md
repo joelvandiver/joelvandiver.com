@@ -3,6 +3,8 @@ layout: post
 title: Haskell Setup
 date: 2020-04-26
 description: "Journey towards functional purity"
+categories:
+    - Haskell
 ---
 
 In my journey down the path of *purity* in functional programming, I have inevitably merged with the path of `Haskell` programming.  `Haskell` seems like an amazing language.  I started my career rooted in Mathematics, and I feel at home coding in the `Haskell` programming language.  

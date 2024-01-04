@@ -3,6 +3,8 @@ layout: post
 title: Use PowerShell to Spin Up an Integration Test API
 date: 2020-05-12
 description: "In developing CI/CD pipelines, I have often come across the need to spin up an api just to run integration tests against."
+categories:
+    - DevOps
 ---
 
 In developing CI/CD pipelines, I have often come across the need to spin up an api just to run integration tests against.  Below is a PowerShell script I came up with to startup an api on another process, check that it is alive, and then run the integration tests against that api.  

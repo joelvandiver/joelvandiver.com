@@ -3,6 +3,9 @@ layout: post
 title: Immutability Reduces Information Domain
 date: 2019-07-13
 description: "I have heard many developers who come from non-functional programming languages such as C++ and C# claim that immutability is overly restrictive.  It is true that immutability is restrictive, but this restriction comes at one huge benefit:  reduction of possible outcomes."
+categories:
+    - Architecture
+    - FSharp
 ---
 
 I have heard many developers who come from non-functional programming languages such as C++ and C# claim that immutability is overly restrictive.  It is true that immutability is restrictive, but this restriction comes at one huge benefit:  reduction of possible outcomes.  

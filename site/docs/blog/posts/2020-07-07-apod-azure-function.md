@@ -3,6 +3,9 @@ layout: post
 title: APOD Azure Function
 date: 2020-07-07
 description: "Create an Azure function to save the Astronomy Photo of the Day into a storage account."
+categories:
+    - Azure
+    - TypeScript
 ---
 
 I've written about setting up a [JS photo script](./2019-09-04-nasa-apod.html) with NASA Astronomy Photo of the Day (APOD).  But, to be honest, I've gotten a little greedy with these photos.  I like that I can go to my blog and get the photo of the day, but I would prefer to keep a cache of previous photos of the day!  

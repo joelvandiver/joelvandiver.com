@@ -3,6 +3,8 @@ layout: post
 title: Decorators
 date: 2021-04-05
 description: "Functional implementation of decorators"
+categories:
+    - FSharp
 ---
 
 ## Python Decorators

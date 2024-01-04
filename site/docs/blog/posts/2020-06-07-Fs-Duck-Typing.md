@@ -3,6 +3,8 @@ layout: post
 title: Duck Typing
 date: 2020-06-07
 description: "Duck typing follows from the phrase 'If it walks like a duck and it quacks like a duck, then it must be a duck.'"
+categories:
+    - FSharp
 ---
 
 ## Run-time Duck Typing

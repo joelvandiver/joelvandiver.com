@@ -3,6 +3,9 @@ layout: post
 title: Dockerize Your Development Today!
 date: 2023-06-15
 description: Dockerize your development environment.
+categories:
+    - Docker
+    - DevOps
 ---
 
 ## No More "It Works on My Machine" Excuses

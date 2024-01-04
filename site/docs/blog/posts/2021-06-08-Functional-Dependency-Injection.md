@@ -3,6 +3,8 @@ layout: post
 title: Functional *Dependency Injection* 
 date: 2021-06-08
 description: Put the FP back into DI!
+categories:
+    - FSharp
 ---
 
 If you've been developing for at least a year or two with an object oriented language, then you probably have come across the idea of *Dependency Injection*.  *Dependency Injection* is useful to isolate dependencies and provide loose coupling of components.  

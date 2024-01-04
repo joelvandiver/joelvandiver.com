@@ -3,6 +3,8 @@ layout: post
 title: Implicit vs Explicit Type Declarations
 date: 2019-06-18
 description: "Comparison between implicit and explicit type declarations"
+categories:
+    - FSharp
 ---
 
 ## Implicit

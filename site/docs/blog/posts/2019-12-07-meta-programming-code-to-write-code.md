@@ -3,6 +3,8 @@ layout: post
 title: META Programming - Code to Write Code
 date: 2019-12-07
 description: "Using F# to extract SQL meta data and write more F#!"
+categories:
+    - FSharp
 ---
 
 As I'm sure any .NET programmer would know, .NET offers a pretty expansive reflection api.  Asking a system to provide reflection information is both a powerful and expensive technique.  It can dramatically reduce the quantity of code, but it comes with the extra overhead in runtime performance.  

@@ -3,6 +3,9 @@ layout: post
 title: Git Flow Simplified
 date: 2021-12-03
 description: My git flow has evolved yet again!
+categories:
+    - Git
+    - DevOps
 ---
 
 Oh, there are so many ways of managing git repositories.  I've written on this topic before, but as usual, things have changed.  I recently changed teams at work, and with a new team comes a new culture of devops.  
