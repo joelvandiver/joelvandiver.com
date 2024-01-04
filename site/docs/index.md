@@ -4,8 +4,8 @@ title: Home
 
 <!-- ![Image title](https://dummyimage.com/600x400/eee/aaa){ align=left } -->
 <figure markdown>
-![Dall-E Generated Image of My Last Name](/images/logo-ai.png#only-light){ align=right width="600" }
-![Dall-E Generated Image of My Last Name](/images/logo-ai-dark.png#only-dark){ align=right width="600" }
+![Dall-E Generated Image of My Last Name](images/logo-ai.png#only-light){ align=right width="600" }
+![Dall-E Generated Image of My Last Name](images/logo-ai-dark.png#only-dark){ align=right width="600" }
   <figcaption><a href="https://www.bing.com/images/create/a-black-and-white-logo-of-a-van-diving-off-of-some/1-6590819f88174744bd947425159173a5?id=%2flhPjI11y9VcNxTJmmB9cg%3d%3d&view=detailv2&idpp=genimg&idpclose=1&FORM=SYDBIC">Dall-E 3 Generated Image</a></figcaption>
 </figure>
 

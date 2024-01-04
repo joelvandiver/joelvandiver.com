@@ -8,7 +8,7 @@ categories:
     - TypeScript
 ---
 
-I've written about setting up a [JS photo script](./2019-09-04-nasa-apod.html) with NASA Astronomy Photo of the Day (APOD).  But, to be honest, I've gotten a little greedy with these photos.  I like that I can go to my blog and get the photo of the day, but I would prefer to keep a cache of previous photos of the day!  
+Let's setup a cache of astronomy photos of the day!  
 
 ## Enter Azure Functions
 

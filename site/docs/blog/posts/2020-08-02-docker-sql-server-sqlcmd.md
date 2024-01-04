@@ -8,7 +8,7 @@ categories:
     - SQL SERVER
 ---
 
-Let's revisit a previous [post](/2019-12-07-docker-sql-server/) about using Docker to create a SQL SERVER image.  Previously, I connected to the DB with SQL SERVER Management Studio (SSMS), but now, I'd like to use `sqlcmd` to avoid running other tools.
+Let's revisit a previous [post](2019-12-07-docker-sql-server.md) about using Docker to create a SQL SERVER image.  Previously, I connected to the DB with SQL SERVER Management Studio (SSMS), but now, I'd like to use `sqlcmd` to avoid running other tools.
 
 Let's get the latest mssql image for Linux this time from https://hub.docker.com/_/microsoft-mssql-server.
 

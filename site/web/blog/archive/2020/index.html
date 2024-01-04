@@ -1182,7 +1182,7 @@
   </header>
   <div class="md-post__content md-typeset">
     <h2 id="sql-server-on-docker-with-sqlcmd"><a class="toclink" href="../../2020/08/02/sql-server-on-docker-with-sqlcmd/">SQL SERVER on Docker with SQLCMD</a></h2>
-<p>Let's revisit a previous <a href="/2019-12-07-docker-sql-server/">post</a> about using Docker to create a SQL SERVER image.  Previously, I connected to the DB with SQL SERVER Management Studio (SSMS), but now, I'd like to use <code>sqlcmd</code> to avoid running other tools.</p>
+<p>Let's revisit a previous <a href="../../2019/12/07/docker-sql-server/">post</a> about using Docker to create a SQL SERVER image.  Previously, I connected to the DB with SQL SERVER Management Studio (SSMS), but now, I'd like to use <code>sqlcmd</code> to avoid running other tools.</p>
 <p>Let's get the latest mssql image for Linux this time from https://hub.docker.com/_/microsoft-mssql-server.</p>
 <div class="language-powershell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
@@ -1360,7 +1360,7 @@
   </header>
   <div class="md-post__content md-typeset">
     <h2 id="apod-azure-function"><a class="toclink" href="../../2020/07/07/apod-azure-function/">APOD Azure Function</a></h2>
-<p>I've written about setting up a <a href="./2019-09-04-nasa-apod.html">JS photo script</a> with NASA Astronomy Photo of the Day (APOD).  But, to be honest, I've gotten a little greedy with these photos.  I like that I can go to my blog and get the photo of the day, but I would prefer to keep a cache of previous photos of the day!  </p>
+<p>Let's setup a cache of astronomy photos of the day!  </p>
 <h3 id="enter-azure-functions"><a class="toclink" href="../../2020/07/07/apod-azure-function/#enter-azure-functions">Enter Azure Functions</a></h3>
 <p>I already store my blog on an Azure storage account.  Wouldn't it be great if I could automatically get the APOD photo and put it into that storage account?</p>
 <p>Since I wrote the original script in JavaScript, I opted for TypeScript as the Azure Function language of choice.  </p>
