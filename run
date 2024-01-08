@@ -64,7 +64,7 @@ serve() {
     pid=$(lsof -ti:8000)
     if [[ pid ]]; then
         echo "Port 8000 is already in use."
-        sudo kill -9 $pid
+        sudo kill -9 "$pid"
     fi
     mkdocs serve --config-file site/mkdocs.yml
 }
