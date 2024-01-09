@@ -4,7 +4,9 @@ date: 2024-01-08
 description: Design a development workflow that takes different levels of integration into account.
 ---
 
-# Problem
+# Development Integration
+
+## Problem
 
 When developing microservices, we often run into the problem of needing other services to be available to test our application.  Our development flow should have different levels of integration.
 
