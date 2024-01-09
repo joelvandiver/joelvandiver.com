@@ -6,28 +6,28 @@
       <meta charset="utf-8">
       <meta name="viewport" content="width=device-width,initial-scale=1">
       
+        <meta name="description" content="Docker supports parallelized, multistage builds.">
       
       
       
-        <link rel="prev" href="..">
+      
+        <link rel="prev" href="../../08/development-integration/">
       
       
-        <link rel="next" href="category/architecture/">
       
-      
-      <link rel="icon" href="../images/favicon.png">
+      <link rel="icon" href="../../../../../images/favicon.png">
       <meta name="generator" content="mkdocs-1.5.3, mkdocs-material-9.5.3">
     
     
       
-        <title>Blog - Joel Vandiver</title>
+        <title>Parallelized Docker Builds - Joel Vandiver</title>
       
     
     
-      <link rel="stylesheet" href="../assets/stylesheets/main.50c56a3b.min.css">
+      <link rel="stylesheet" href="../../../../../assets/stylesheets/main.50c56a3b.min.css">
       
         
-        <link rel="stylesheet" href="../assets/stylesheets/palette.06af60db.min.css">
+        <link rel="stylesheet" href="../../../../../assets/stylesheets/palette.06af60db.min.css">
       
       
 
@@ -46,9 +46,9 @@
       
     
     
-      <link rel="stylesheet" href="../styles/site.css">
+      <link rel="stylesheet" href="../../../../../styles/site.css">
     
-    <script>__md_scope=new URL("..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
+    <script>__md_scope=new URL("../../../../..",location),__md_hash=e=>[...e].reduce((e,_)=>(e<<5)-e+_.charCodeAt(0),0),__md_get=(e,_=localStorage,t=__md_scope)=>JSON.parse(_.getItem(t.pathname+"."+e)),__md_set=(e,_,t=localStorage,a=__md_scope)=>{try{t.setItem(a.pathname+"."+e,JSON.stringify(_))}catch(e){}}</script>
     
       
   
@@ -84,7 +84,7 @@
     <div data-md-component="skip">
       
         
-        <a href="#blog" class="md-skip">
+        <a href="#parallelized-docker-builds" class="md-skip">
           Skip to content
         </a>
       
@@ -100,9 +100,9 @@
 
 <header class="md-header md-header--shadow" data-md-component="header">
   <nav class="md-header__inner md-grid" aria-label="Header">
-    <a href=".." title="Joel Vandiver" class="md-header__button md-logo" aria-label="Joel Vandiver" data-md-component="logo">
+    <a href="../../../../.." title="Joel Vandiver" class="md-header__button md-logo" aria-label="Joel Vandiver" data-md-component="logo">
       
-  <img src="../images/logo.png" alt="logo">
+  <img src="../../../../../images/logo.png" alt="logo">
 
     </a>
     <label class="md-header__button md-icon" for="__drawer">
@@ -119,7 +119,7 @@
         <div class="md-header__topic" data-md-component="header-topic">
           <span class="md-ellipsis">
             
-              Blog
+              Parallelized Docker Builds
             
           </span>
         </div>
@@ -228,7 +228,9 @@
           
             
               
-              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" >
+                
+              
+              <div class="md-sidebar md-sidebar--primary" data-md-component="sidebar" data-md-type="navigation" hidden>
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
                     
@@ -237,9 +239,9 @@
 
 <nav class="md-nav md-nav--primary" aria-label="Navigation" data-md-level="0">
   <label class="md-nav__title" for="__drawer">
-    <a href=".." title="Joel Vandiver" class="md-nav__button md-logo" aria-label="Joel Vandiver" data-md-component="logo">
+    <a href="../../../../.." title="Joel Vandiver" class="md-nav__button md-logo" aria-label="Joel Vandiver" data-md-component="logo">
       
-  <img src="../images/logo.png" alt="logo">
+  <img src="../../../../../images/logo.png" alt="logo">
 
     </a>
     Joel Vandiver
@@ -266,7 +268,7 @@
   
   
     <li class="md-nav__item">
-      <a href=".." class="md-nav__link">
+      <a href="../../../../.." class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -312,7 +314,7 @@
           
           
           <div class="md-nav__link md-nav__container">
-            <a href="./" class="md-nav__link md-nav__link--active">
+            <a href="../../../../" class="md-nav__link ">
               
   
   <span class="md-ellipsis">
@@ -323,7 +325,7 @@
             </a>
             
               
-              <label class="md-nav__link md-nav__link--active" for="__nav_2" id="__nav_2_label" tabindex="0">
+              <label class="md-nav__link " for="__nav_2" id="__nav_2_label" tabindex="0">
                 <span class="md-nav__icon md-icon"></span>
               </label>
             
@@ -396,7 +398,7 @@
   
   
     <li class="md-nav__item">
-      <a href="archive/2024/" class="md-nav__link">
+      <a href="../../../../archive/2024/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -419,7 +421,7 @@
   
   
     <li class="md-nav__item">
-      <a href="archive/2023/" class="md-nav__link">
+      <a href="../../../../archive/2023/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -442,7 +444,7 @@
   
   
     <li class="md-nav__item">
-      <a href="archive/2021/" class="md-nav__link">
+      <a href="../../../../archive/2021/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -465,7 +467,7 @@
   
   
     <li class="md-nav__item">
-      <a href="archive/2020/" class="md-nav__link">
+      <a href="../../../../archive/2020/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -488,7 +490,7 @@
   
   
     <li class="md-nav__item">
-      <a href="archive/2019/" class="md-nav__link">
+      <a href="../../../../archive/2019/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -586,7 +588,7 @@
   
   
     <li class="md-nav__item">
-      <a href="category/architecture/" class="md-nav__link">
+      <a href="../../../../category/architecture/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -609,7 +611,7 @@
   
   
     <li class="md-nav__item">
-      <a href="category/azure/" class="md-nav__link">
+      <a href="../../../../category/azure/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -632,7 +634,7 @@
   
   
     <li class="md-nav__item">
-      <a href="category/bash/" class="md-nav__link">
+      <a href="../../../../category/bash/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -655,7 +657,7 @@
   
   
     <li class="md-nav__item">
-      <a href="category/devops/" class="md-nav__link">
+      <a href="../../../../category/devops/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -678,7 +680,7 @@
   
   
     <li class="md-nav__item">
-      <a href="category/docker/" class="md-nav__link">
+      <a href="../../../../category/docker/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -701,7 +703,7 @@
   
   
     <li class="md-nav__item">
-      <a href="category/fsharp/" class="md-nav__link">
+      <a href="../../../../category/fsharp/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -724,7 +726,7 @@
   
   
     <li class="md-nav__item">
-      <a href="category/frontend/" class="md-nav__link">
+      <a href="../../../../category/frontend/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -747,7 +749,7 @@
   
   
     <li class="md-nav__item">
-      <a href="category/git/" class="md-nav__link">
+      <a href="../../../../category/git/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -770,7 +772,7 @@
   
   
     <li class="md-nav__item">
-      <a href="category/haskell/" class="md-nav__link">
+      <a href="../../../../category/haskell/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -793,7 +795,7 @@
   
   
     <li class="md-nav__item">
-      <a href="category/javascript/" class="md-nav__link">
+      <a href="../../../../category/javascript/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -816,7 +818,7 @@
   
   
     <li class="md-nav__item">
-      <a href="category/python/" class="md-nav__link">
+      <a href="../../../../category/python/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -839,7 +841,7 @@
   
   
     <li class="md-nav__item">
-      <a href="category/sql-server/" class="md-nav__link">
+      <a href="../../../../category/sql-server/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -862,7 +864,7 @@
   
   
     <li class="md-nav__item">
-      <a href="category/t-sql/" class="md-nav__link">
+      <a href="../../../../category/t-sql/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -885,7 +887,7 @@
   
   
     <li class="md-nav__item">
-      <a href="category/typescript/" class="md-nav__link">
+      <a href="../../../../category/typescript/" class="md-nav__link">
         
   
   <span class="md-ellipsis">
@@ -922,6 +924,8 @@
             
             
               
+                
+              
               <div class="md-sidebar md-sidebar--secondary" data-md-component="sidebar" data-md-type="toc" >
                 <div class="md-sidebar__scrollwrap">
                   <div class="md-sidebar__inner">
@@ -941,36 +945,36 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
-  <a href="#parallelized-docker-builds" class="md-nav__link">
+  <a href="#serial-builds" class="md-nav__link">
     <span class="md-ellipsis">
-      Parallelized Docker Builds
+      Serial Builds
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#development-integration" class="md-nav__link">
+  <a href="#parallel-builds" class="md-nav__link">
     <span class="md-ellipsis">
-      Development Integration
+      Parallel Builds
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#use-a-run-script" class="md-nav__link">
+  <a href="#notes" class="md-nav__link">
     <span class="md-ellipsis">
-      Use a Run Script
+      Notes
     </span>
   </a>
   
 </li>
       
         <li class="md-nav__item">
-  <a href="#dockerize-your-development-today" class="md-nav__link">
+  <a href="#references" class="md-nav__link">
     <span class="md-ellipsis">
-      Dockerize Your Development Today!
+      References
     </span>
   </a>
   
@@ -985,35 +989,71 @@
             
           
           
-  <div class="md-content" data-md-component="content">
-    <div class="md-content__inner">
-      <header class="md-typeset">
-        <h1 id="blog">Blog</h1>
-      </header>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2024-01-09 00:00:00">January 9, 2024</time></li>
-        
-        
+  <div class="md-content md-content--post" data-md-component="content">
+    <div class="md-sidebar md-sidebar--post" data-md-component="sidebar" data-md-type="navigation">
+      <div class="md-sidebar__scrollwrap">
+        <div class="md-sidebar__inner md-post">
+          <nav class="md-nav md-nav--primary">
+            <div class="md-post__back">
+              <div class="md-nav__title md-nav__container">
+                <a href="../../../../" class="md-nav__link">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M20 11v2H8l5.5 5.5-1.42 1.42L4.16 12l7.92-7.92L13.5 5.5 8 11h12Z"/></svg>
+                  <span class="md-ellipsis">
+                    Back to index
+                  </span>
+                </a>
+              </div>
+            </div>
+            
+            <ul class="md-post__meta md-nav__list">
+              <li class="md-nav__item md-nav__item--section">
+                <div class="md-post__title">
+                  <span class="md-ellipsis">
+                    Metadata
+                  </span>
+                </div>
+                <nav class="md-nav">
+                  <ul class="md-nav__list">
+                    <li class="md-nav__item">
+                      <div class="md-nav__link">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 19H5V8h14m-3-7v2H8V1H6v2H5c-1.11 0-2 .89-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V5a2 2 0 0 0-2-2h-1V1m-1 11h-5v5h5v-5Z"/></svg>
+                        <time datetime="2024-01-09 00:00:00" class="md-ellipsis">January 9, 2024</time>
+                      </div>
+                    </li>
+                    
+                    
+                    
+                      
+                      <li class="md-nav__item">
+                        <div class="md-nav__link">
+                          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M12 20a8 8 0 0 0 8-8 8 8 0 0 0-8-8 8 8 0 0 0-8 8 8 8 0 0 0 8 8m0-18a10 10 0 0 1 10 10 10 10 0 0 1-10 10C6.47 22 2 17.5 2 12A10 10 0 0 1 12 2m.5 5v5.25l4.5 2.67-.75 1.23L11 13V7h1.5Z"/></svg>
+                          <span class="md-ellipsis">
+                            
+                              5 min read
+                            
+                          </span>
+                        </div>
+                      </li>
+                    
+                  </ul>
+                </nav>
+              </li>
+            </ul>
+          </nav>
           
-          <li class="md-meta__item">
-            
-              5 min read
-            
-          </li>
-        
-      </ul>
-      
+        </div>
+      </div>
     </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="parallelized-docker-builds"><a class="toclink" href="2024/01/09/parallelized-docker-builds/">Parallelized Docker Builds</a></h2>
-<h3 id="serial-builds"><a class="toclink" href="2024/01/09/parallelized-docker-builds/#serial-builds">Serial Builds</a></h3>
+    <article class="md-content__inner md-typeset">
+      
+        
+
+  
+  
+
+
+<h1 id="parallelized-docker-builds">Parallelized Docker Builds</h1>
+<h2 id="serial-builds">Serial Builds</h2>
 <p>When creating a <code>Dockerfile</code>, we may be able to split up our work into multiple stages to distribute the work in parallel.  To simulate a large build, let's setup a <code>Dockerfile</code> with 3 <code>sleep 5</code> tasks in a single-stage build.</p>
 <div class="language-Dockerfile highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
 <span class="normal"><a href="#__codelineno-0-2">2</a></span>
@@ -1094,7 +1134,7 @@
 <blockquote>
 <p>The serial build ran in 23.6 secs.</p>
 </blockquote>
-<h3 id="parallel-builds"><a class="toclink" href="2024/01/09/parallelized-docker-builds/#parallel-builds">Parallel Builds</a></h3>
+<h2 id="parallel-builds">Parallel Builds</h2>
 <p>Did you realize that Docker supports building stages in parallel?  This can greatly reduce build times depending on the service being built.  For example, let's take the following Dockerfile:</p>
 <div class="language-Dockerfile highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
@@ -1202,7 +1242,7 @@
 <p>The parallel build ran in 11.6 secs.</p>
 </blockquote>
 <p>Very cool!</p>
-<h3 id="notes"><a class="toclink" href="2024/01/09/parallelized-docker-builds/#notes">Notes</a></h3>
+<h2 id="notes">Notes</h2>
 <p>I was surprised to find this <code>Dockerfile</code> does not run the first and second stages if they're not used in the final stage:</p>
 <div class="language-Dockerfile highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1"> 1</a></span>
 <span class="normal"><a href="#__codelineno-6-2"> 2</a></span>
@@ -1274,287 +1314,71 @@
 <blockquote>
 <p>Note the missing <code>task1</code> and <code>task2</code> stages in the output above.</p>
 </blockquote>
-<h3 id="references"><a class="toclink" href="2024/01/09/parallelized-docker-builds/#references">References</a></h3>
+<h2 id="references">References</h2>
 <ul>
 <li><a href="https://docs.docker.com/build/guide/multi-stage/#parallelism">Multi-stage | Docker Docs</a></li>
 </ul>
-    <nav class="md-post__action">
-      <a href="2024/01/09/parallelized-docker-builds/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2024-01-08 00:00:00">January 8, 2024</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              2 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="development-integration"><a class="toclink" href="2024/01/08/development-integration/">Development Integration</a></h2>
-<h3 id="problem"><a class="toclink" href="2024/01/08/development-integration/#problem">Problem</a></h3>
-<p>When developing microservices, we often run into the problem of needing other services to be available to test our application.  Our development flow should have different levels of integration.</p>
-<h3 id="levels-of-integration"><a class="toclink" href="2024/01/08/development-integration/#levels-of-integration">Levels of Integration</a></h3>
-<ol>
-<li><strong>Isolate:</strong> Develop the service in isolation from other services.</li>
-<li><strong>Relate:</strong> Develop the service alongside other, highly related services.</li>
-<li><strong>Complete:</strong> Deploy the service to a test environment with the full suite of services available.</li>
-</ol>
-<h4 id="complete"><a class="toclink" href="2024/01/08/development-integration/#complete">Complete</a></h4>
-<p>It is tempting to develop with the <strong>complete</strong> suite of services, but this doesn't scale well.  Developer systems cannot handle the full scope of distributed systems in a cloud native environment.  We should only strive to have remote test environments include the full suite of services available.</p>
-<h4 id="relate"><a class="toclink" href="2024/01/08/development-integration/#relate">Relate</a></h4>
-<p>It is critical that we develop the related services together.  For instance, we may have the following services closely related to a business domain:</p>
-<ol>
-<li>Nginx Static File Server</li>
-<li>Python REST API</li>
-<li>NodeJS Templating Engine</li>
-<li>MongoDB Service</li>
-</ol>
-<p>Developer systems can easily manage this workload for development.  And, it is useful to see a fully working application with data, frontend UIs, and backend services working together to solve a particular business problem.  </p>
-<p>At this level of integration, we'll also need to isolate dependencies on other services.  I usually create stub services that provide the full interface of the dependency while at the same time providing simulations of how the actual service will behave.</p>
-<h4 id="isolate"><a class="toclink" href="2024/01/08/development-integration/#isolate">Isolate</a></h4>
-<p>At the first level, we should develop our service in complete isolation from all other services.  This gives us the freedom to prototype and to iterate on our service more rapidly.  We can use our standard tooling for development a service in a given framework.</p>
-    <nav class="md-post__action">
-      <a href="2024/01/08/development-integration/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2023-12-10 00:00:00">December 10, 2023</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="category/devops/" class="md-meta__link">DevOps</a>, 
-              <a href="category/bash/" class="md-meta__link">Bash</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              2 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="use-a-run-script"><a class="toclink" href="2023/12/10/use-a-run-script/">Use a Run Script</a></h2>
-<h3 id="why-run"><a class="toclink" href="2023/12/10/use-a-run-script/#why-run">Why <code>run</code>?</a></h3>
-<p>This <code>run</code> script was inspired by <code>npm run</code> scripts.  Moving your development flow to a run script allows you to setup environments, install, or anything else you need to develop your project.  The <code>run</code> script also allows you to consolidate your scripts into a single script.  You'd likely have an <code>install.sh</code> script, another for <code>test.sh</code>, etc.</p>
-<h3 id="how-to-run"><a class="toclink" href="2023/12/10/use-a-run-script/#how-to-run">How to <code>run</code>?</a></h3>
-<h4 id="add-current-directory-to-path"><a class="toclink" href="2023/12/10/use-a-run-script/#add-current-directory-to-path">Add Current Directory to <code>$PATH</code></a></h4>
-<p>To start, add the current directory to your <code>$PATH</code>.  I prefer to run scripts by name rather than with the relative path prefix (<code>./</code>).  So, I usually use <code>run</code> rather than <code>./run</code>.</p>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="c1"># Add to `~/.bashrc`</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nb">export</span><span class="w"> </span><span class="nv">PATH</span><span class="o">=</span><span class="s2">&quot;</span><span class="nv">$PATH</span><span class="s2">:.&quot;</span>
-</span></code></pre></div></td></tr></table></div>
-<h4 id="add-the-script"><a class="toclink" href="2023/12/10/use-a-run-script/#add-the-script">Add the Script</a></h4>
-<p>Setup a run script for quick development.</p>
-<blockquote>
-<p>Create the run script file:</p>
-</blockquote>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>$<span class="w"> </span>touch<span class="w"> </span>run
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>$<span class="w"> </span>chmod<span class="w"> </span>+x<span class="w"> </span>run
-</span></code></pre></div></td></tr></table></div>
-<blockquote>
-<p>Add the run script:</p>
-</blockquote>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-2-10">10</a></span>
-<span class="normal"><a href="#__codelineno-2-11">11</a></span>
-<span class="normal"><a href="#__codelineno-2-12">12</a></span>
-<span class="normal"><a href="#__codelineno-2-13">13</a></span>
-<span class="normal"><a href="#__codelineno-2-14">14</a></span>
-<span class="normal"><a href="#__codelineno-2-15">15</a></span>
-<span class="normal"><a href="#__codelineno-2-16">16</a></span>
-<span class="normal"><a href="#__codelineno-2-17">17</a></span>
-<span class="normal"><a href="#__codelineno-2-18">18</a></span>
-<span class="normal"><a href="#__codelineno-2-19">19</a></span>
-<span class="normal"><a href="#__codelineno-2-20">20</a></span>
-<span class="normal"><a href="#__codelineno-2-21">21</a></span>
-<span class="normal"><a href="#__codelineno-2-22">22</a></span>
-<span class="normal"><a href="#__codelineno-2-23">23</a></span>
-<span class="normal"><a href="#__codelineno-2-24">24</a></span>
-<span class="normal"><a href="#__codelineno-2-25">25</a></span>
-<span class="normal"><a href="#__codelineno-2-26">26</a></span>
-<span class="normal"><a href="#__codelineno-2-27">27</a></span>
-<span class="normal"><a href="#__codelineno-2-28">28</a></span>
-<span class="normal"><a href="#__codelineno-2-29">29</a></span>
-<span class="normal"><a href="#__codelineno-2-30">30</a></span>
-<span class="normal"><a href="#__codelineno-2-31">31</a></span>
-<span class="normal"><a href="#__codelineno-2-32">32</a></span>
-<span class="normal"><a href="#__codelineno-2-33">33</a></span>
-<span class="normal"><a href="#__codelineno-2-34">34</a></span>
-<span class="normal"><a href="#__codelineno-2-35">35</a></span>
-<span class="normal"><a href="#__codelineno-2-36">36</a></span>
-<span class="normal"><a href="#__codelineno-2-37">37</a></span>
-<span class="normal"><a href="#__codelineno-2-38">38</a></span>
-<span class="normal"><a href="#__codelineno-2-39">39</a></span>
-<span class="normal"><a href="#__codelineno-2-40">40</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="ch">#!/bin/bash</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>help<span class="o">()</span><span class="w"> </span><span class="o">{</span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;App&quot;</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;=========================&quot;</span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;start     Run the application&quot;</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">    </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;test      Test the application&quot;</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="o">}</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="c1"># Setup Tab Complete</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a>_tab_complete<span class="o">()</span><span class="w"> </span><span class="o">{</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="w">    </span><span class="nb">local</span><span class="w"> </span>cur<span class="w"> </span>prev<span class="w"> </span>opts
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="w">    </span><span class="nv">opts</span><span class="o">=</span><span class="s2">&quot;start test&quot;</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="w">    </span><span class="nv">COMPREPLY</span><span class="o">=()</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="w">    </span><span class="nv">cur</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">COMP_WORDS</span><span class="p">[COMP_CWORD]</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="w">    </span><span class="nv">prev</span><span class="o">=</span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">COMP_WORDS</span><span class="p">[COMP_CWORD-1]</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="w">    </span><span class="nv">COMPREPLY</span><span class="o">=(</span><span class="w"> </span><span class="k">$(</span><span class="nb">compgen</span><span class="w"> </span>-W<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">opts</span><span class="si">}</span><span class="s2">&quot;</span><span class="w"> </span>--<span class="w"> </span><span class="si">${</span><span class="nv">cur</span><span class="si">}</span><span class="k">)</span><span class="w"> </span><span class="o">)</span>
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="m">0</span>
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="o">}</span>
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20"></a>
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="nb">complete</span><span class="w"> </span>-F<span class="w"> </span>_tab_complete<span class="w"> </span>run
-</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22"></a>
-</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="nv">cmd</span><span class="o">=</span><span class="nv">$1</span>
-</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24"></a>
-</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25"></a><span class="c1"># Remove the first argument (shift left)</span>
-</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26"></a><span class="nb">shift</span>
-</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27"></a>
-</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28"></a><span class="k">case</span><span class="w"> </span><span class="nv">$cmd</span><span class="w"> </span><span class="k">in</span>
-</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29"></a><span class="w">    </span><span class="s2">&quot;start&quot;</span><span class="o">)</span>
-</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;TODO: Add [start]&quot;</span>
-</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31"></a><span class="w">        </span><span class="c1"># Use &quot;$@&quot; to pass all remaining arguments.</span>
-</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32"></a><span class="w">        </span><span class="p">;;</span>
-</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33"></a><span class="w">    </span><span class="s2">&quot;test&quot;</span><span class="o">)</span>
-</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;TODO: Add [test]&quot;</span>
-</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35"></a><span class="w">        </span><span class="c1"># Use &quot;$@&quot; to pass all remaining arguments.</span>
-</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36"></a><span class="w">        </span><span class="p">;;</span>
-</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37"></a><span class="w">    </span>*<span class="o">)</span>
-</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38"></a><span class="w">        </span><span class="nb">help</span>
-</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39"></a><span class="w">        </span><span class="p">;;</span>
-</span><span id="__span-2-40"><a id="__codelineno-2-40" name="__codelineno-2-40"></a><span class="k">esac</span>
-</span></code></pre></div></td></tr></table></div>
-<blockquote>
-<p>Example run:</p>
-</blockquote>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span>
-<span class="normal"><a href="#__codelineno-3-2">2</a></span>
-<span class="normal"><a href="#__codelineno-3-3">3</a></span>
-<span class="normal"><a href="#__codelineno-3-4">4</a></span>
-<span class="normal"><a href="#__codelineno-3-5">5</a></span>
-<span class="normal"><a href="#__codelineno-3-6">6</a></span>
-<span class="normal"><a href="#__codelineno-3-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a>$<span class="w"> </span>.<span class="w"> </span>run<span class="w"> </span><span class="c1"># Source the run script to add tab complete.</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="nv">App</span>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="o">=========================</span>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a>start<span class="w">     </span>Run<span class="w"> </span>the<span class="w"> </span>application
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="nb">test</span><span class="w">      </span>Test<span class="w"> </span>the<span class="w"> </span>application
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a>$<span class="w"> </span>run<span class="w"> </span>start
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a>TODO:<span class="w"> </span>Add<span class="w"> </span><span class="o">[</span>start<span class="o">]</span>
-</span></code></pre></div></td></tr></table></div>
-    <nav class="md-post__action">
-      <a href="2023/12/10/use-a-run-script/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2023-06-15 00:00:00">June 15, 2023</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="category/docker/" class="md-meta__link">Docker</a>, 
-              <a href="category/devops/" class="md-meta__link">DevOps</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              1 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="dockerize-your-development-today"><a class="toclink" href="2023/06/15/dockerize-your-development-today/">Dockerize Your Development Today!</a></h2>
-<h3 id="no-more-it-works-on-my-machine-excuses"><a class="toclink" href="2023/06/15/dockerize-your-development-today/#no-more-it-works-on-my-machine-excuses">No More "It Works on My Machine" Excuses</a></h3>
-<p>We've all been there. Code that works on my machine doesn't work on yours and vice versa. But, why?  There are like a number of issues to troubleshoot.  Some of the most common are:</p>
-<ol>
-<li>Different versions of the programming language, sdk, and runtime.</li>
-<li>Different package versions.</li>
-<li>Different operating systems.</li>
-<li>Different software toolchains.</li>
-<li>...</li>
-</ol>
-<p>The list goes on and on.</p>
-<h3 id="docker-to-the-rescue"><a class="toclink" href="2023/06/15/dockerize-your-development-today/#docker-to-the-rescue">Docker to the Rescue</a></h3>
-<p>Docker is great for containerizing your services in production.  But, we can do better.  Why not use it to containerize your development environment?  This way, you can be sure that your development environment matches your production environment exactly.  No more surprises, no more excuses.</p>
-<p>You can simply build a new image when anything on the list above changes and push it to shared container registry for the team.  Then, you can check in the image tag to version control and everyone can spin up an identical environment in minutes.  No more wasted time setting up dependencies and configuring tools.</p>
-<p>Check out vscode's <a href="https://code.visualstudio.com/docs/remote/containers">dev containers</a> for more information.</p>
-<p>Once I started using docker for development, I never looked back.  It's a game changer.</p>
-    <nav class="md-post__action">
-      <a href="2023/06/15/dockerize-your-development-today/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
-      
-        
-          
 
 
 
-<nav class="md-pagination">
-    <span class="md-pagination__current">1</span> <a class="md-pagination__link" href="page/2/">2</a> <a class="md-pagination__link" href="page/3/">3</a> <span class="md-pagination__dots">..</span> <a class="md-pagination__link" href="page/8/">8</a> <a class="md-pagination__link" href="page/2/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42Z"/></svg></a> <a class="md-pagination__link" href="page/8/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.59 7.41 7 6l6 6-6 6-1.41-1.41L10.17 12 5.59 7.41m6 0L13 6l6 6-6 6-1.41-1.41L16.17 12l-4.58-4.59Z"/></svg></a>
-</nav>
-        
+
+
+
+
+  
+  
+
+
+
+  
+
+
+  
+
+
+  <form class="md-feedback" name="feedback" hidden>
+    <fieldset>
+      <legend class="md-feedback__title">
+        Feedback
+      </legend>
+      <div class="md-feedback__inner">
+        <div class="md-feedback__list">
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page was helpful" data-md-value="1">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5 9v12H1V9h4m4 12a2 2 0 0 1-2-2V9c0-.55.22-1.05.59-1.41L14.17 1l1.06 1.06c.27.27.44.64.44 1.05l-.03.32L14.69 8H21a2 2 0 0 1 2 2v2c0 .26-.05.5-.14.73l-3.02 7.05C19.54 20.5 18.83 21 18 21H9m0-2h9.03L21 12v-2h-8.79l1.13-5.32L9 9.03V19Z"/></svg>
+            </button>
+          
+            <button class="md-feedback__icon md-icon" type="submit" title="This page could be improved" data-md-value="0">
+              <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19 15V3h4v12h-4M15 3a2 2 0 0 1 2 2v10c0 .55-.22 1.05-.59 1.41L9.83 23l-1.06-1.06c-.27-.27-.44-.64-.44-1.06l.03-.31.95-4.57H3a2 2 0 0 1-2-2v-2c0-.26.05-.5.14-.73l3.02-7.05C4.46 3.5 5.17 3 6 3h9m0 2H5.97L3 12v2h8.78l-1.13 5.32L15 14.97V5Z"/></svg>
+            </button>
+          
+        </div>
+        <div class="md-feedback__note">
+          
+            <div data-md-value="1" hidden>
+              
+              
+                
+              
+              Thanks for your feedback!
+            </div>
+          
+            <div data-md-value="0" hidden>
+              
+              
+                
+              
+              Thanks for your feedback! Help us improve this page by using our <a href="..." target="_blank" rel="noopener">feedback form</a>.
+            </div>
+          
+        </div>
+      </div>
+    </fieldset>
+  </form>
+
+
       
-    </div>
+    </article>
   </div>
 
           
@@ -1587,12 +1411,12 @@
     </div>
     
     
-    <script id="__config" type="application/json">{"base": "..", "features": ["content.code.copy", "content.code.select", "search.share", "navigation.tracking", "navigation.instant", "navigation.indexes"], "search": "../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
+    <script id="__config" type="application/json">{"base": "../../../../..", "features": ["content.code.copy", "content.code.select", "search.share", "navigation.tracking", "navigation.instant", "navigation.indexes"], "search": "../../../../../assets/javascripts/workers/search.f886a092.min.js", "translations": {"clipboard.copied": "Copied to clipboard", "clipboard.copy": "Copy to clipboard", "search.result.more.one": "1 more on this page", "search.result.more.other": "# more on this page", "search.result.none": "No matching documents", "search.result.one": "1 matching document", "search.result.other": "# matching documents", "search.result.placeholder": "Type to start searching", "search.result.term.missing": "Missing", "select.version": "Select version"}}</script>
     
     
-      <script src="../assets/javascripts/bundle.d7c377c4.min.js"></script>
+      <script src="../../../../../assets/javascripts/bundle.d7c377c4.min.js"></script>
       
-        <script src="../scripts/site.js"></script>
+        <script src="../../../../../scripts/site.js"></script>
       
     
   </body>

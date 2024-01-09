@@ -941,6 +941,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#python-annotations" class="md-nav__link">
+    <span class="md-ellipsis">
+      Python Annotations
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#docker-scratchpad" class="md-nav__link">
     <span class="md-ellipsis">
       Docker Scratchpad
@@ -967,15 +976,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#functional-dependency-injection" class="md-nav__link">
-    <span class="md-ellipsis">
-      Functional Dependency Injection
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -990,6 +990,96 @@
       <header class="md-typeset">
         <h1 id="blog">Blog</h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2023-05-25 00:00:00">May 25, 2023</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/python/" class="md-meta__link">Python</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="python-annotations"><a class="toclink" href="../../2023/05/25/python-annotations/">Python Annotations</a></h2>
+<p>Python is great language to prototype ideas.  The dynamic runtime opens up some possibilities that are very difficult in statically typed languages.  </p>
+<p>However, there's a catch:  the dynamic runtime should not come at the cost of poor code documentation.  Let's take this simple, arbitrary function:</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span>
+<span class="normal"><a href="#__codelineno-10-4">4</a></span>
+<span class="normal"><a href="#__codelineno-10-5">5</a></span>
+<span class="normal"><a href="#__codelineno-10-6">6</a></span>
+<span class="normal"><a href="#__codelineno-10-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="k">def</span> <span class="nf">transform</span><span class="p">(</span><span class="n">data</span><span class="p">):</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="w">    </span><span class="sd">&#39;&#39;&#39;Transform this data.&#39;&#39;&#39;</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a>    <span class="k">return</span> <span class="p">[</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5"></a>        <span class="n">item</span> <span class="o">*</span> <span class="n">idx</span>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6"></a>        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7"></a>    <span class="p">]</span>
+</span></code></pre></div></td></tr></table></div>
+<p>The <code>transform</code> function above is pretty straightforward.  It multiplies the numbers in the list by their index, right?  Let's take it out for a spin:</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">transform</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="c1"># [0, 2, 6]</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Yep!  That's simple.  But, wait, what about this?</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
+<span class="normal"><a href="#__codelineno-12-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">transform</span><span class="p">([[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]]))</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="p">[[],</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">,</span> <span class="s1">&#39;c&#39;</span><span class="p">]]</span>
+</span></code></pre></div></td></tr></table></div>
+<p>What's going on here?  Well, nothing in the function said to explicitly work with integers.  How would you restrict the types of inputs so that you can reason about the behavior more simply?  </p>
+<p>Also, there's another problem:  the function signature doesn't inform you of it's behavior.  You have to <strong>read</strong> the function implementation to <em>know</em> what it does.  The function signature is the function name, it's arguments' names and types, and the return type.  We should be able to read the signature <code>def transform(data)</code> and know exactly what's going on.  This problem cannot be over-stated.</p>
+<p>Enter Python type annotations!  </p>
+<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span>
+<span class="normal"><a href="#__codelineno-13-5">5</a></span>
+<span class="normal"><a href="#__codelineno-13-6">6</a></span>
+<span class="normal"><a href="#__codelineno-13-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="k">def</span> <span class="nf">multiply_by_index</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">])</span> <span class="o">-&gt;</span> <span class="nb">list</span><span class="p">[</span><span class="nb">int</span><span class="p">]:</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="w">    </span><span class="sd">&#39;&#39;&#39;Multiply the numbers by their index.&#39;&#39;&#39;</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a>    <span class="k">return</span> <span class="p">[</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a>        <span class="n">num</span> <span class="o">*</span> <span class="n">idx</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6"></a>        <span class="k">for</span> <span class="n">idx</span><span class="p">,</span> <span class="n">num</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">data</span><span class="p">)</span>
+</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7"></a>    <span class="p">]</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Now, the function signature is very informative:  <code>def multiply_by_index(data: list[int]) -&gt; list[int]</code>.  And, the types are restricted at code-time:</p>
+<p><img alt="" src="../../assets/python-annotations.png" /></p>
+<p>Note that this restriction only applies while coding; the runtime still behaves the same:</p>
+<div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span>
+<span class="normal"><a href="#__codelineno-14-3">3</a></span>
+<span class="normal"><a href="#__codelineno-14-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="nb">print</span><span class="p">(</span><span class="n">multiple_by_index</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]))</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="nb">print</span><span class="p">(</span><span class="n">multiple_by_index</span><span class="p">([[</span><span class="s1">&#39;a&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;b&#39;</span><span class="p">],</span> <span class="p">[</span><span class="s1">&#39;c&#39;</span><span class="p">]]))</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="c1"># [0, 2, 6]</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="c1"># [[], [&#39;b&#39;], [&#39;c&#39;, &#39;c&#39;]]</span>
+</span></code></pre></div></td></tr></table></div>
+<p>The runtime/code-time distinction might seem unhelpful, but I have experienced first-hand seeing the benefits of annotations in large codebases.  The clearer function signatures allow me to build up ever more complicated logic while ignoring the implementation details of the simpler functions.</p>
+    <nav class="md-post__action">
+      <a href="../../2023/05/25/python-annotations/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
@@ -1219,101 +1309,6 @@
   </div>
 </article>
       
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2021-06-08 00:00:00">June 8, 2021</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../category/fsharp/" class="md-meta__link">FSharp</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              2 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="functional-dependency-injection"><a class="toclink" href="../../2021/06/08/functional-dependency-injection/">Functional <em>Dependency Injection</em></a></h2>
-<p>If you've been developing for at least a year or two with an object oriented language, then you probably have come across the idea of <em>Dependency Injection</em>.  <em>Dependency Injection</em> is useful to isolate dependencies and provide loose coupling of components.  </p>
-<p>Typically, in C# you define interfaces that provide the required dependencies and constructors (and properties) that require those dependencies.  Then, you would implement an IoC container that does the work to construct the actual dependencies at runtime.  </p>
-<p><em>Dependency Injection</em> is great for handling external connections since testing code that calls external connections without injection requires integration.</p>
-<p>I remember struggling with the idea of <em>Dependency Injection</em> for a few years.  I understood the mechanics of what I needed to do to get the system to work, but I didn't really understand <em>why</em> I needed to do them.  </p>
-<p>I then began to break apart the phrase.  What qualifies as a "dependency"?  What does it mean to inject them?  What's the smallest possible interface of a dependency?  </p>
-<p>Later, through my study of F#, I came across the idea that a function is the <em>smallest</em> possible interface.  It defines a name, some input, and some output.  That's it.  </p>
-<p>Aren't all parameters dependencies?  In one sense, yes, but in context to <em>Dependency Injection</em>, no.  The focus on <em>Dependency Injection</em> is on separating the construction of objects from the behavior.  Functions that require parameters may not be created by the client directly.  </p>
-<p>But, to setup functional <em>Dependency Injection</em> with F#, you can put your dependencies behind a computed function.</p>
-<p>Let's take a real world example.</p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-4-10">10</a></span>
-<span class="normal"><a href="#__codelineno-4-11">11</a></span>
-<span class="normal"><a href="#__codelineno-4-12">12</a></span>
-<span class="normal"><a href="#__codelineno-4-13">13</a></span>
-<span class="normal"><a href="#__codelineno-4-14">14</a></span>
-<span class="normal"><a href="#__codelineno-4-15">15</a></span>
-<span class="normal"><a href="#__codelineno-4-16">16</a></span>
-<span class="normal"><a href="#__codelineno-4-17">17</a></span>
-<span class="normal"><a href="#__codelineno-4-18">18</a></span>
-<span class="normal"><a href="#__codelineno-4-19">19</a></span>
-<span class="normal"><a href="#__codelineno-4-20">20</a></span>
-<span class="normal"><a href="#__codelineno-4-21">21</a></span>
-<span class="normal"><a href="#__codelineno-4-22">22</a></span>
-<span class="normal"><a href="#__codelineno-4-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="k">type</span><span class="w"> </span><span class="nc">HttpResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="c1">// Type to capture the results of an HttpResponseMessage</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="sd">/// Encapsulates the HttpClient SendAsync </span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="k">let</span><span class="w"> </span><span class="nv">request</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">HttpRequestMessage</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Async</span><span class="o">&lt;</span><span class="n">HttpResult</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span><span class="k">fun</span><span class="w"> </span><span class="o">(</span><span class="n">req</span><span class="o">:</span><span class="w"> </span><span class="n">HttpRequestMessage</span><span class="o">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="w">        </span><span class="n">async</span><span class="w"> </span><span class="o">{</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="w">            </span><span class="c1">// Handle the lifetime of the client.</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="w">            </span><span class="k">use</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HttpClient</span><span class="bp">()</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="w">            </span><span class="c1">// Await the response.</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="w">            </span><span class="k">let!</span><span class="w"> </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="o">.</span><span class="n">SendAsync</span><span class="o">(</span><span class="n">req</span><span class="o">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Async</span><span class="p">.</span><span class="n">AwaitTask</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="w">            </span><span class="c1">// Map the repsonse to a result </span>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="w">            </span><span class="c1">// since the client will soon be disposed.</span>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">mapToHttpResult</span>
-</span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14"></a><span class="w">        </span><span class="o">}</span>
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15"></a>
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="k">module</span><span class="w"> </span><span class="nn">Lib</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="w">    </span><span class="sd">/// Fetch the user by name with the `request` function.</span>
-</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">fetchUserByName</span><span class="w"> </span><span class="o">(</span><span class="n">request</span><span class="o">:</span><span class="w"> </span><span class="n">HttpRequestMessage</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Async</span><span class="o">&lt;</span><span class="n">HttpResult</span><span class="o">&gt;)</span><span class="w"> </span><span class="o">(</span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="w">        </span><span class="c1">// Use `request` to call web service.</span>
-</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="w">        </span><span class="o">...</span>
-</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21"></a>
-</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22"></a><span class="sd">/// Get the user by name.</span>
-</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23"></a><span class="k">let</span><span class="w"> </span><span class="nv">getUser</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">Lib</span><span class="p">.</span><span class="n">fetchUserByName</span><span class="w"> </span><span class="n">request</span>
-</span></code></pre></div></td></tr></table></div>
-<p>The critical dependency of <code>Lib.fetchUserByName</code> is required <em>first</em>:  <code>request: HttpRequestMessage -&gt; Async&lt;HttpResult&gt;</code>.  This function will likely make an actual web request and has a pretty hefty, disposable object, <code>HttpClient</code>, backing it.  </p>
-<p>The function, <code>Lib.fetchUserByName</code>, doesn't care about <em>how</em> the http request is made or how the connections and objects are disposed. The <code>getUser</code> also shouldn't care about how to make an http request or even how.  We can now use <code>getUser</code> like this:</p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">johnOption</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getUser</span><span class="w"> </span><span class="s">&quot;John&quot;</span>
-</span></code></pre></div></td></tr></table></div>
-<p>But, probably the coolest part of all this is that you can swap out dependencies in computing the <code>getUser</code> function as long as the final computed function resolves to <code>string -&gt; User option</code>.  You could, for example, get the user from a SQL database or a NoSQL data store, or whatever!</p>
-    <nav class="md-post__action">
-      <a href="../../2021/06/08/functional-dependency-injection/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
       
         
           
@@ -1321,7 +1316,7 @@
 
 
 <nav class="md-pagination">
-  <a class="md-pagination__link" href="../../"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 7.41 17 6l-6 6 6 6 1.41-1.41L13.83 12l4.58-4.59m-6 0L11 6l-6 6 6 6 1.41-1.41L7.83 12l4.58-4.59Z"/></svg></a> <a class="md-pagination__link" href="../../"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.41 16.58 10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.42Z"/></svg></a> <a class="md-pagination__link" href="../../">1</a> <span class="md-pagination__current">2</span> <a class="md-pagination__link" href="../3/">3</a> <a class="md-pagination__link" href="../4/">4</a> <span class="md-pagination__dots">..</span> <a class="md-pagination__link" href="../7/">7</a> <a class="md-pagination__link" href="../3/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42Z"/></svg></a> <a class="md-pagination__link" href="../7/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.59 7.41 7 6l6 6-6 6-1.41-1.41L10.17 12 5.59 7.41m6 0L13 6l6 6-6 6-1.41-1.41L16.17 12l-4.58-4.59Z"/></svg></a>
+  <a class="md-pagination__link" href="../../"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 7.41 17 6l-6 6 6 6 1.41-1.41L13.83 12l4.58-4.59m-6 0L11 6l-6 6 6 6 1.41-1.41L7.83 12l4.58-4.59Z"/></svg></a> <a class="md-pagination__link" href="../../"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.41 16.58 10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.42Z"/></svg></a> <a class="md-pagination__link" href="../../">1</a> <span class="md-pagination__current">2</span> <a class="md-pagination__link" href="../3/">3</a> <a class="md-pagination__link" href="../4/">4</a> <span class="md-pagination__dots">..</span> <a class="md-pagination__link" href="../8/">8</a> <a class="md-pagination__link" href="../3/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42Z"/></svg></a> <a class="md-pagination__link" href="../8/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.59 7.41 7 6l6 6-6 6-1.41-1.41L10.17 12 5.59 7.41m6 0L13 6l6 6-6 6-1.41-1.41L16.17 12l-4.58-4.59Z"/></svg></a>
 </nav>
         
       

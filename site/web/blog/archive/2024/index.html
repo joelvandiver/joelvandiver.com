@@ -446,6 +446,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#parallelized-docker-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parallelized Docker Builds
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#development-integration" class="md-nav__link">
     <span class="md-ellipsis">
       Development Integration
@@ -994,6 +1003,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#parallelized-docker-builds" class="md-nav__link">
+    <span class="md-ellipsis">
+      Parallelized Docker Builds
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#development-integration" class="md-nav__link">
     <span class="md-ellipsis">
       Development Integration
@@ -1016,6 +1034,301 @@
       <header class="md-typeset">
         <h1 id="2024">2024</h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2024-01-09 00:00:00">January 9, 2024</time></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              5 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="parallelized-docker-builds"><a class="toclink" href="../../2024/01/09/parallelized-docker-builds/">Parallelized Docker Builds</a></h2>
+<h3 id="serial-builds"><a class="toclink" href="../../2024/01/09/parallelized-docker-builds/#serial-builds">Serial Builds</a></h3>
+<p>When creating a <code>Dockerfile</code>, we may be able to split up our work into multiple stages to distribute the work in parallel.  To simulate a large build, let's setup a <code>Dockerfile</code> with 3 <code>sleep 5</code> tasks in a single-stage build.</p>
+<div class="language-Dockerfile highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span>
+<span class="normal"><a href="#__codelineno-9-4">4</a></span>
+<span class="normal"><a href="#__codelineno-9-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">debian:12.4</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="k">RUN</span><span class="w"> </span>sleep<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;task1 Done&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/app/task1.log
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="k">RUN</span><span class="w"> </span>sleep<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;task2 Done&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/app/task2.log
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="k">RUN</span><span class="w"> </span>sleep<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;task3 Done&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/app/task3.log
+</span></code></pre></div></td></tr></table></div>
+<p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="nb">time</span><span class="w"> </span><span class="nv">DOCKER_BUILDKIT</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>--tag<span class="w"> </span>serial_test<span class="w"> </span>.
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-11-10">10</a></span>
+<span class="normal"><a href="#__codelineno-11-11">11</a></span>
+<span class="normal"><a href="#__codelineno-11-12">12</a></span>
+<span class="normal"><a href="#__codelineno-11-13">13</a></span>
+<span class="normal"><a href="#__codelineno-11-14">14</a></span>
+<span class="normal"><a href="#__codelineno-11-15">15</a></span>
+<span class="normal"><a href="#__codelineno-11-16">16</a></span>
+<span class="normal"><a href="#__codelineno-11-17">17</a></span>
+<span class="normal"><a href="#__codelineno-11-18">18</a></span>
+<span class="normal"><a href="#__codelineno-11-19">19</a></span>
+<span class="normal"><a href="#__codelineno-11-20">20</a></span>
+<span class="normal"><a href="#__codelineno-11-21">21</a></span>
+<span class="normal"><a href="#__codelineno-11-22">22</a></span>
+<span class="normal"><a href="#__codelineno-11-23">23</a></span>
+<span class="normal"><a href="#__codelineno-11-24">24</a></span>
+<span class="normal"><a href="#__codelineno-11-25">25</a></span>
+<span class="normal"><a href="#__codelineno-11-26">26</a></span>
+<span class="normal"><a href="#__codelineno-11-27">27</a></span>
+<span class="normal"><a href="#__codelineno-11-28">28</a></span>
+<span class="normal"><a href="#__codelineno-11-29">29</a></span>
+<span class="normal"><a href="#__codelineno-11-30">30</a></span>
+<span class="normal"><a href="#__codelineno-11-31">31</a></span>
+<span class="normal"><a href="#__codelineno-11-32">32</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a>[+] Building 23.2s (12/12) FINISHED                                                                                       docker:default
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a> =&gt; [internal] load build definition from Dockerfile                                                                      0.0s
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a> =&gt; =&gt; transferring dockerfile: 288B                                                                                      0.0s
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a> =&gt; [internal] load .dockerignore                                                                                         0.0s
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a> =&gt; =&gt; transferring context: 2B                                                                                           0.0s
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a> =&gt; [internal] load metadata for docker.io/library/debian:12.4                                                            1.0s
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7"></a> =&gt; [1/8] FROM docker.io/library/debian:12.4@sha256:bac353db4cc04bc672b14029964e686cd7bad56fe34b51f432c1a1304b9928da      4.1s
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8"></a> =&gt; =&gt; resolve docker.io/library/debian:12.4@sha256:bac353db4cc04bc672b14029964e686cd7bad56fe34b51f432c1a1304b9928da      0.0s
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9"></a> =&gt; =&gt; sha256:bac353db4cc04bc672b14029964e686cd7bad56fe34b51f432c1a1304b9928da 1.85kB / 1.85kB                            0.0s
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10"></a> =&gt; =&gt; sha256:0dc902c61cb495db4630a6dc2fa14cd45bd9f8515f27fbb12e3d73a119d30bf1 529B / 529B                                0.0s
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11"></a> =&gt; =&gt; sha256:2a033a8c63712da54b5a516f5d69d41606cfb5c4ce9aa1690ee55fc4f9babb92 1.46kB / 1.46kB                            0.0s
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12"></a> =&gt; =&gt; sha256:bc0734b949dcdcabe5bfdf0c8b9f44491e0fce04cb10c9c6e76282b9f6abdf01 49.56MB / 49.56MB                          2.2s
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13"></a> =&gt; =&gt; extracting sha256:bc0734b949dcdcabe5bfdf0c8b9f44491e0fce04cb10c9c6e76282b9f6abdf01                                 1.7s
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14"></a> =&gt; [2/8] WORKDIR /app                                                                                                    0.2s
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15"></a> =&gt; [3/8] RUN sleep 5 &amp;&amp; echo &quot;task1 Done&quot; &gt; /app/task1.log                                                               5.3s
+</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16"></a> =&gt; [4/8] RUN sleep 5 &amp;&amp; echo &quot;task2 Done&quot; &gt; /app/task2.log                                                               5.4s
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17"></a> =&gt; [5/8] RUN sleep 5 &amp;&amp; echo &quot;task3 Done&quot; &gt; /app/task3.log                                                               5.5s
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18"></a> =&gt; [6/8] RUN cat /app/task1.log                                                                                          0.4s
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19"></a> =&gt; [7/8] RUN cat /app/task2.log                                                                                          0.6s
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20"></a> =&gt; [8/8] RUN cat /app/task3.log                                                                                          0.5s
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21"></a> =&gt; exporting to image                                                                                                    0.2s
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22"></a> =&gt; =&gt; exporting layers                                                                                                   0.1s
+</span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23"></a> =&gt; =&gt; writing image sha256:5a4ba49cbde2f6178268ca9d428fc6e0a831cdbaecb1a13a92730d473d21990a                              0.0s
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24"></a> =&gt; =&gt; naming to docker.io/library/serial_test                                                                            0.0s
+</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25"></a>
+</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26"></a>What&#39;s Next?
+</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27"></a>  1. Sign in to your Docker account → docker login
+</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28"></a>  2. View a summary of image vulnerabilities and recommendations → docker scout quickview
+</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29"></a>
+</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30"></a>real    0m23.594s
+</span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31"></a>user    0m0.133s
+</span><span id="__span-11-32"><a id="__codelineno-11-32" name="__codelineno-11-32"></a>sys     0m0.141s
+</span></code></pre></div></td></tr></table></div></p>
+<blockquote>
+<p>The serial build ran in 23.6 secs.</p>
+</blockquote>
+<h3 id="parallel-builds"><a class="toclink" href="../../2024/01/09/parallelized-docker-builds/#parallel-builds">Parallel Builds</a></h3>
+<p>Did you realize that Docker supports building stages in parallel?  This can greatly reduce build times depending on the service being built.  For example, let's take the following Dockerfile:</p>
+<div class="language-Dockerfile highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-12-10">10</a></span>
+<span class="normal"><a href="#__codelineno-12-11">11</a></span>
+<span class="normal"><a href="#__codelineno-12-12">12</a></span>
+<span class="normal"><a href="#__codelineno-12-13">13</a></span>
+<span class="normal"><a href="#__codelineno-12-14">14</a></span>
+<span class="normal"><a href="#__codelineno-12-15">15</a></span>
+<span class="normal"><a href="#__codelineno-12-16">16</a></span>
+<span class="normal"><a href="#__codelineno-12-17">17</a></span>
+<span class="normal"><a href="#__codelineno-12-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">debian:12.4</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s">task1</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="k">RUN</span><span class="w"> </span>sleep<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;task1 Done&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/app/result.log
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="k">FROM</span><span class="w"> </span><span class="s">debian:12.4</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s">task2</span>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="k">RUN</span><span class="w"> </span>sleep<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;task2 Done&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/app/result.log
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8"></a>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9"></a><span class="k">FROM</span><span class="w"> </span><span class="s">debian:12.4</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s">task3</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11"></a><span class="k">RUN</span><span class="w"> </span>sleep<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;task3 Done&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/app/result.log
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12"></a>
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13"></a><span class="k">FROM</span><span class="w"> </span><span class="s">debian:12.4</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s">Final</span>
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14"></a>
+</span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+</span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16"></a><span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>task1<span class="w"> </span>/app/result.log<span class="w"> </span>/app/task1.log
+</span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17"></a><span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>task2<span class="w"> </span>/app/result.log<span class="w"> </span>/app/task2.log
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18"></a><span class="k">COPY</span><span class="w"> </span>--from<span class="o">=</span>task3<span class="w"> </span>/app/result.log<span class="w"> </span>/app/task3.log
+</span></code></pre></div></td></tr></table></div>
+<p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="nb">time</span><span class="w"> </span><span class="nv">DOCKER_BUILDKIT</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>--tag<span class="w"> </span>parallel_test<span class="w"> </span>.
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-14-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-14-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-14-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-14-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-14-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-14-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-14-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-14-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-14-10">10</a></span>
+<span class="normal"><a href="#__codelineno-14-11">11</a></span>
+<span class="normal"><a href="#__codelineno-14-12">12</a></span>
+<span class="normal"><a href="#__codelineno-14-13">13</a></span>
+<span class="normal"><a href="#__codelineno-14-14">14</a></span>
+<span class="normal"><a href="#__codelineno-14-15">15</a></span>
+<span class="normal"><a href="#__codelineno-14-16">16</a></span>
+<span class="normal"><a href="#__codelineno-14-17">17</a></span>
+<span class="normal"><a href="#__codelineno-14-18">18</a></span>
+<span class="normal"><a href="#__codelineno-14-19">19</a></span>
+<span class="normal"><a href="#__codelineno-14-20">20</a></span>
+<span class="normal"><a href="#__codelineno-14-21">21</a></span>
+<span class="normal"><a href="#__codelineno-14-22">22</a></span>
+<span class="normal"><a href="#__codelineno-14-23">23</a></span>
+<span class="normal"><a href="#__codelineno-14-24">24</a></span>
+<span class="normal"><a href="#__codelineno-14-25">25</a></span>
+<span class="normal"><a href="#__codelineno-14-26">26</a></span>
+<span class="normal"><a href="#__codelineno-14-27">27</a></span>
+<span class="normal"><a href="#__codelineno-14-28">28</a></span>
+<span class="normal"><a href="#__codelineno-14-29">29</a></span>
+<span class="normal"><a href="#__codelineno-14-30">30</a></span>
+<span class="normal"><a href="#__codelineno-14-31">31</a></span>
+<span class="normal"><a href="#__codelineno-14-32">32</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a>[+] Building 11.3s (12/12) FINISHED                                                                                           docker:default
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a> =&gt; [internal] load build definition from Dockerfile                                                                          0.0s
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3"></a> =&gt; =&gt; transferring dockerfile: 510B                                                                                          0.0s
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4"></a> =&gt; [internal] load .dockerignore                                                                                             0.0s
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5"></a> =&gt; =&gt; transferring context: 2B                                                                                               0.0s
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6"></a> =&gt; [internal] load metadata for docker.io/library/debian:12.4                                                                1.0s
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7"></a> =&gt; [stage3 1/3] FROM docker.io/library/debian:12.4@sha256:bac353db4cc04bc672b14029964e686cd7bad56fe34b51f432c1a1304b9928da   4.0s
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8"></a> =&gt; =&gt; resolve docker.io/library/debian:12.4@sha256:bac353db4cc04bc672b14029964e686cd7bad56fe34b51f432c1a1304b9928da          0.0s
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9"></a> =&gt; =&gt; sha256:bac353db4cc04bc672b14029964e686cd7bad56fe34b51f432c1a1304b9928da 1.85kB / 1.85kB                                0.0s
+</span><span id="__span-14-10"><a id="__codelineno-14-10" name="__codelineno-14-10"></a> =&gt; =&gt; sha256:0dc902c61cb495db4630a6dc2fa14cd45bd9f8515f27fbb12e3d73a119d30bf1 529B / 529B                                    0.0s
+</span><span id="__span-14-11"><a id="__codelineno-14-11" name="__codelineno-14-11"></a> =&gt; =&gt; sha256:2a033a8c63712da54b5a516f5d69d41606cfb5c4ce9aa1690ee55fc4f9babb92 1.46kB / 1.46kB                                0.0s
+</span><span id="__span-14-12"><a id="__codelineno-14-12" name="__codelineno-14-12"></a> =&gt; =&gt; sha256:bc0734b949dcdcabe5bfdf0c8b9f44491e0fce04cb10c9c6e76282b9f6abdf01 49.56MB / 49.56MB                              2.1s
+</span><span id="__span-14-13"><a id="__codelineno-14-13" name="__codelineno-14-13"></a> =&gt; =&gt; extracting sha256:bc0734b949dcdcabe5bfdf0c8b9f44491e0fce04cb10c9c6e76282b9f6abdf01                                     1.7s
+</span><span id="__span-14-14"><a id="__codelineno-14-14" name="__codelineno-14-14"></a> =&gt; [stage3 2/3] WORKDIR /app                                                                                                 0.1s
+</span><span id="__span-14-15"><a id="__codelineno-14-15" name="__codelineno-14-15"></a> =&gt; [stage2 3/3] RUN sleep 5 &amp;&amp; echo &quot;stage2 Done&quot; &gt; /app/result.log                                                          5.4s
+</span><span id="__span-14-16"><a id="__codelineno-14-16" name="__codelineno-14-16"></a> =&gt; [stage1 3/3] RUN sleep 5 &amp;&amp; echo &quot;stage1 Done&quot; &gt; /app/result.log                                                          5.7s
+</span><span id="__span-14-17"><a id="__codelineno-14-17" name="__codelineno-14-17"></a> =&gt; [stage3 3/3] RUN sleep 5 &amp;&amp; echo &quot;stage3 Done&quot; &gt; /app/result.log                                                          5.7s
+</span><span id="__span-14-18"><a id="__codelineno-14-18" name="__codelineno-14-18"></a> =&gt; [final 3/5] COPY --from=stage1 /app/result.log /app/stage1.log                                                            0.0s
+</span><span id="__span-14-19"><a id="__codelineno-14-19" name="__codelineno-14-19"></a> =&gt; [final 4/5] COPY --from=stage2 /app/result.log /app/stage2.log                                                            0.0s
+</span><span id="__span-14-20"><a id="__codelineno-14-20" name="__codelineno-14-20"></a> =&gt; [final 5/5] COPY --from=stage3 /app/result.log /app/stage3.log                                                            0.0s
+</span><span id="__span-14-21"><a id="__codelineno-14-21" name="__codelineno-14-21"></a> =&gt; exporting to image                                                                                                        0.1s
+</span><span id="__span-14-22"><a id="__codelineno-14-22" name="__codelineno-14-22"></a> =&gt; =&gt; exporting layers                                                                                                       0.1s
+</span><span id="__span-14-23"><a id="__codelineno-14-23" name="__codelineno-14-23"></a> =&gt; =&gt; writing image sha256:9a00f8d862f8f76d2fdebcafa1128c4be35aea5088804c431dc44101907ccb8e                                  0.0s
+</span><span id="__span-14-24"><a id="__codelineno-14-24" name="__codelineno-14-24"></a> =&gt; =&gt; naming to docker.io/library/parallel_test                                                                              0.0s
+</span><span id="__span-14-25"><a id="__codelineno-14-25" name="__codelineno-14-25"></a>
+</span><span id="__span-14-26"><a id="__codelineno-14-26" name="__codelineno-14-26"></a>What&#39;s Next?
+</span><span id="__span-14-27"><a id="__codelineno-14-27" name="__codelineno-14-27"></a>  1. Sign in to your Docker account → docker login
+</span><span id="__span-14-28"><a id="__codelineno-14-28" name="__codelineno-14-28"></a>  2. View a summary of image vulnerabilities and recommendations → docker scout quickview
+</span><span id="__span-14-29"><a id="__codelineno-14-29" name="__codelineno-14-29"></a>
+</span><span id="__span-14-30"><a id="__codelineno-14-30" name="__codelineno-14-30"></a>real    0m11.607s
+</span><span id="__span-14-31"><a id="__codelineno-14-31" name="__codelineno-14-31"></a>user    0m0.060s
+</span><span id="__span-14-32"><a id="__codelineno-14-32" name="__codelineno-14-32"></a>sys     0m0.176s
+</span></code></pre></div></td></tr></table></div></p>
+<blockquote>
+<p>The parallel build ran in 11.6 secs.</p>
+</blockquote>
+<p>Very cool!</p>
+<h3 id="notes"><a class="toclink" href="../../2024/01/09/parallelized-docker-builds/#notes">Notes</a></h3>
+<p>I was surprised to find this <code>Dockerfile</code> does not run the first and second stages if they're not used in the final stage:</p>
+<div class="language-Dockerfile highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-15-10">10</a></span>
+<span class="normal"><a href="#__codelineno-15-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="k">FROM</span><span class="w"> </span><span class="s">debian:12.4</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s">task1</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="k">RUN</span><span class="w"> </span>sleep<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;task1 Done&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/app/result.log
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4"></a>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="k">FROM</span><span class="w"> </span><span class="s">debian:12.4</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s">task2</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="k">RUN</span><span class="w"> </span>sleep<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;task2 Done&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/app/result.log
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8"></a>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9"></a><span class="k">FROM</span><span class="w"> </span><span class="s">debian:12.4</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="s">task3</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10"></a><span class="k">WORKDIR</span><span class="w"> </span><span class="s">/app</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11"></a><span class="k">RUN</span><span class="w"> </span>sleep<span class="w"> </span><span class="m">5</span><span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;task3 Done&quot;</span><span class="w"> </span>&gt;<span class="w"> </span>/app/result.log
+</span></code></pre></div></td></tr></table></div>
+<p>Docker detects that the <code>task1</code> and <code>task2</code> stages are not used in the <code>task3</code> stage (through a <code>COPY --from=...</code>), so it skips them!</p>
+<p><div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="nb">time</span><span class="w"> </span><span class="nv">DOCKER_BUILDKIT</span><span class="o">=</span><span class="m">1</span><span class="w"> </span>docker<span class="w"> </span>build<span class="w"> </span>--tag<span class="w"> </span>skip_test<span class="w"> </span>.
+</span></code></pre></div></td></tr></table></div>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-17-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-17-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-17-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-17-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-17-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-17-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-17-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-17-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-17-10">10</a></span>
+<span class="normal"><a href="#__codelineno-17-11">11</a></span>
+<span class="normal"><a href="#__codelineno-17-12">12</a></span>
+<span class="normal"><a href="#__codelineno-17-13">13</a></span>
+<span class="normal"><a href="#__codelineno-17-14">14</a></span>
+<span class="normal"><a href="#__codelineno-17-15">15</a></span>
+<span class="normal"><a href="#__codelineno-17-16">16</a></span>
+<span class="normal"><a href="#__codelineno-17-17">17</a></span>
+<span class="normal"><a href="#__codelineno-17-18">18</a></span>
+<span class="normal"><a href="#__codelineno-17-19">19</a></span>
+<span class="normal"><a href="#__codelineno-17-20">20</a></span>
+<span class="normal"><a href="#__codelineno-17-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a>[+] Building 6.2s (7/7) FINISHED                                                                                             docker:default
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2"></a> =&gt; [internal] load .dockerignore                                                                                            0.0s
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3"></a> =&gt; =&gt; transferring context: 2B                                                                                              0.0s
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4"></a> =&gt; [internal] load build definition from Dockerfile                                                                         0.0s
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5"></a> =&gt; =&gt; transferring dockerfile: 310B                                                                                         0.0s
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6"></a> =&gt; [internal] load metadata for docker.io/library/debian:12.4                                                               0.8s
+</span><span id="__span-17-7"><a id="__codelineno-17-7" name="__codelineno-17-7"></a> =&gt; [task3 1/3] FROM docker.io/library/debian:12.4@sha256:bac353db4cc04bc672b14029964e686cd7bad56fe34b51f432c1a1304b9928da   0.0s
+</span><span id="__span-17-8"><a id="__codelineno-17-8" name="__codelineno-17-8"></a> =&gt; CACHED [task3 2/3] WORKDIR /app                                                                                          0.0s
+</span><span id="__span-17-9"><a id="__codelineno-17-9" name="__codelineno-17-9"></a> =&gt; [task3 3/3] RUN sleep 5 &amp;&amp; echo &quot;task3 Done&quot; &gt; /app/result.log                                                           5.3s
+</span><span id="__span-17-10"><a id="__codelineno-17-10" name="__codelineno-17-10"></a> =&gt; exporting to image                                                                                                       0.0s
+</span><span id="__span-17-11"><a id="__codelineno-17-11" name="__codelineno-17-11"></a> =&gt; =&gt; exporting layers                                                                                                      0.0s
+</span><span id="__span-17-12"><a id="__codelineno-17-12" name="__codelineno-17-12"></a> =&gt; =&gt; writing image sha256:965ebe3258d6e1fb724b1130164dfdaae7ad2fef048f3fd21afcb8b9f9178f73                                 0.0s
+</span><span id="__span-17-13"><a id="__codelineno-17-13" name="__codelineno-17-13"></a> =&gt; =&gt; naming to docker.io/library/skip_test                                                                                 0.0s
+</span><span id="__span-17-14"><a id="__codelineno-17-14" name="__codelineno-17-14"></a>
+</span><span id="__span-17-15"><a id="__codelineno-17-15" name="__codelineno-17-15"></a>What&#39;s Next?
+</span><span id="__span-17-16"><a id="__codelineno-17-16" name="__codelineno-17-16"></a>  1. Sign in to your Docker account → docker login
+</span><span id="__span-17-17"><a id="__codelineno-17-17" name="__codelineno-17-17"></a>  2. View a summary of image vulnerabilities and recommendations → docker scout quickview
+</span><span id="__span-17-18"><a id="__codelineno-17-18" name="__codelineno-17-18"></a>
+</span><span id="__span-17-19"><a id="__codelineno-17-19" name="__codelineno-17-19"></a>real    0m6.584s
+</span><span id="__span-17-20"><a id="__codelineno-17-20" name="__codelineno-17-20"></a>user    0m0.066s
+</span><span id="__span-17-21"><a id="__codelineno-17-21" name="__codelineno-17-21"></a>sys     0m0.162s
+</span></code></pre></div></td></tr></table></div></p>
+<blockquote>
+<p>Note the missing <code>task1</code> and <code>task2</code> stages in the output above.</p>
+</blockquote>
+<h3 id="references"><a class="toclink" href="../../2024/01/09/parallelized-docker-builds/#references">References</a></h3>
+<ul>
+<li><a href="https://docs.docker.com/build/guide/multi-stage/#parallelism">Multi-stage | Docker Docs</a></li>
+</ul>
+    <nav class="md-post__action">
+      <a href="../../2024/01/09/parallelized-docker-builds/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
