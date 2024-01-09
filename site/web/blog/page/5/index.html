@@ -355,6 +355,8 @@
       
         
       
+        
+      
     
     
     
@@ -384,6 +386,29 @@
             Archive
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../archive/2024/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -916,6 +941,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#stringbuilder" class="md-nav__link">
+    <span class="md-ellipsis">
+      StringBuilder
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#use-powershell-to-spin-up-an-integration-test-api" class="md-nav__link">
     <span class="md-ellipsis">
       Use PowerShell to Spin Up an Integration Test API
@@ -942,15 +976,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#sql-server-on-docker" class="md-nav__link">
-    <span class="md-ellipsis">
-      SQL SERVER on Docker
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -965,6 +990,187 @@
       <header class="md-typeset">
         <h1 id="blog">Blog</h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2020-05-17 00:00:00">May 17, 2020</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/fsharp/" class="md-meta__link">FSharp</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="stringbuilder"><a class="toclink" href="../../2020/05/17/stringbuilder/">StringBuilder</a></h2>
+<p>Numerous .NET resources reference <code>StringBuilder</code> as the preferred method for building strings rather than concatentating.  </p>
+<p>The Microsoft docs describe it this way:</p>
+<blockquote>
+<p>"The String object is immutable. Every time you use one of the methods in the System.String class, you create a new string object in memory, which requires a new allocation of space for that new object. In situations where you need to perform repeated modifications to a string, the overhead associated with creating a new String object can be costly."</p>
+<p><strong><em>Ref</em></strong>:  https://docs.microsoft.com/en-us/dotnet/standard/base-types/stringbuilder</p>
+</blockquote>
+<p>But, just how costly is it?  Let's setup a quick performance test to investigate.  We'll create two functions:  <code>stringAdder</code>, <code>stringBuilder</code>.  Both will ignore the final results since we are investigating performance only.  Also, let's use a simple string of the alphabet.</p>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span>
+<span class="normal"><a href="#__codelineno-1-16">16</a></span>
+<span class="normal"><a href="#__codelineno-1-17">17</a></span>
+<span class="normal"><a href="#__codelineno-1-18">18</a></span>
+<span class="normal"><a href="#__codelineno-1-19">19</a></span>
+<span class="normal"><a href="#__codelineno-1-20">20</a></span>
+<span class="normal"><a href="#__codelineno-1-21">21</a></span>
+<span class="normal"><a href="#__codelineno-1-22">22</a></span>
+<span class="normal"><a href="#__codelineno-1-23">23</a></span>
+<span class="normal"><a href="#__codelineno-1-24">24</a></span>
+<span class="normal"><a href="#__codelineno-1-25">25</a></span>
+<span class="normal"><a href="#__codelineno-1-26">26</a></span>
+<span class="normal"><a href="#__codelineno-1-27">27</a></span>
+<span class="normal"><a href="#__codelineno-1-28">28</a></span>
+<span class="normal"><a href="#__codelineno-1-29">29</a></span>
+<span class="normal"><a href="#__codelineno-1-30">30</a></span>
+<span class="normal"><a href="#__codelineno-1-31">31</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">open</span><span class="w"> </span><span class="nn">System</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="c1">// Simple concatentation</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="k">let</span><span class="w"> </span><span class="nv">stringAdder</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">reduce</span><span class="w"> </span><span class="o">(+)</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">ignore</span>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="c1">// Build up the final string with StringBuilder</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="k">let</span><span class="w"> </span><span class="nv">stringBuilder</span><span class="w"> </span><span class="o">(</span><span class="n">xs</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="kt">list</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">buf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nn">Text</span><span class="p">.</span><span class="n">StringBuilder</span><span class="bp">()</span>
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">    </span><span class="n">buf</span><span class="o">.</span><span class="n">Append</span><span class="w"> </span><span class="n">xs</span><span class="o">.</span><span class="n">Head</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">    </span><span class="n">xs</span><span class="o">.</span><span class="n">Tail</span>
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">iter</span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">buf</span><span class="o">.</span><span class="n">Append</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span><span class="o">)</span>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="w">    </span><span class="n">buf</span><span class="w"> </span>
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span>
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="k">let</span><span class="w"> </span><span class="nv">genText</span><span class="w"> </span><span class="o">(</span><span class="n">folder</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">unit</span><span class="o">)</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">xs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="k">for</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="o">..</span><span class="n">count</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;abcdefghijklmnopqrstuvwxyz&quot;</span><span class="o">]</span>
+</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="w">    </span><span class="n">xs</span>
+</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">folder</span>
+</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18"></a>
+</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="mi">10</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
+</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="mi">100</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
+</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="mi">1000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
+</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22"></a><span class="mi">10000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
+</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23"></a><span class="mi">100000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
+</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24"></a>
+</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25"></a><span class="mi">10</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26"></a><span class="mi">100</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="mi">1000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28"></a><span class="mi">10000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29"></a><span class="mi">100000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30"></a><span class="mi">1000000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31"></a><span class="mi">10000000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Wrapping each of working lines above with <code>#time</code> in fsi generates the following stats.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Count</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Adder</td>
+<td>10</td>
+<td>00:00:00.002</td>
+</tr>
+<tr>
+<td>Adder</td>
+<td>100</td>
+<td>00:00:00.000</td>
+</tr>
+<tr>
+<td>Adder</td>
+<td>1,000</td>
+<td>00:00:00.020</td>
+</tr>
+<tr>
+<td>Adder</td>
+<td>10,000</td>
+<td>00:00:01.629</td>
+</tr>
+<tr>
+<td>Adder</td>
+<td>100,000</td>
+<td>***Overflow</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>10</td>
+<td>00:00:00.001</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>100</td>
+<td>00:00:00.000</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>1,000</td>
+<td>00:00:00.000</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>10,000</td>
+<td>00:00:00.001</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>100,000</td>
+<td>00:00:00.031</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>1,000,000</td>
+<td>00:00:00.292</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>10,000,000</td>
+<td>00:00:03.078</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>100,000,000</td>
+<td>***Overflow</td>
+</tr>
+</tbody>
+</table>
+    <nav class="md-post__action">
+      <a href="../../2020/05/17/stringbuilder/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
@@ -1254,67 +1460,6 @@
 </span></code></pre></div></td></tr></table></div>
     <nav class="md-post__action">
       <a href="../../2020/02/24/t-sql-recursive-cte-common-table-expression/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2019-12-07 00:00:00">December 7, 2019</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../category/docker/" class="md-meta__link">Docker</a>, 
-              <a href="../../category/sql-server/" class="md-meta__link">SQL SERVER</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              1 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="sql-server-on-docker"><a class="toclink" href="../../2019/12/07/docker-sql-server/">SQL SERVER on Docker</a></h2>
-<p>Setting up SQL SERVER on a Docker Container is so <strong><em>easy</em></strong> that I cringe at all of the times that I have installed a full-blown SQL SERVER instance on my systems in the past.  </p>
-<blockquote>
-<p>What used to take a few hours with several touch points, now just takes a couple of commands and a few mins.</p>
-</blockquote>
-<p>Also, since this is on Docker, SQL SERVER is fully isolated from the rest of my system.</p>
-<h3 id="lets-get-this-done"><a class="toclink" href="../../2019/12/07/docker-sql-server/#lets-get-this-done">Let's Get This Done</a></h3>
-<p>Install the latest with <code>docker pull</code>:</p>
-<div class="language-powershell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="n">docker</span> <span class="n">pull</span> <span class="n">mcr</span><span class="p">.</span><span class="n">microsoft</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">mssql</span><span class="p">/</span><span class="n">server</span><span class="p">:</span><span class="n">2017-latest</span>
-</span></code></pre></div></td></tr></table></div>
-<p>Set the SA password:</p>
-<div class="language-powershell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
-<span class="normal"><a href="#__codelineno-7-2">2</a></span>
-<span class="normal"><a href="#__codelineno-7-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="n">docker</span> <span class="n">run</span> <span class="n">-e</span> <span class="s2">&quot;ACCEPT_EULA=Y&quot;</span> <span class="n">-e</span> <span class="s2">&quot;SA_PASSWORD=&lt;YourStrong@Passw0rd&gt;&quot;</span> <span class="p">`</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>   <span class="n">-p</span> <span class="n">1433</span><span class="p">:</span><span class="n">1433</span> <span class="p">-</span><span class="n">-name</span> <span class="n">sql1</span> <span class="p">`</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a>   <span class="n">-d</span> <span class="n">mcr</span><span class="p">.</span><span class="n">microsoft</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">mssql</span><span class="p">/</span><span class="n">server</span><span class="p">:</span><span class="n">2017-latest</span>
-</span></code></pre></div></td></tr></table></div>
-<p>Now, you are free to connect to it with <strong>sqlcmd</strong>, or you can connect directly from SQL SERVER Management Studio:</p>
-<p>Be sure to use the <code>hostname</code> as the <strong>Server name</strong>.</p>
-<blockquote>
-<p>This entire setup took 5 mins and is amazingly simple!</p>
-</blockquote>
-<h3 id="refs"><a class="toclink" href="../../2019/12/07/docker-sql-server/#refs">Refs</a></h3>
-<ul>
-<li><a href="https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-2017&amp;pivots=cs1-powershell">https://docs.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-2017&amp;pivots=cs1-powershell</a></li>
-</ul>
-    <nav class="md-post__action">
-      <a href="../../2019/12/07/docker-sql-server/">
         Continue reading
       </a>
     </nav>

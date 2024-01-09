@@ -1,14 +1,14 @@
 ---
-title: Use Kubernetes for Development
+title: Development Integration
 date: 2024-01-08
-description: Use Kubernetes for development
+description: Design a development workflow that takes different levels of integration into account.
 ---
 
 # Problem
 
 When developing microservices, we often run into the problem of needing other services to be available to test our application.  Our development flow should have different levels of integration.
 
-## Levels of integration
+## Levels of Integration
 
 1. **Isolate:** Develop the service in isolation from other services.
 2. **Relate:** Develop the service alongside other, highly related services.
@@ -33,4 +33,4 @@ At this level of integration, we'll also need to isolate dependencies on other s
 
 ### Isolate
 
-At the first level, we should develop our service in complete isolation from all other services.  This gives us the freedom to prototype and to iterate on our service more rapidly.
+At the first level, we should develop our service in complete isolation from all other services.  This gives us the freedom to prototype and to iterate on our service more rapidly.  We can use our standard tooling for development a service in a given framework.

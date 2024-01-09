@@ -355,6 +355,8 @@
       
         
       
+        
+      
     
     
     
@@ -384,6 +386,29 @@
             Archive
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../archive/2024/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -916,6 +941,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#sql-server-on-docker-with-sqlcmd" class="md-nav__link">
+    <span class="md-ellipsis">
+      SQL SERVER on Docker with SQLCMD
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#apod-azure-function" class="md-nav__link">
     <span class="md-ellipsis">
       APOD Azure Function
@@ -942,15 +976,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#stringbuilder" class="md-nav__link">
-    <span class="md-ellipsis">
-      StringBuilder
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -965,6 +990,184 @@
       <header class="md-typeset">
         <h1 id="blog">Blog</h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2020-08-02 00:00:00">August 2, 2020</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/docker/" class="md-meta__link">Docker</a>, 
+              <a href="../../category/sql-server/" class="md-meta__link">SQL SERVER</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="sql-server-on-docker-with-sqlcmd"><a class="toclink" href="../../2020/08/02/sql-server-on-docker-with-sqlcmd/">SQL SERVER on Docker with SQLCMD</a></h2>
+<p>Let's revisit a previous <a href="../../2019/12/07/docker-sql-server/">post</a> about using Docker to create a SQL SERVER image.  Previously, I connected to the DB with SQL SERVER Management Studio (SSMS), but now, I'd like to use <code>sqlcmd</code> to avoid running other tools.</p>
+<p>Let's get the latest mssql image for Linux this time from https://hub.docker.com/_/microsoft-mssql-server.</p>
+<div class="language-powershell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="c"># Pull the Image</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="n">docker</span> <span class="n">pull</span> <span class="n">mcr</span><span class="p">.</span><span class="n">microsoft</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">mssql</span><span class="p">/</span><span class="n">server</span><span class="p">:</span><span class="n">2019-CU5-ubuntu</span><span class="p">-</span><span class="n">16</span><span class="p">.</span><span class="n">04</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="c"># Run the Container</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="n">docker</span> <span class="n">run</span> <span class="n">-e</span> <span class="s1">&#39;ACCEPT_EULA=Y&#39;</span> <span class="n">-e</span> <span class="s1">&#39;SA_PASSWORD=...&#39;</span> <span class="n">-p</span> <span class="n">1433</span><span class="p">:</span><span class="n">1433</span> <span class="p">-</span><span class="n">-name</span> <span class="n">sql1</span> <span class="n">-d</span> <span class="n">mcr</span><span class="p">.</span><span class="n">microsoft</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">mssql</span><span class="p">/</span><span class="n">server</span><span class="p">:</span><span class="n">2019-CU5-ubuntu</span><span class="p">-</span><span class="n">16</span><span class="p">.</span><span class="n">04</span>
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="c"># Start an Interactive Shell</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="n">docker</span> <span class="n">exec</span> <span class="n">-it</span> <span class="n">sql1</span> <span class="p">/</span><span class="n">bin</span><span class="p">/</span><span class="n">bash</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9"></a>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="c"># Test SQLCMD</span>
+</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="n">opt</span><span class="p">/</span><span class="n">mssql-tools</span><span class="p">/</span><span class="n">bin</span><span class="p">/</span><span class="n">sqlcmd</span> <span class="p">-?</span>
+</span></code></pre></div></td></tr></table></div>
+<blockquote>
+<p>Output</p>
+</blockquote>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-10-10">10</a></span>
+<span class="normal"><a href="#__codelineno-10-11">11</a></span>
+<span class="normal"><a href="#__codelineno-10-12">12</a></span>
+<span class="normal"><a href="#__codelineno-10-13">13</a></span>
+<span class="normal"><a href="#__codelineno-10-14">14</a></span>
+<span class="normal"><a href="#__codelineno-10-15">15</a></span>
+<span class="normal"><a href="#__codelineno-10-16">16</a></span>
+<span class="normal"><a href="#__codelineno-10-17">17</a></span>
+<span class="normal"><a href="#__codelineno-10-18">18</a></span>
+<span class="normal"><a href="#__codelineno-10-19">19</a></span>
+<span class="normal"><a href="#__codelineno-10-20">20</a></span>
+<span class="normal"><a href="#__codelineno-10-21">21</a></span>
+<span class="normal"><a href="#__codelineno-10-22">22</a></span>
+<span class="normal"><a href="#__codelineno-10-23">23</a></span>
+<span class="normal"><a href="#__codelineno-10-24">24</a></span>
+<span class="normal"><a href="#__codelineno-10-25">25</a></span>
+<span class="normal"><a href="#__codelineno-10-26">26</a></span>
+<span class="normal"><a href="#__codelineno-10-27">27</a></span>
+<span class="normal"><a href="#__codelineno-10-28">28</a></span>
+<span class="normal"><a href="#__codelineno-10-29">29</a></span>
+<span class="normal"><a href="#__codelineno-10-30">30</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a>Microsoft (R) SQL Server Command Line Tool
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a>Version 17.5.0002.1 Linux
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a>Copyright (C) 2017 Microsoft Corporation. All rights reserved.
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5"></a>usage: sqlcmd            [-U login id]          [-P password]
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6"></a>  [-S server or Dsn if -D is provided]
+</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7"></a>  [-H hostname]          [-E trusted connection]
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8"></a>  [-N Encrypt Connection][-C Trust Server Certificate]
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9"></a>  [-d use database name] [-l login timeout]     [-t query timeout]
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10"></a>  [-h headers]           [-s colseparator]      [-w screen width]
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11"></a>  [-a packetsize]        [-e echo input]        [-I Enable Quoted Identifiers]
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12"></a>  [-c cmdend]
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13"></a>  [-q &quot;cmdline query&quot;]   [-Q &quot;cmdline query&quot; and exit]
+</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14"></a>  [-m errorlevel]        [-V severitylevel]     [-W remove trailing spaces]
+</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15"></a>  [-u unicode output]    [-r[0|1] msgs to stderr]
+</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16"></a>  [-i inputfile]         [-o outputfile]
+</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17"></a>  [-k[1|2] remove[replace] control characters]
+</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18"></a>  [-y variable length type display width]
+</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19"></a>  [-Y fixed length type display width]
+</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20"></a>  [-p[1] print statistics[colon format]]
+</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21"></a>  [-R use client regional setting]
+</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22"></a>  [-K application intent]
+</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23"></a>  [-M multisubnet failover]
+</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24"></a>  [-b On error batch abort]
+</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25"></a>  [-D Dsn flag, indicate -S is Dsn]
+</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26"></a>  [-X[1] disable commands, startup script, environment variables [and exit]]
+</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27"></a>  [-x disable variable substitution]
+</span><span id="__span-10-28"><a id="__codelineno-10-28" name="__codelineno-10-28"></a>  [-g enable column encryption]
+</span><span id="__span-10-29"><a id="__codelineno-10-29" name="__codelineno-10-29"></a>  [-G use Azure Active Directory for authentication]
+</span><span id="__span-10-30"><a id="__codelineno-10-30" name="__codelineno-10-30"></a>  [-? show syntax summary]
+</span></code></pre></div></td></tr></table></div>
+<div class="language-powershell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
+<span class="normal"><a href="#__codelineno-11-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="c"># Run SQLCMD</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="n">opt</span><span class="p">/</span><span class="n">mssql-tools</span><span class="p">/</span><span class="n">bin</span><span class="p">/</span><span class="n">sqlcmd</span> <span class="n">-S</span> <span class="n">localhost</span> <span class="n">-U</span> <span class="n">sa</span> <span class="n">-P</span> <span class="n">Password12345</span> <span class="n">-Q</span> <span class="s2">&quot;SELECT * FROM INFORMATION_SCHEMA.TABLES&quot;</span>
+</span></code></pre></div></td></tr></table></div>
+<table>
+<thead>
+<tr>
+<th>TABLE_CATALOG</th>
+<th>TABLE_SCHEMA</th>
+<th>TABLE_NAME</th>
+<th>TABLE_TYPE</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>master</td>
+<td>dbo</td>
+<td>spt_fallback_db</td>
+<td>BASE TABLE</td>
+</tr>
+<tr>
+<td>master</td>
+<td>dbo</td>
+<td>spt_fallback_dev</td>
+<td>BASE TABLE</td>
+</tr>
+<tr>
+<td>master</td>
+<td>dbo</td>
+<td>spt_fallback_usg</td>
+<td>BASE TABLE</td>
+</tr>
+<tr>
+<td>master</td>
+<td>dbo</td>
+<td>spt_values</td>
+<td>VIEW</td>
+</tr>
+<tr>
+<td>master</td>
+<td>dbo</td>
+<td>spt_monitor</td>
+<td>BASE TABLE</td>
+</tr>
+<tr>
+<td>master</td>
+<td>dbo</td>
+<td>MSreplication_options</td>
+<td>BASE TABLE</td>
+</tr>
+</tbody>
+</table>
+<blockquote>
+<p>Very Nice!</p>
+</blockquote>
+    <nav class="md-post__action">
+      <a href="../../2020/08/02/sql-server-on-docker-with-sqlcmd/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
@@ -1272,187 +1475,6 @@
 <p>This is the truly <em>zen</em> mode of coding!</p>
     <nav class="md-post__action">
       <a href="../../2020/05/17/lib-and-coffee/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2020-05-17 00:00:00">May 17, 2020</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../category/fsharp/" class="md-meta__link">FSharp</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              2 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="stringbuilder"><a class="toclink" href="../../2020/05/17/stringbuilder/">StringBuilder</a></h2>
-<p>Numerous .NET resources reference <code>StringBuilder</code> as the preferred method for building strings rather than concatentating.  </p>
-<p>The Microsoft docs describe it this way:</p>
-<blockquote>
-<p>"The String object is immutable. Every time you use one of the methods in the System.String class, you create a new string object in memory, which requires a new allocation of space for that new object. In situations where you need to perform repeated modifications to a string, the overhead associated with creating a new String object can be costly."</p>
-<p><strong><em>Ref</em></strong>:  https://docs.microsoft.com/en-us/dotnet/standard/base-types/stringbuilder</p>
-</blockquote>
-<p>But, just how costly is it?  Let's setup a quick performance test to investigate.  We'll create two functions:  <code>stringAdder</code>, <code>stringBuilder</code>.  Both will ignore the final results since we are investigating performance only.  Also, let's use a simple string of the alphabet.</p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-1-10">10</a></span>
-<span class="normal"><a href="#__codelineno-1-11">11</a></span>
-<span class="normal"><a href="#__codelineno-1-12">12</a></span>
-<span class="normal"><a href="#__codelineno-1-13">13</a></span>
-<span class="normal"><a href="#__codelineno-1-14">14</a></span>
-<span class="normal"><a href="#__codelineno-1-15">15</a></span>
-<span class="normal"><a href="#__codelineno-1-16">16</a></span>
-<span class="normal"><a href="#__codelineno-1-17">17</a></span>
-<span class="normal"><a href="#__codelineno-1-18">18</a></span>
-<span class="normal"><a href="#__codelineno-1-19">19</a></span>
-<span class="normal"><a href="#__codelineno-1-20">20</a></span>
-<span class="normal"><a href="#__codelineno-1-21">21</a></span>
-<span class="normal"><a href="#__codelineno-1-22">22</a></span>
-<span class="normal"><a href="#__codelineno-1-23">23</a></span>
-<span class="normal"><a href="#__codelineno-1-24">24</a></span>
-<span class="normal"><a href="#__codelineno-1-25">25</a></span>
-<span class="normal"><a href="#__codelineno-1-26">26</a></span>
-<span class="normal"><a href="#__codelineno-1-27">27</a></span>
-<span class="normal"><a href="#__codelineno-1-28">28</a></span>
-<span class="normal"><a href="#__codelineno-1-29">29</a></span>
-<span class="normal"><a href="#__codelineno-1-30">30</a></span>
-<span class="normal"><a href="#__codelineno-1-31">31</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">open</span><span class="w"> </span><span class="nn">System</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="c1">// Simple concatentation</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="k">let</span><span class="w"> </span><span class="nv">stringAdder</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">reduce</span><span class="w"> </span><span class="o">(+)</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">ignore</span>
-</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="c1">// Build up the final string with StringBuilder</span>
-</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="k">let</span><span class="w"> </span><span class="nv">stringBuilder</span><span class="w"> </span><span class="o">(</span><span class="n">xs</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="kt">list</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">buf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nn">Text</span><span class="p">.</span><span class="n">StringBuilder</span><span class="bp">()</span>
-</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a><span class="w">    </span><span class="n">buf</span><span class="o">.</span><span class="n">Append</span><span class="w"> </span><span class="n">xs</span><span class="o">.</span><span class="n">Head</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span>
-</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a><span class="w">    </span><span class="n">xs</span><span class="o">.</span><span class="n">Tail</span>
-</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">iter</span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">buf</span><span class="o">.</span><span class="n">Append</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span><span class="o">)</span>
-</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a><span class="w">    </span><span class="n">buf</span><span class="w"> </span>
-</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span>
-</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a><span class="k">let</span><span class="w"> </span><span class="nv">genText</span><span class="w"> </span><span class="o">(</span><span class="n">folder</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">unit</span><span class="o">)</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">xs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="k">for</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="o">..</span><span class="n">count</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;abcdefghijklmnopqrstuvwxyz&quot;</span><span class="o">]</span>
-</span><span id="__span-1-16"><a id="__codelineno-1-16" name="__codelineno-1-16"></a><span class="w">    </span><span class="n">xs</span>
-</span><span id="__span-1-17"><a id="__codelineno-1-17" name="__codelineno-1-17"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">folder</span>
-</span><span id="__span-1-18"><a id="__codelineno-1-18" name="__codelineno-1-18"></a>
-</span><span id="__span-1-19"><a id="__codelineno-1-19" name="__codelineno-1-19"></a><span class="mi">10</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
-</span><span id="__span-1-20"><a id="__codelineno-1-20" name="__codelineno-1-20"></a><span class="mi">100</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
-</span><span id="__span-1-21"><a id="__codelineno-1-21" name="__codelineno-1-21"></a><span class="mi">1000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
-</span><span id="__span-1-22"><a id="__codelineno-1-22" name="__codelineno-1-22"></a><span class="mi">10000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
-</span><span id="__span-1-23"><a id="__codelineno-1-23" name="__codelineno-1-23"></a><span class="mi">100000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
-</span><span id="__span-1-24"><a id="__codelineno-1-24" name="__codelineno-1-24"></a>
-</span><span id="__span-1-25"><a id="__codelineno-1-25" name="__codelineno-1-25"></a><span class="mi">10</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
-</span><span id="__span-1-26"><a id="__codelineno-1-26" name="__codelineno-1-26"></a><span class="mi">100</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
-</span><span id="__span-1-27"><a id="__codelineno-1-27" name="__codelineno-1-27"></a><span class="mi">1000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
-</span><span id="__span-1-28"><a id="__codelineno-1-28" name="__codelineno-1-28"></a><span class="mi">10000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
-</span><span id="__span-1-29"><a id="__codelineno-1-29" name="__codelineno-1-29"></a><span class="mi">100000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
-</span><span id="__span-1-30"><a id="__codelineno-1-30" name="__codelineno-1-30"></a><span class="mi">1000000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
-</span><span id="__span-1-31"><a id="__codelineno-1-31" name="__codelineno-1-31"></a><span class="mi">10000000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
-</span></code></pre></div></td></tr></table></div>
-<p>Wrapping each of working lines above with <code>#time</code> in fsi generates the following stats.</p>
-<table>
-<thead>
-<tr>
-<th>Type</th>
-<th>Count</th>
-<th>Time</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>Adder</td>
-<td>10</td>
-<td>00:00:00.002</td>
-</tr>
-<tr>
-<td>Adder</td>
-<td>100</td>
-<td>00:00:00.000</td>
-</tr>
-<tr>
-<td>Adder</td>
-<td>1,000</td>
-<td>00:00:00.020</td>
-</tr>
-<tr>
-<td>Adder</td>
-<td>10,000</td>
-<td>00:00:01.629</td>
-</tr>
-<tr>
-<td>Adder</td>
-<td>100,000</td>
-<td>***Overflow</td>
-</tr>
-<tr>
-<td>Builder</td>
-<td>10</td>
-<td>00:00:00.001</td>
-</tr>
-<tr>
-<td>Builder</td>
-<td>100</td>
-<td>00:00:00.000</td>
-</tr>
-<tr>
-<td>Builder</td>
-<td>1,000</td>
-<td>00:00:00.000</td>
-</tr>
-<tr>
-<td>Builder</td>
-<td>10,000</td>
-<td>00:00:00.001</td>
-</tr>
-<tr>
-<td>Builder</td>
-<td>100,000</td>
-<td>00:00:00.031</td>
-</tr>
-<tr>
-<td>Builder</td>
-<td>1,000,000</td>
-<td>00:00:00.292</td>
-</tr>
-<tr>
-<td>Builder</td>
-<td>10,000,000</td>
-<td>00:00:03.078</td>
-</tr>
-<tr>
-<td>Builder</td>
-<td>100,000,000</td>
-<td>***Overflow</td>
-</tr>
-</tbody>
-</table>
-    <nav class="md-post__action">
-      <a href="../../2020/05/17/stringbuilder/">
         Continue reading
       </a>
     </nav>

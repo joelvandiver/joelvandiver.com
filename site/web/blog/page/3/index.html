@@ -355,6 +355,8 @@
       
         
       
+        
+      
     
     
     
@@ -384,6 +386,29 @@
             Archive
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../archive/2024/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -916,6 +941,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#git-flow" class="md-nav__link">
+    <span class="md-ellipsis">
+      Git Flow
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#decorators" class="md-nav__link">
     <span class="md-ellipsis">
       Decorators
@@ -942,15 +976,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#sql-server-on-docker-with-sqlcmd" class="md-nav__link">
-    <span class="md-ellipsis">
-      SQL SERVER on Docker with SQLCMD
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -965,6 +990,99 @@
       <header class="md-typeset">
         <h1 id="blog">Blog</h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2021-06-08 00:00:00">June 8, 2021</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/git/" class="md-meta__link">Git</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              3 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="git-flow"><a class="toclink" href="../../2021/06/08/git-flow/">Git Flow</a></h2>
+<p>First off, you're doing great! You are doing your best to keep track of the changes to your system.  The people on your team know what's going on ... usually.  Code conflicts only turn into actual conflicts sporadically.  But, hey, that's just part of the game, isn't it?  You only run <code>git blame</code> sometimes - no, not to <em>shame</em> anyone, just <em>blame</em>.  </p>
+<p>But, we can do better!</p>
+<hr />
+<p>Git is a powerful (if not all-consuming) source control system.  I've been using it for a number of years now, and my particular workflow with Git has changed pretty dramatically over time.  </p>
+<h3 id="git-push-pull-flow"><a class="toclink" href="../../2021/06/08/git-flow/#git-push-pull-flow">Git Push-Pull Flow</a></h3>
+<p>In my early days of learning and using Git, I opted for the simple push-pull workflow.  The workflow was simply:</p>
+<ol>
+<li>Fetch other developers' code.</li>
+<li>Merge the changes.</li>
+<li>Resolve any conflicts.</li>
+<li>Commit the changes.</li>
+<li>Push the new commit.</li>
+</ol>
+<p>If there are no conflicts, then the above workflow shortens down to:</p>
+<ol>
+<li>Fetch other developers' code.</li>
+<li>Merge the changes with fast-forward. (No new commit!)</li>
+</ol>
+<p>This works fine for small systems but begins to have difficulties with larger systems.  Systems grow in complexity in a number of ways, including:  </p>
+<ul>
+<li>number of developers</li>
+<li>number of existing features</li>
+<li>number of features in development</li>
+<li>number of distributed sub-systems</li>
+<li>number of languages and frameworks</li>
+<li>number of supported environments </li>
+<li>different users per environment </li>
+<li>quantity of code</li>
+<li>etc.</li>
+</ul>
+<h4 id="noisy-commits"><a class="toclink" href="../../2021/06/08/git-flow/#noisy-commits">Noisy Commits</a></h4>
+<p>The difficulty comes from providing a <em>meaningful</em> commit log of the changes over time in complex systems.</p>
+<h5 id="feature-branch-commits"><a class="toclink" href="../../2021/06/08/git-flow/#feature-branch-commits">Feature Branch Commits</a></h5>
+<p>Developers should be branching their code while working through a feature.  And, they should be trying things out in that branch.  This can and should lead to <em>learning</em> moments.  Learning means the developer found a better way.  Commit after commit may say something like "Changed this thing" and "Undid my last change because of this reason".  </p>
+<blockquote>
+<p><strong>Anger-Danger</strong>:  Coming across the previous commit may lead to unexpected conclusions about the <em>current</em> state of the system. What do you mean you "Changed this thing"?  </p>
+</blockquote>
+<h5 id="merge-commits"><a class="toclink" href="../../2021/06/08/git-flow/#merge-commits">Merge Commits</a></h5>
+<p>Probably a little less egregious but nonetheless annoying is the "Merge Commit" commit (ironic redundancy?).  It's likely that most developers would agree that a commit titled, "Merge Commit" is generally not helpful.  So what?  You merged the branches.  What did you actually do to the system?</p>
+<h5 id="cleanup-commits"><a class="toclink" href="../../2021/06/08/git-flow/#cleanup-commits">"CLEANUP" Commits</a></h5>
+<p>Should developers be cleaning their code?  Of course they should!  How helpful is a commit that says something like, "Removed unnecessary whitespace; provided better variable names; did such and such and yada yada."</p>
+<p>Ha!  I even went a step further and waited for a valid commit message to commit cleanup changes.  Garbage!</p>
+<h3 id="squash-rebase-flow"><a class="toclink" href="../../2021/06/08/git-flow/#squash-rebase-flow">Squash-Rebase Flow</a></h3>
+<p>So, how do we get rid of those pesky commits?  Well, <em>squash</em> them or <em>rebase</em> your work on top of another developer's work.  Granted both ideas may seem a little less intuitive at first from Push-Pull, but hang in there.  </p>
+<h4 id="squash-commit"><a class="toclink" href="../../2021/06/08/git-flow/#squash-commit">Squash Commit</a></h4>
+<p>Squashing your commits is to create a new commit with the <strong>net-result</strong> of several commits.  This effectively throws away the intermediate commit messages and the details about the specific changes to that commit.</p>
+<h5 id="reset-commit"><a class="toclink" href="../../2021/06/08/git-flow/#reset-commit">Reset Commit</a></h5>
+<p>A corollary to a squash commit is to reset (<code>git reset --soft</code>) a current branch to a commit.  If you want to clean several commits <em>before</em> pushing, then you can reset to the commit just before the last one you want to remove.  Then, you can commit all of the changes that are left in your repository.</p>
+<h4 id="rebase-commit"><a class="toclink" href="../../2021/06/08/git-flow/#rebase-commit">Rebase Commit</a></h4>
+<p>It took me awhile to get my mind around rebase.  This probably stemmed from my lack of use of the word itself.  Instead of merging two branches, you can treat the other branch as the new <em>base</em> of your current branch.  Git will take each of your commits beyond the split of the two branches and <em>reapply</em> them to the rebased branch.  </p>
+<hr />
+<p>That's it!  Now, you can create clean and meaningful commit logs that you can use for debugging, blaming (shame-shame), or release tracking.  Get rid of those pesky commits!</p>
+<blockquote>
+<h4 id="ps-beyond-git"><a class="toclink" href="../../2021/06/08/git-flow/#ps-beyond-git">P.S. Beyond Git</a></h4>
+<ul>
+<li>Now enter <em>pull request</em>, <em>merge request</em>, and the like.  Systems such as Github and GitLab provide tooling to the heavy lifting for squashing and rebasing for you while also providing the ability to capture comments and other details to request.  </li>
+</ul>
+</blockquote>
+    <nav class="md-post__action">
+      <a href="../../2021/06/08/git-flow/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
@@ -1464,184 +1582,6 @@
 <p>Now, we just have a simple function in our <code>Lib</code>.  It doesn't require any stubbing or mocking.  Very nice indeed!</p>
     <nav class="md-post__action">
       <a href="../../2020/09/12/avoid-mockingstubbing-services/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2020-08-02 00:00:00">August 2, 2020</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../category/docker/" class="md-meta__link">Docker</a>, 
-              <a href="../../category/sql-server/" class="md-meta__link">SQL SERVER</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              2 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="sql-server-on-docker-with-sqlcmd"><a class="toclink" href="../../2020/08/02/sql-server-on-docker-with-sqlcmd/">SQL SERVER on Docker with SQLCMD</a></h2>
-<p>Let's revisit a previous <a href="../../2019/12/07/docker-sql-server/">post</a> about using Docker to create a SQL SERVER image.  Previously, I connected to the DB with SQL SERVER Management Studio (SSMS), but now, I'd like to use <code>sqlcmd</code> to avoid running other tools.</p>
-<p>Let's get the latest mssql image for Linux this time from https://hub.docker.com/_/microsoft-mssql-server.</p>
-<div class="language-powershell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-9-10">10</a></span>
-<span class="normal"><a href="#__codelineno-9-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="c"># Pull the Image</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="n">docker</span> <span class="n">pull</span> <span class="n">mcr</span><span class="p">.</span><span class="n">microsoft</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">mssql</span><span class="p">/</span><span class="n">server</span><span class="p">:</span><span class="n">2019-CU5-ubuntu</span><span class="p">-</span><span class="n">16</span><span class="p">.</span><span class="n">04</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="c"># Run the Container</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="n">docker</span> <span class="n">run</span> <span class="n">-e</span> <span class="s1">&#39;ACCEPT_EULA=Y&#39;</span> <span class="n">-e</span> <span class="s1">&#39;SA_PASSWORD=...&#39;</span> <span class="n">-p</span> <span class="n">1433</span><span class="p">:</span><span class="n">1433</span> <span class="p">-</span><span class="n">-name</span> <span class="n">sql1</span> <span class="n">-d</span> <span class="n">mcr</span><span class="p">.</span><span class="n">microsoft</span><span class="p">.</span><span class="n">com</span><span class="p">/</span><span class="n">mssql</span><span class="p">/</span><span class="n">server</span><span class="p">:</span><span class="n">2019-CU5-ubuntu</span><span class="p">-</span><span class="n">16</span><span class="p">.</span><span class="n">04</span>
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a>
-</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="c"># Start an Interactive Shell</span>
-</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="n">docker</span> <span class="n">exec</span> <span class="n">-it</span> <span class="n">sql1</span> <span class="p">/</span><span class="n">bin</span><span class="p">/</span><span class="n">bash</span>
-</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9"></a>
-</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="c"># Test SQLCMD</span>
-</span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="n">opt</span><span class="p">/</span><span class="n">mssql-tools</span><span class="p">/</span><span class="n">bin</span><span class="p">/</span><span class="n">sqlcmd</span> <span class="p">-?</span>
-</span></code></pre></div></td></tr></table></div>
-<blockquote>
-<p>Output</p>
-</blockquote>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-10-10">10</a></span>
-<span class="normal"><a href="#__codelineno-10-11">11</a></span>
-<span class="normal"><a href="#__codelineno-10-12">12</a></span>
-<span class="normal"><a href="#__codelineno-10-13">13</a></span>
-<span class="normal"><a href="#__codelineno-10-14">14</a></span>
-<span class="normal"><a href="#__codelineno-10-15">15</a></span>
-<span class="normal"><a href="#__codelineno-10-16">16</a></span>
-<span class="normal"><a href="#__codelineno-10-17">17</a></span>
-<span class="normal"><a href="#__codelineno-10-18">18</a></span>
-<span class="normal"><a href="#__codelineno-10-19">19</a></span>
-<span class="normal"><a href="#__codelineno-10-20">20</a></span>
-<span class="normal"><a href="#__codelineno-10-21">21</a></span>
-<span class="normal"><a href="#__codelineno-10-22">22</a></span>
-<span class="normal"><a href="#__codelineno-10-23">23</a></span>
-<span class="normal"><a href="#__codelineno-10-24">24</a></span>
-<span class="normal"><a href="#__codelineno-10-25">25</a></span>
-<span class="normal"><a href="#__codelineno-10-26">26</a></span>
-<span class="normal"><a href="#__codelineno-10-27">27</a></span>
-<span class="normal"><a href="#__codelineno-10-28">28</a></span>
-<span class="normal"><a href="#__codelineno-10-29">29</a></span>
-<span class="normal"><a href="#__codelineno-10-30">30</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a>Microsoft (R) SQL Server Command Line Tool
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a>Version 17.5.0002.1 Linux
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a>Copyright (C) 2017 Microsoft Corporation. All rights reserved.
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5"></a>usage: sqlcmd            [-U login id]          [-P password]
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6"></a>  [-S server or Dsn if -D is provided]
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7"></a>  [-H hostname]          [-E trusted connection]
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8"></a>  [-N Encrypt Connection][-C Trust Server Certificate]
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9"></a>  [-d use database name] [-l login timeout]     [-t query timeout]
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10"></a>  [-h headers]           [-s colseparator]      [-w screen width]
-</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11"></a>  [-a packetsize]        [-e echo input]        [-I Enable Quoted Identifiers]
-</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12"></a>  [-c cmdend]
-</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13"></a>  [-q &quot;cmdline query&quot;]   [-Q &quot;cmdline query&quot; and exit]
-</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14"></a>  [-m errorlevel]        [-V severitylevel]     [-W remove trailing spaces]
-</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15"></a>  [-u unicode output]    [-r[0|1] msgs to stderr]
-</span><span id="__span-10-16"><a id="__codelineno-10-16" name="__codelineno-10-16"></a>  [-i inputfile]         [-o outputfile]
-</span><span id="__span-10-17"><a id="__codelineno-10-17" name="__codelineno-10-17"></a>  [-k[1|2] remove[replace] control characters]
-</span><span id="__span-10-18"><a id="__codelineno-10-18" name="__codelineno-10-18"></a>  [-y variable length type display width]
-</span><span id="__span-10-19"><a id="__codelineno-10-19" name="__codelineno-10-19"></a>  [-Y fixed length type display width]
-</span><span id="__span-10-20"><a id="__codelineno-10-20" name="__codelineno-10-20"></a>  [-p[1] print statistics[colon format]]
-</span><span id="__span-10-21"><a id="__codelineno-10-21" name="__codelineno-10-21"></a>  [-R use client regional setting]
-</span><span id="__span-10-22"><a id="__codelineno-10-22" name="__codelineno-10-22"></a>  [-K application intent]
-</span><span id="__span-10-23"><a id="__codelineno-10-23" name="__codelineno-10-23"></a>  [-M multisubnet failover]
-</span><span id="__span-10-24"><a id="__codelineno-10-24" name="__codelineno-10-24"></a>  [-b On error batch abort]
-</span><span id="__span-10-25"><a id="__codelineno-10-25" name="__codelineno-10-25"></a>  [-D Dsn flag, indicate -S is Dsn]
-</span><span id="__span-10-26"><a id="__codelineno-10-26" name="__codelineno-10-26"></a>  [-X[1] disable commands, startup script, environment variables [and exit]]
-</span><span id="__span-10-27"><a id="__codelineno-10-27" name="__codelineno-10-27"></a>  [-x disable variable substitution]
-</span><span id="__span-10-28"><a id="__codelineno-10-28" name="__codelineno-10-28"></a>  [-g enable column encryption]
-</span><span id="__span-10-29"><a id="__codelineno-10-29" name="__codelineno-10-29"></a>  [-G use Azure Active Directory for authentication]
-</span><span id="__span-10-30"><a id="__codelineno-10-30" name="__codelineno-10-30"></a>  [-? show syntax summary]
-</span></code></pre></div></td></tr></table></div>
-<div class="language-powershell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1">1</a></span>
-<span class="normal"><a href="#__codelineno-11-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="c"># Run SQLCMD</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="n">opt</span><span class="p">/</span><span class="n">mssql-tools</span><span class="p">/</span><span class="n">bin</span><span class="p">/</span><span class="n">sqlcmd</span> <span class="n">-S</span> <span class="n">localhost</span> <span class="n">-U</span> <span class="n">sa</span> <span class="n">-P</span> <span class="n">Password12345</span> <span class="n">-Q</span> <span class="s2">&quot;SELECT * FROM INFORMATION_SCHEMA.TABLES&quot;</span>
-</span></code></pre></div></td></tr></table></div>
-<table>
-<thead>
-<tr>
-<th>TABLE_CATALOG</th>
-<th>TABLE_SCHEMA</th>
-<th>TABLE_NAME</th>
-<th>TABLE_TYPE</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>master</td>
-<td>dbo</td>
-<td>spt_fallback_db</td>
-<td>BASE TABLE</td>
-</tr>
-<tr>
-<td>master</td>
-<td>dbo</td>
-<td>spt_fallback_dev</td>
-<td>BASE TABLE</td>
-</tr>
-<tr>
-<td>master</td>
-<td>dbo</td>
-<td>spt_fallback_usg</td>
-<td>BASE TABLE</td>
-</tr>
-<tr>
-<td>master</td>
-<td>dbo</td>
-<td>spt_values</td>
-<td>VIEW</td>
-</tr>
-<tr>
-<td>master</td>
-<td>dbo</td>
-<td>spt_monitor</td>
-<td>BASE TABLE</td>
-</tr>
-<tr>
-<td>master</td>
-<td>dbo</td>
-<td>MSreplication_options</td>
-<td>BASE TABLE</td>
-</tr>
-</tbody>
-</table>
-<blockquote>
-<p>Very Nice!</p>
-</blockquote>
-    <nav class="md-post__action">
-      <a href="../../2020/08/02/sql-server-on-docker-with-sqlcmd/">
         Continue reading
       </a>
     </nav>

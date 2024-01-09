@@ -355,6 +355,8 @@
       
         
       
+        
+      
     
     
     
@@ -384,6 +386,29 @@
             Archive
           </label>
           <ul class="md-nav__list" data-md-scrollfix>
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../archive/2024/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    2024
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
             
               
                 
@@ -916,6 +941,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#docker-scratchpad" class="md-nav__link">
+    <span class="md-ellipsis">
+      Docker Scratchpad
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#git-flow-simplified" class="md-nav__link">
     <span class="md-ellipsis">
       Git Flow Simplified
@@ -942,15 +976,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#git-flow" class="md-nav__link">
-    <span class="md-ellipsis">
-      Git Flow
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -965,6 +990,61 @@
       <header class="md-typeset">
         <h1 id="blog">Blog</h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2021-12-07 00:00:00">December 7, 2021</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/docker/" class="md-meta__link">Docker</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="docker-scratchpad"><a class="toclink" href="../../2021/12/07/docker-scratchpad/">Docker Scratchpad</a></h2>
+<p>Docker is great for production use, but have you considered using it to quickly take out tools for a spin?  I find I'm reaching for the following command multiple times throughout the day.</p>
+<blockquote>
+<p><code>docker run -it --rm --entrypoint /bin/sh $TOOL</code></p>
+</blockquote>
+<p><code>$TOOL</code> can be whatever linux based tool I'm interested in trying out. Let's take out <code>alpine</code> linux for a spin.</p>
+<blockquote>
+<p><code>docker run -it --rm --entrypoint /bin/sh alpine</code></p>
+</blockquote>
+<p><img alt="" src="../../assets/2021-12-07-17-30-23.png" /></p>
+<p>Or, I might spin up a <code>python</code> instance to take a look around Python.</p>
+<blockquote>
+<p><code>docker run -it --rm --entrypoint /bin/sh python</code></p>
+</blockquote>
+<p><img alt="" src="../../assets/2021-12-07-17-29-15.png" /></p>
+<p>It's also great for other languages you might want to take out for a spin, such as:</p>
+<blockquote>
+<p><code>docker run -it --rm --entrypoint /bin/sh haskell</code></p>
+</blockquote>
+<p><img alt="" src="../../assets/2021-12-07-17-29-53.png" /></p>
+<p>Pretty cool, eh?</p>
+    <nav class="md-post__action">
+      <a href="../../2021/12/07/docker-scratchpad/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
@@ -1228,99 +1308,6 @@
 <p>But, probably the coolest part of all this is that you can swap out dependencies in computing the <code>getUser</code> function as long as the final computed function resolves to <code>string -&gt; User option</code>.  You could, for example, get the user from a SQL database or a NoSQL data store, or whatever!</p>
     <nav class="md-post__action">
       <a href="../../2021/06/08/functional-dependency-injection/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2021-06-08 00:00:00">June 8, 2021</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../category/git/" class="md-meta__link">Git</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              3 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="git-flow"><a class="toclink" href="../../2021/06/08/git-flow/">Git Flow</a></h2>
-<p>First off, you're doing great! You are doing your best to keep track of the changes to your system.  The people on your team know what's going on ... usually.  Code conflicts only turn into actual conflicts sporadically.  But, hey, that's just part of the game, isn't it?  You only run <code>git blame</code> sometimes - no, not to <em>shame</em> anyone, just <em>blame</em>.  </p>
-<p>But, we can do better!</p>
-<hr />
-<p>Git is a powerful (if not all-consuming) source control system.  I've been using it for a number of years now, and my particular workflow with Git has changed pretty dramatically over time.  </p>
-<h3 id="git-push-pull-flow"><a class="toclink" href="../../2021/06/08/git-flow/#git-push-pull-flow">Git Push-Pull Flow</a></h3>
-<p>In my early days of learning and using Git, I opted for the simple push-pull workflow.  The workflow was simply:</p>
-<ol>
-<li>Fetch other developers' code.</li>
-<li>Merge the changes.</li>
-<li>Resolve any conflicts.</li>
-<li>Commit the changes.</li>
-<li>Push the new commit.</li>
-</ol>
-<p>If there are no conflicts, then the above workflow shortens down to:</p>
-<ol>
-<li>Fetch other developers' code.</li>
-<li>Merge the changes with fast-forward. (No new commit!)</li>
-</ol>
-<p>This works fine for small systems but begins to have difficulties with larger systems.  Systems grow in complexity in a number of ways, including:  </p>
-<ul>
-<li>number of developers</li>
-<li>number of existing features</li>
-<li>number of features in development</li>
-<li>number of distributed sub-systems</li>
-<li>number of languages and frameworks</li>
-<li>number of supported environments </li>
-<li>different users per environment </li>
-<li>quantity of code</li>
-<li>etc.</li>
-</ul>
-<h4 id="noisy-commits"><a class="toclink" href="../../2021/06/08/git-flow/#noisy-commits">Noisy Commits</a></h4>
-<p>The difficulty comes from providing a <em>meaningful</em> commit log of the changes over time in complex systems.</p>
-<h5 id="feature-branch-commits"><a class="toclink" href="../../2021/06/08/git-flow/#feature-branch-commits">Feature Branch Commits</a></h5>
-<p>Developers should be branching their code while working through a feature.  And, they should be trying things out in that branch.  This can and should lead to <em>learning</em> moments.  Learning means the developer found a better way.  Commit after commit may say something like "Changed this thing" and "Undid my last change because of this reason".  </p>
-<blockquote>
-<p><strong>Anger-Danger</strong>:  Coming across the previous commit may lead to unexpected conclusions about the <em>current</em> state of the system. What do you mean you "Changed this thing"?  </p>
-</blockquote>
-<h5 id="merge-commits"><a class="toclink" href="../../2021/06/08/git-flow/#merge-commits">Merge Commits</a></h5>
-<p>Probably a little less egregious but nonetheless annoying is the "Merge Commit" commit (ironic redundancy?).  It's likely that most developers would agree that a commit titled, "Merge Commit" is generally not helpful.  So what?  You merged the branches.  What did you actually do to the system?</p>
-<h5 id="cleanup-commits"><a class="toclink" href="../../2021/06/08/git-flow/#cleanup-commits">"CLEANUP" Commits</a></h5>
-<p>Should developers be cleaning their code?  Of course they should!  How helpful is a commit that says something like, "Removed unnecessary whitespace; provided better variable names; did such and such and yada yada."</p>
-<p>Ha!  I even went a step further and waited for a valid commit message to commit cleanup changes.  Garbage!</p>
-<h3 id="squash-rebase-flow"><a class="toclink" href="../../2021/06/08/git-flow/#squash-rebase-flow">Squash-Rebase Flow</a></h3>
-<p>So, how do we get rid of those pesky commits?  Well, <em>squash</em> them or <em>rebase</em> your work on top of another developer's work.  Granted both ideas may seem a little less intuitive at first from Push-Pull, but hang in there.  </p>
-<h4 id="squash-commit"><a class="toclink" href="../../2021/06/08/git-flow/#squash-commit">Squash Commit</a></h4>
-<p>Squashing your commits is to create a new commit with the <strong>net-result</strong> of several commits.  This effectively throws away the intermediate commit messages and the details about the specific changes to that commit.</p>
-<h5 id="reset-commit"><a class="toclink" href="../../2021/06/08/git-flow/#reset-commit">Reset Commit</a></h5>
-<p>A corollary to a squash commit is to reset (<code>git reset --soft</code>) a current branch to a commit.  If you want to clean several commits <em>before</em> pushing, then you can reset to the commit just before the last one you want to remove.  Then, you can commit all of the changes that are left in your repository.</p>
-<h4 id="rebase-commit"><a class="toclink" href="../../2021/06/08/git-flow/#rebase-commit">Rebase Commit</a></h4>
-<p>It took me awhile to get my mind around rebase.  This probably stemmed from my lack of use of the word itself.  Instead of merging two branches, you can treat the other branch as the new <em>base</em> of your current branch.  Git will take each of your commits beyond the split of the two branches and <em>reapply</em> them to the rebased branch.  </p>
-<hr />
-<p>That's it!  Now, you can create clean and meaningful commit logs that you can use for debugging, blaming (shame-shame), or release tracking.  Get rid of those pesky commits!</p>
-<blockquote>
-<h4 id="ps-beyond-git"><a class="toclink" href="../../2021/06/08/git-flow/#ps-beyond-git">P.S. Beyond Git</a></h4>
-<ul>
-<li>Now enter <em>pull request</em>, <em>merge request</em>, and the like.  Systems such as Github and GitLab provide tooling to the heavy lifting for squashing and rebasing for you while also providing the ability to capture comments and other details to request.  </li>
-</ul>
-</blockquote>
-    <nav class="md-post__action">
-      <a href="../../2021/06/08/git-flow/">
         Continue reading
       </a>
     </nav>
