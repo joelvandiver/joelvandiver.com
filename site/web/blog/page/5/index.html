@@ -941,6 +941,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#duck-typing" class="md-nav__link">
+    <span class="md-ellipsis">
+      Duck Typing
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#lib-and-coffee" class="md-nav__link">
     <span class="md-ellipsis">
       Lib and Coffee
@@ -967,15 +976,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#haskell-setup" class="md-nav__link">
-    <span class="md-ellipsis">
-      Haskell Setup
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -990,6 +990,98 @@
       <header class="md-typeset">
         <h1 id="blog">Blog</h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2020-06-07 00:00:00">June 7, 2020</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/fsharp/" class="md-meta__link">FSharp</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="duck-typing"><a class="toclink" href="../../2020/06/07/duck-typing/">Duck Typing</a></h2>
+<h3 id="run-time-duck-typing"><a class="toclink" href="../../2020/06/07/duck-typing/#run-time-duck-typing">Run-time Duck Typing</a></h3>
+<p>In a dynamically typed language such as <code>JavaScript</code>, you would <em>infer</em> the type of an object by investigating it's members.  Since <code>JavaScript</code> is not a statically typed language, we cannot trust the type information without checking that at run-time.  It is common to see code such as this in <code>JavaScript</code>.</p>
+<div class="language-javascript highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
+<span class="normal"><a href="#__codelineno-6-2">2</a></span>
+<span class="normal"><a href="#__codelineno-6-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="k">if</span><span class="w"> </span><span class="p">(</span><span class="nx">myObj</span><span class="p">.</span><span class="nx">Id</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="w">    </span><span class="nx">doSomethingWithId</span><span class="p">(</span><span class="nx">myObj</span><span class="p">.</span><span class="nx">Id</span><span class="p">);</span>
+</span><span id="__span-6-3"><a id="__codelineno-6-3" name="__codelineno-6-3"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<p>That's great that we can support dynamic member checking, but is there a way that we can have the compiler tell us this ahead of time?</p>
+<h3 id="net-generics"><a class="toclink" href="../../2020/06/07/duck-typing/#net-generics">.NET Generics</a></h3>
+<p>Coming from <code>C#</code>, I was already comfortable with generic classes and methods.  These provide a <em>template</em> of a code that can be applied to more specific types.  Generics can lead to better code abstraction and reuse.  You can think of generics as contraints upon the types that are used by the generic class.  </p>
+<p>F# has all of the .NET Generics just like C#.</p>
+<h3 id="compile-time-duck-typing"><a class="toclink" href="../../2020/06/07/duck-typing/#compile-time-duck-typing">Compile-time Duck Typing</a></h3>
+<p>But, F# goes a step further.  F# offers static generic constraints.  </p>
+<p>Whereas C#'s generics are applied to instances of types at run-time, the F#'s <a href="https://docs.microsoft.com/en-us/dotnet/fsharp/language-reference/generics/statically-resolved-type-parameters">static type parameters</a> are resolved by the compiler at compile time!</p>
+<p>Let's take an example...</p>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-7-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="k">open</span><span class="w"> </span><span class="nn">System</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>
+</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="k">type</span><span class="w"> </span><span class="nc">User</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="w">    </span><span class="o">{</span><span class="w"> </span><span class="n">Id</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Guid</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="w">      </span><span class="n">Name</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">}</span>
+</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="k">let</span><span class="w"> </span><span class="nv">inline</span><span class="w"> </span><span class="n">getId</span><span class="w"> </span><span class="o">(</span><span class="n">record</span><span class="o">:</span><span class="w"> </span><span class="o">^</span><span class="n">T</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Guid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">(^</span><span class="n">T</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="k">member</span><span class="w"> </span><span class="n">Id</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Guid</span><span class="o">)</span><span class="w"> </span><span class="o">(</span><span class="n">record</span><span class="o">))</span>
+</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a>
+</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="k">let</span><span class="w"> </span><span class="nv">luke</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">Guid</span><span class="p">.</span><span class="n">NewGuid</span><span class="bp">()</span><span class="o">;</span><span class="w"> </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Luke Skywalker&quot;</span><span class="w"> </span><span class="o">}</span>
+</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="k">let</span><span class="w"> </span><span class="nv">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getId</span><span class="w"> </span><span class="n">luke</span>
+</span></code></pre></div></td></tr></table></div>
+<blockquote>
+<p>Output:</p>
+</blockquote>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1">1</a></span>
+<span class="normal"><a href="#__codelineno-8-2">2</a></span>
+<span class="normal"><a href="#__codelineno-8-3">3</a></span>
+<span class="normal"><a href="#__codelineno-8-4">4</a></span>
+<span class="normal"><a href="#__codelineno-8-5">5</a></span>
+<span class="normal"><a href="#__codelineno-8-6">6</a></span>
+<span class="normal"><a href="#__codelineno-8-7">7</a></span>
+<span class="normal"><a href="#__codelineno-8-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="k">type</span><span class="w"> </span><span class="nc">User</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="w">  </span><span class="o">{</span><span class="w"> </span><span class="n">Id</span><span class="o">:</span><span class="w"> </span><span class="nn">System</span><span class="p">.</span><span class="n">Guid</span>
+</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="w">    </span><span class="n">Name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">}</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="k">val</span><span class="w"> </span><span class="k">inline</span><span class="w"> </span><span class="n">getId</span><span class="w"> </span><span class="o">:</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a><span class="w">  </span><span class="n">record</span><span class="o">:</span><span class="w"> </span><span class="o">^</span><span class="n">T</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nn">System</span><span class="p">.</span><span class="n">Guid</span><span class="w"> </span><span class="k">when</span><span class="w">  </span><span class="o">^</span><span class="n">T</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="k">member</span><span class="w"> </span><span class="n">get_Id</span><span class="w"> </span><span class="o">:</span><span class="w">  </span><span class="o">^</span><span class="n">T</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="nn">System</span><span class="p">.</span><span class="n">Guid</span><span class="o">)</span>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="k">val</span><span class="w"> </span><span class="n">luke</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">Id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">802</span><span class="n">f4714</span><span class="o">-</span><span class="mi">7</span><span class="n">ef7</span><span class="o">-</span><span class="mi">474</span><span class="n">b</span><span class="o">-</span><span class="n">af6b</span><span class="o">-</span><span class="n">f3fa05a661f9</span>
+</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">                    </span><span class="n">Name</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Luke Skywalker&quot;</span><span class="w"> </span><span class="o">}</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="k">val</span><span class="w"> </span><span class="n">id</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">Guid</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">802</span><span class="n">f4714</span><span class="o">-</span><span class="mi">7</span><span class="n">ef7</span><span class="o">-</span><span class="mi">474</span><span class="n">b</span><span class="o">-</span><span class="n">af6b</span><span class="o">-</span><span class="n">f3fa05a661f9</span>
+</span></code></pre></div></td></tr></table></div>
+<p>At first glance, this may seem like nothing special is going on here.  But, note that I am able to apply the <code>getId</code> function to any type that has an <code>Id</code> of type <code>Guid</code>.  This cuts down the impulse to create type inheritance to <em>share</em> simple data structures and methods among types. </p>
+<p>I'm able to apply <em>Duck Typing</em> to types and have the compiler tell me as I'm developing if the type <strong><em>is a duck!</em></strong></p>
+    <nav class="md-post__action">
+      <a href="../../2020/06/07/duck-typing/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
@@ -1361,59 +1453,6 @@
 </span></code></pre></div></td></tr></table></div>
     <nav class="md-post__action">
       <a href="../../2020/05/12/use-powershell-to-spin-up-an-integration-test-api/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2020-04-26 00:00:00">April 26, 2020</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../category/haskell/" class="md-meta__link">Haskell</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              1 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="haskell-setup"><a class="toclink" href="../../2020/04/26/haskell-setup/">Haskell Setup</a></h2>
-<p>In my journey down the path of <em>purity</em> in functional programming, I have inevitably merged with the path of <code>Haskell</code> programming.  <code>Haskell</code> seems like an amazing language.  I started my career rooted in Mathematics, and I feel at home coding in the <code>Haskell</code> programming language.  </p>
-<p>But, I've also seen the pain of setting up my dev system for multiple types of coding environments.  For quick console coding, I'd really like to get off the train of managing installs on my system.  </p>
-<h3 id="docker"><a class="toclink" href="../../2020/04/26/haskell-setup/#docker">Docker</a></h3>
-<p>Let's setup a <code>Haskell</code> dev environment with <a href="https://www.docker.com/">Docker</a> to isolate the environment.</p>
-<p><strong>Requirements</strong></p>
-<ol>
-<li>The <code>Haskell</code> coding environment should be isolated from the dev system.</li>
-<li>The *.hs code files should be reloaded without having to rebuild Docker images.</li>
-</ol>
-<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1"># ${PWD} is the current directory in PowerShell</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>:/app<span class="w"> </span>haskell:8
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>:load<span class="w"> </span>app/main.hs
-</span></code></pre></div></td></tr></table></div>
-<p>Let's get to <code>Haskell</code> code!</p>
-    <nav class="md-post__action">
-      <a href="../../2020/04/26/haskell-setup/">
         Continue reading
       </a>
     </nav>

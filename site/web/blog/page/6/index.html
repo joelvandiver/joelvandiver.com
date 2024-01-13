@@ -941,6 +941,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#haskell-setup" class="md-nav__link">
+    <span class="md-ellipsis">
+      Haskell Setup
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#t-sql-recursive-cte-common-table-expression" class="md-nav__link">
     <span class="md-ellipsis">
       T-SQL Recursive CTE (Common Table Expression)
@@ -967,15 +976,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#aspnet-core-dependency-injection" class="md-nav__link">
-    <span class="md-ellipsis">
-      ASP.NET Core Dependency Injection
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -990,6 +990,59 @@
       <header class="md-typeset">
         <h1 id="blog">Blog</h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2020-04-26 00:00:00">April 26, 2020</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/haskell/" class="md-meta__link">Haskell</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              1 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="haskell-setup"><a class="toclink" href="../../2020/04/26/haskell-setup/">Haskell Setup</a></h2>
+<p>In my journey down the path of <em>purity</em> in functional programming, I have inevitably merged with the path of <code>Haskell</code> programming.  <code>Haskell</code> seems like an amazing language.  I started my career rooted in Mathematics, and I feel at home coding in the <code>Haskell</code> programming language.  </p>
+<p>But, I've also seen the pain of setting up my dev system for multiple types of coding environments.  For quick console coding, I'd really like to get off the train of managing installs on my system.  </p>
+<h3 id="docker"><a class="toclink" href="../../2020/04/26/haskell-setup/#docker">Docker</a></h3>
+<p>Let's setup a <code>Haskell</code> dev environment with <a href="https://www.docker.com/">Docker</a> to isolate the environment.</p>
+<p><strong>Requirements</strong></p>
+<ol>
+<li>The <code>Haskell</code> coding environment should be isolated from the dev system.</li>
+<li>The *.hs code files should be reloaded without having to rebuild Docker images.</li>
+</ol>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="c1"># ${PWD} is the current directory in PowerShell</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>docker<span class="w"> </span>run<span class="w"> </span>-it<span class="w"> </span>--rm<span class="w"> </span>-v<span class="w"> </span><span class="si">${</span><span class="nv">PWD</span><span class="si">}</span>:/app<span class="w"> </span>haskell:8
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>:load<span class="w"> </span>app/main.hs
+</span></code></pre></div></td></tr></table></div>
+<p>Let's get to <code>Haskell</code> code!</p>
+    <nav class="md-post__action">
+      <a href="../../2020/04/26/haskell-setup/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
@@ -1465,142 +1518,6 @@
 <p><strong><em>Pretty sweet!</em></strong></p>
     <nav class="md-post__action">
       <a href="../../2019/12/07/meta-programming---code-to-write-code/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2019-09-21 00:00:00">September 21, 2019</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../category/fsharp/" class="md-meta__link">FSharp</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              2 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="aspnet-core-dependency-injection"><a class="toclink" href="../../2019/09/21/aspnet-core-dependency-injection/">ASP.NET Core Dependency Injection</a></h2>
-<p>ASP.NET Core has a nice dependency injection system that works great for object-oriented languages like C#.  F# can be written in an object-oriented way, but is there a way to inject dependencies in a functional style?</p>
-<p>First off, let's review the F# function composition that comes out-of-the-box.  For example, </p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1">1</a></span>
-<span class="normal"><a href="#__codelineno-5-2">2</a></span>
-<span class="normal"><a href="#__codelineno-5-3">3</a></span>
-<span class="normal"><a href="#__codelineno-5-4">4</a></span>
-<span class="normal"><a href="#__codelineno-5-5">5</a></span>
-<span class="normal"><a href="#__codelineno-5-6">6</a></span>
-<span class="normal"><a href="#__codelineno-5-7">7</a></span>
-<span class="normal"><a href="#__codelineno-5-8">8</a></span>
-<span class="normal"><a href="#__codelineno-5-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span>
-</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="k">let</span><span class="w"> </span><span class="nv">g</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">5</span>
-</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a>
-</span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a><span class="k">let</span><span class="w"> </span><span class="nv">fg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">g</span>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a>
-</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="c1">// Output</span>
-</span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="k">val</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="n">int</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">int</span>
-</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="k">val</span><span class="w"> </span><span class="n">g</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="n">int</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">int</span>
-</span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="k">val</span><span class="w"> </span><span class="n">fg</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">int</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">int</span><span class="o">)</span>
-</span></code></pre></div></td></tr></table></div>
-<p><code>f</code> and <code>g</code> are functions taking one integer and returning another integer.  The output of <code>f</code> is an integer which is the same type of input for <code>g</code>.  This allows us to compose <code>f &gt;&gt; g</code>.</p>
-<p>Note the sample data below.</p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-6-1">1</a></span>
-<span class="normal"><a href="#__codelineno-6-2">2</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-6-1"><a id="__codelineno-6-1" name="__codelineno-6-1"></a><span class="o">[</span><span class="mi">1</span><span class="o">;</span><span class="mi">2</span><span class="o">;</span><span class="mi">3</span><span class="o">;</span><span class="mi">4</span><span class="o">;</span><span class="mi">5</span><span class="o">]</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="n">fg</span>
-</span><span id="__span-6-2"><a id="__codelineno-6-2" name="__codelineno-6-2"></a><span class="k">val</span><span class="w"> </span><span class="n">it</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="mi">9</span><span class="o">;</span><span class="w"> </span><span class="mi">10</span><span class="o">;</span><span class="w"> </span><span class="mi">11</span><span class="o">;</span><span class="w"> </span><span class="mi">12</span><span class="o">;</span><span class="w"> </span><span class="mi">13</span><span class="o">]</span>
-</span></code></pre></div></td></tr></table></div>
-<p>Let's expand on the idea to a larger domain than Mathematics.</p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-7-10">10</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="k">type</span><span class="w"> </span><span class="nc">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">{</span><span class="w"> </span><span class="n">first</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">;</span><span class="w"> </span><span class="n">last</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">}</span>
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="k">let</span><span class="w"> </span><span class="nv">getUserName</span><span class="w"> </span><span class="o">(</span><span class="n">user</span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">user</span><span class="o">.</span><span class="n">first</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="s">&quot; &quot;</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">user</span><span class="o">.</span><span class="n">last</span>
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a><span class="k">let</span><span class="w"> </span><span class="nv">getFirstUser</span><span class="w"> </span><span class="o">(</span><span class="n">users</span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="kt">list</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">users</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">head</span>
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="k">let</span><span class="w"> </span><span class="nv">getFirstUserName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getFirstUser</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">getUserName</span>
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="k">let</span><span class="w"> </span><span class="nv">getUserList</span><span class="w"> </span><span class="bp">()</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="bp">[]</span><span class="w"> </span><span class="c1">// TODO:  Get users.</span>
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a>
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="c1">// Output</span>
-</span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a><span class="k">val</span><span class="w"> </span><span class="n">getUserName</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">user</span><span class="o">:</span><span class="n">User</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9"></a><span class="k">val</span><span class="w"> </span><span class="n">getFirstUser</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">users</span><span class="o">:</span><span class="n">User</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">User</span>
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10"></a><span class="k">val</span><span class="w"> </span><span class="n">getFirstUserName</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="o">(</span><span class="n">User</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span>
-</span></code></pre></div></td></tr></table></div>
-<p>Here, we have a <code>getUserName</code> function that takes a <code>User</code> and another function <code>getFirstUser</code> that returns a <code>User</code>.  This allows us to compose a new function <code>getFirstUserName</code> from <code>getFirstUser &gt;&gt; getUserName</code>.  </p>
-<p>The lego-brick like functionality is very useful for defining more complex functionalities from little building blocks.</p>
-<p>In the course of developing ASP.NET, I have found that the API usually sits on top of a fairly large codebase.  It is useful to compose more complex functions just before creating API constrollers.  This can be solved by injecting dependencies into controllers using the <code>IControllerActivator</code> interface.  This interface is effectively an override of the default dependency injection system.</p>
-<p>Here's a sample to get you going with an activator.  I usually put the activator and controllers in the same module, since the controller declares the dependencies and the activator composes those dependencies.</p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-8-10">10</a></span>
-<span class="normal"><a href="#__codelineno-8-11">11</a></span>
-<span class="normal"><a href="#__codelineno-8-12">12</a></span>
-<span class="normal"><a href="#__codelineno-8-13">13</a></span>
-<span class="normal"><a href="#__codelineno-8-14">14</a></span>
-<span class="normal"><a href="#__codelineno-8-15">15</a></span>
-<span class="normal"><a href="#__codelineno-8-16">16</a></span>
-<span class="normal"><a href="#__codelineno-8-17">17</a></span>
-<span class="normal"><a href="#__codelineno-8-18">18</a></span>
-<span class="normal"><a href="#__codelineno-8-19">19</a></span>
-<span class="normal"><a href="#__codelineno-8-20">20</a></span>
-<span class="normal"><a href="#__codelineno-8-21">21</a></span>
-<span class="normal"><a href="#__codelineno-8-22">22</a></span>
-<span class="normal"><a href="#__codelineno-8-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="o">[&lt;</span><span class="n">ApiController</span><span class="o">&gt;]</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="o">[&lt;</span><span class="n">Route</span><span class="o">(</span><span class="s">&quot;/api/[controller]&quot;</span><span class="o">)&gt;]</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="k">type</span><span class="w"> </span><span class="nc">UserController</span><span class="w"> </span><span class="o">(</span><span class="n">getLastCreatedUserName</span><span class="o">:</span><span class="w"> </span><span class="kt">unit</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="w">    </span><span class="k">inherit</span><span class="w"> </span><span class="n">ControllerBase</span><span class="bp">()</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="w">    </span><span class="o">[&lt;</span><span class="n">HttpGet</span><span class="o">&gt;]</span>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">    </span><span class="k">member</span><span class="w"> </span><span class="n">__</span><span class="p">.</span><span class="nf">Get</span><span class="bp">()</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getLastCreatedUserName</span><span class="bp">()</span>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8"></a>
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="k">type</span><span class="w"> </span><span class="nc">MyActivator</span><span class="w"> </span><span class="o">(</span><span class="n">config</span><span class="o">:</span><span class="w"> </span><span class="n">IConfiguration</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="w">    </span><span class="k">interface</span><span class="w"> </span><span class="n">IControllerActivator</span><span class="w"> </span><span class="k">with</span>
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11"></a><span class="w">        </span><span class="k">member</span><span class="w"> </span><span class="n">__</span><span class="p">.</span><span class="nf">Create</span><span class="o">(</span><span class="n">context</span><span class="o">:</span><span class="w"> </span><span class="n">ControllerContext</span><span class="o">)</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12"></a><span class="w">            </span><span class="k">let</span><span class="w"> </span><span class="nv">controllerType</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">context</span><span class="o">.</span><span class="n">ActionDescriptor</span><span class="o">.</span><span class="n">ControllerTypeInfo</span><span class="o">.</span><span class="n">AsType</span><span class="bp">()</span>
-</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="w">            </span><span class="k">match</span><span class="w"> </span><span class="n">controllerType</span><span class="w"> </span><span class="k">with</span><span class="w"> </span>
-</span><span id="__span-8-14"><a id="__codelineno-8-14" name="__codelineno-8-14"></a><span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="k">when</span><span class="w"> </span><span class="n">c</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">typeof</span><span class="o">&lt;</span><span class="n">UserController</span><span class="o">&gt;</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
-</span><span id="__span-8-15"><a id="__codelineno-8-15" name="__codelineno-8-15"></a><span class="w">                </span><span class="c1">// Function Composition</span>
-</span><span id="__span-8-16"><a id="__codelineno-8-16" name="__codelineno-8-16"></a><span class="w">                </span><span class="k">let</span><span class="w"> </span><span class="nv">getLastCreatedUserName</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-8-17"><a id="__codelineno-8-17" name="__codelineno-8-17"></a><span class="w">                    </span><span class="n">getUserList</span>
-</span><span id="__span-8-18"><a id="__codelineno-8-18" name="__codelineno-8-18"></a><span class="w">                    </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">getFirstUser</span>
-</span><span id="__span-8-19"><a id="__codelineno-8-19" name="__codelineno-8-19"></a><span class="w">                    </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">getUserName</span>
-</span><span id="__span-8-20"><a id="__codelineno-8-20" name="__codelineno-8-20"></a><span class="w">                </span><span class="c1">// Dependency Injection</span>
-</span><span id="__span-8-21"><a id="__codelineno-8-21" name="__codelineno-8-21"></a><span class="w">                </span><span class="n">UserController</span><span class="o">(</span><span class="n">getLastCreatedUserName</span><span class="o">)</span><span class="w"> </span>
-</span><span id="__span-8-22"><a id="__codelineno-8-22" name="__codelineno-8-22"></a><span class="w">                    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">box</span>
-</span><span id="__span-8-23"><a id="__codelineno-8-23" name="__codelineno-8-23"></a><span class="w">            </span><span class="o">|</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">failwith</span><span class="w"> </span><span class="o">(</span><span class="n">sprintf</span><span class="w"> </span><span class="s">&quot;The controller type, %s, could not be found.&quot;</span><span class="w"> </span><span class="n">controllerType</span><span class="o">)</span>
-</span></code></pre></div></td></tr></table></div>
-<p>Lastly, you will need to register this <code>MyActivator</code> in the <code>ConfigureServices</code> method of <code>Startup</code>.
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="n">services</span><span class="o">.</span><span class="n">AddSingleton</span><span class="o">&lt;</span><span class="n">IControllerActivator</span><span class="o">&gt;(</span><span class="k">new</span><span class="w"> </span><span class="n">Activator</span><span class="o">(</span><span class="n">configuration</span><span class="o">))</span>
-</span></code></pre></div></td></tr></table></div></p>
-<p>That's it!  This helps to keep your core library functional while using object oriented techniques for the controllers and startup only.  Very nice!</p>
-    <nav class="md-post__action">
-      <a href="../../2019/09/21/aspnet-core-dependency-injection/">
         Continue reading
       </a>
     </nav>

@@ -7,12 +7,20 @@ version="0.0.0"
 shift
 
 help() {
+    echo "     ██╗██╗   ██╗   ██████╗ ██╗   ██╗███╗   ██╗"
+    echo "     ██║██║   ██║   ██╔══██╗██║   ██║████╗  ██║"
+    echo "     ██║██║   ██║   ██████╔╝██║   ██║██╔██╗ ██║"
+    echo "██   ██║╚██╗ ██╔╝   ██╔══██╗██║   ██║██║╚██╗██║"
+    echo "╚█████╔╝ ╚████╔╝    ██║  ██║╚██████╔╝██║ ╚████║"
+    echo " ╚════╝   ╚═══╝     ╚═╝  ╚═╝ ╚═════╝ ╚═╝  ╚═══╝"
+    echo "                                                                                      "
     echo " Commands:"
     echo "   install       Install the site"
     echo "   build         Build the site"
     echo "   serve         Serve the site"
     echo "   deploy        Deploy the site"
     echo "   save          Save the site"
+    echo "   readme        Generate the readme"
 }
 
 _run_complete()
@@ -21,7 +29,7 @@ _run_complete()
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
-    opts="install build serve deploy save"
+    opts="install build serve deploy save readme"
 
     if [[ ${cur} == * ]] ; then
         COMPREPLY=( $(compgen -W "${opts}"  -- ${cur}) )
@@ -88,6 +96,32 @@ save() {
     git push
 }
 
+readme() {
+    cmd="run help"
+    title="Run Help"
+
+    html=help.html
+    pdf=help.pdf
+
+    # Install tools, if necessary.
+    if ! command -v aha &> /dev/null
+    then    
+        echo "Installing aha"
+        sudo apt install aha
+    fi
+    if ! command -v wkhtmltopdf &> /dev/null
+    then    
+        echo "Installing wkhtmltopdf"
+        sudo apt install wkhtmltopdf
+    fi
+
+    # Generate the html from the command.
+    script -qc "$cmd" /dev/null | aha --black --title "$title" > "$html"
+
+    # Generate a pdf of the html file.
+    wkhtmltopdf -s Letter "$html" "$pdf"
+}
+
 case $cmd in
     "install") install;;
     # "post")
@@ -98,6 +132,7 @@ case $cmd in
     "serve") serve;;
     "deploy") deploy;;
     "save") save;;
+    "readme") readme;;
     *) 
         load
         help;;

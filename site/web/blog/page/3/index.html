@@ -941,6 +941,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#f-vs-ts-vs-js" class="md-nav__link">
+    <span class="md-ellipsis">
+      F# vs TS vs JS
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#functional-dependency-injection" class="md-nav__link">
     <span class="md-ellipsis">
       Functional Dependency Injection
@@ -967,15 +976,6 @@
   
 </li>
       
-        <li class="md-nav__item">
-  <a href="#git-release-notes" class="md-nav__link">
-    <span class="md-ellipsis">
-      Git Release Notes
-    </span>
-  </a>
-  
-</li>
-      
     </ul>
   
 </nav>
@@ -990,6 +990,64 @@
       <header class="md-typeset">
         <h1 id="blog">Blog</h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2021-09-06 00:00:00">September 6, 2021</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/frontend/" class="md-meta__link">Frontend</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              3 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="f-vs-ts-vs-js"><a class="toclink" href="../../2021/09/06/f-vs-ts-vs-js/">F# vs TS vs JS</a></h2>
+<p>At first glance, you may wonder how F# relates to the TS vs JS debate, but the idea of transpiling from one language to another extends much further than TS to JS.  </p>
+<p><strong>TL;DR</strong> - TS doesn't go far enough in providing tooling to a pre-transpiled JS language.  F# with the <a href="https://fable.io/">Fable</a> compiler goes the necessary distance with type safety, minimal boilerplate, and awesome type inference to boot!  (imo)</p>
+<p>For frontend development, JS <em>is</em> the runtime language.  There isn't really a debate about this because of its ubiquity.  JS is certainly not a <em>perfect</em> language (whatever that means) since it has its quirks and its own boilerplate just like most other languages.  </p>
+<h3 id="quirkiness-and-boilerplate"><a class="toclink" href="../../2021/09/06/f-vs-ts-vs-js/#quirkiness-and-boilerplate">Quirkiness and Boilerplate</a></h3>
+<p>Sure, F# has some of its own quirks, but its boilerplate is significantly reduced.  Also, I've found my thought-experience in F# is much more even and metrical with a step-by-step flow through development.  The mechanics of both TS and JS, on the other hand, consistently feel like an interruption to my thinking.</p>
+<p>My thinking in F# is "I'd like this, and this, and ..." while with TS its "do this, oops, <em>I forgot</em>..also do this...and oh ya...do this."</p>
+<p>It appears to me that TS added significant overhead in boilerplate as compared to JS.  Some of the features of TS have become down-right quirky in trying to strongly type a dynamic language.  For example, inferring the keys of an object literal in a switch statement is just straight-up bizarre!</p>
+<h3 id="type-inference"><a class="toclink" href="../../2021/09/06/f-vs-ts-vs-js/#type-inference">Type Inference</a></h3>
+<p>In TS, I find that I am spending more time explicitly telling the compiler what I want rather than thinking at the higher, more abstract level.  The true goal of abstraction is to improve the <em>semantics</em> of code.  I'm not interested in a language that keeps me from true abstractions.  With improved semantics our language shifts from <em>telling</em> the computer what we want to <em>describing</em> what we want.</p>
+<p>My F# experience has clouded my perspective with TS here.  The F# type inference is absolutely amazing.  F# will most of the time just figure things out without you having to specifically tell it.  My attention in F# is on the <em>semantic</em> abstraction.</p>
+<p>Of course, there's nothing quite like <em>type inference</em> in JS other than your IDE trying to provide some suggestions.  Or, there is the more aggressive type <strong>coercion</strong>!</p>
+<h3 id="type-safety"><a class="toclink" href="../../2021/09/06/f-vs-ts-vs-js/#type-safety">Type Safety</a></h3>
+<p>TS is nice to enforce <strong>type safety</strong>.  But, the longer I've developed the more that I realize that this idea has come to be quite elusive.  Sure, you get some assurances by the compiler telling you when you've made a syntactic error or when the types don't line up in some way. But, I have to admit that I have rarely (if ever) let a syntactic or type error escape development in JS (or T-SQL ... if that counts 🙂).  </p>
+<p>My gravitation towards <strong>type safety</strong> has honestly been to support any developer who may be put on my team regardless of their skill level and attention to detail.  I now realize that this is flawed thinking.  If a developer doesn't have the attention to detail or isn't skilled enough, then I don't want them on my team.  And, that's that.</p>
+<p><strong>Type safety</strong> is not inherently bad, but it should not come at the cost of verbosity.  </p>
+<p>Again, here's where F# wins.  The compiler is even stricter than TS in that it enforces immutability by <strong>default</strong> and through type inference it doesn't come with the extra penalty of verbosity.  </p>
+<h3 id="the-best"><a class="toclink" href="../../2021/09/06/f-vs-ts-vs-js/#the-best">The Best!</a></h3>
+<p>By taking quirkiness, boilerplate, type inference, and type safety into account, F# is the clear winner in my mind.  </p>
+<hr />
+<p>But the story doesn't end there.  There's more to consider with software engineering than the simplicity and expressiveness of the development language.  I have to consider how others will maintain and contribute to the code that I write.  I have to ask larger questions about team dynamics, skill, and openness to change.</p>
+<p>I've recently found myself surrounded by Python developers.  I'm coming from a full-stack .NET team to a tech stack built upon Python.  Python is an interesting language to me with its foundation in academia and its start in Mathematics.  And, it's dynamic (enter 😱)!  </p>
+<p>Taking this into consideration, which language should I use to code the frontend?  </p>
+<p>Honestly, I think I'll just drop down to plain-old JavaScript.  If I can't go the extra step to get the type inference and expressivity of F#, then I'd prefer to avoid TS altogether.  I'm not completely against TS ─ I'll just wait for the <em>right</em> project to come along before I use it.</p>
+    <nav class="md-post__action">
+      <a href="../../2021/09/06/f-vs-ts-vs-js/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
@@ -1342,233 +1400,6 @@
 <p>Also, an added benefit of this construction is that the final, <em>decorated</em> function, <code>logAdder</code>, has the same type, <code>int -&gt; int</code>, as the function to decorate, <code>getSum</code>.</p>
     <nav class="md-post__action">
       <a href="../../2021/04/05/decorators/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2021-03-31 00:00:00">March 31, 2021</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../category/git/" class="md-meta__link">Git</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              3 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="git-release-notes"><a class="toclink" href="../../2021/03/31/git-release-notes/">Git Release Notes</a></h2>
-<p>The problem often arises in software engineering to capture release notes for your end users.  The situation quickly complicates because the notion of "end users" changes per environment.  The developers may be using a DEV environment while the QA may be using another.  And, then you may need another UAT environment with the primary stake holders.  Each of these environments should have a some form of documentation for the release.  </p>
-<p>Enter <code>git</code> to the rescue.  I typically follow the 'git flow' workflow.  Also, over time I have begun to use <code>rebase</code> with <code>squash</code> instead of a simple <code>merge</code> to keep the commit log clean.  With this workflow, it is very easy to setup a simple CI job that logs the changes from git since the last commit.  </p>
-<p>The script below hinges on the following git command:</p>
-<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>git diff --name-only HEAD~0 HEAD~1
-</span></code></pre></div></td></tr></table></div>
-<p>Here's a <code>pwsh</code> script to get you started.  Enjoy!</p>
-<div class="language-powershell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-3-10">10</a></span>
-<span class="normal"><a href="#__codelineno-3-11">11</a></span>
-<span class="normal"><a href="#__codelineno-3-12">12</a></span>
-<span class="normal"><a href="#__codelineno-3-13">13</a></span>
-<span class="normal"><a href="#__codelineno-3-14">14</a></span>
-<span class="normal"><a href="#__codelineno-3-15">15</a></span>
-<span class="normal"><a href="#__codelineno-3-16">16</a></span>
-<span class="normal"><a href="#__codelineno-3-17">17</a></span>
-<span class="normal"><a href="#__codelineno-3-18">18</a></span>
-<span class="normal"><a href="#__codelineno-3-19">19</a></span>
-<span class="normal"><a href="#__codelineno-3-20">20</a></span>
-<span class="normal"><a href="#__codelineno-3-21">21</a></span>
-<span class="normal"><a href="#__codelineno-3-22">22</a></span>
-<span class="normal"><a href="#__codelineno-3-23">23</a></span>
-<span class="normal"><a href="#__codelineno-3-24">24</a></span>
-<span class="normal"><a href="#__codelineno-3-25">25</a></span>
-<span class="normal"><a href="#__codelineno-3-26">26</a></span>
-<span class="normal"><a href="#__codelineno-3-27">27</a></span>
-<span class="normal"><a href="#__codelineno-3-28">28</a></span>
-<span class="normal"><a href="#__codelineno-3-29">29</a></span>
-<span class="normal"><a href="#__codelineno-3-30">30</a></span>
-<span class="normal"><a href="#__codelineno-3-31">31</a></span>
-<span class="normal"><a href="#__codelineno-3-32">32</a></span>
-<span class="normal"><a href="#__codelineno-3-33">33</a></span>
-<span class="normal"><a href="#__codelineno-3-34">34</a></span>
-<span class="normal"><a href="#__codelineno-3-35">35</a></span>
-<span class="normal"><a href="#__codelineno-3-36">36</a></span>
-<span class="normal"><a href="#__codelineno-3-37">37</a></span>
-<span class="normal"><a href="#__codelineno-3-38">38</a></span>
-<span class="normal"><a href="#__codelineno-3-39">39</a></span>
-<span class="normal"><a href="#__codelineno-3-40">40</a></span>
-<span class="normal"><a href="#__codelineno-3-41">41</a></span>
-<span class="normal"><a href="#__codelineno-3-42">42</a></span>
-<span class="normal"><a href="#__codelineno-3-43">43</a></span>
-<span class="normal"><a href="#__codelineno-3-44">44</a></span>
-<span class="normal"><a href="#__codelineno-3-45">45</a></span>
-<span class="normal"><a href="#__codelineno-3-46">46</a></span>
-<span class="normal"><a href="#__codelineno-3-47">47</a></span>
-<span class="normal"><a href="#__codelineno-3-48">48</a></span>
-<span class="normal"><a href="#__codelineno-3-49">49</a></span>
-<span class="normal"><a href="#__codelineno-3-50">50</a></span>
-<span class="normal"><a href="#__codelineno-3-51">51</a></span>
-<span class="normal"><a href="#__codelineno-3-52">52</a></span>
-<span class="normal"><a href="#__codelineno-3-53">53</a></span>
-<span class="normal"><a href="#__codelineno-3-54">54</a></span>
-<span class="normal"><a href="#__codelineno-3-55">55</a></span>
-<span class="normal"><a href="#__codelineno-3-56">56</a></span>
-<span class="normal"><a href="#__codelineno-3-57">57</a></span>
-<span class="normal"><a href="#__codelineno-3-58">58</a></span>
-<span class="normal"><a href="#__codelineno-3-59">59</a></span>
-<span class="normal"><a href="#__codelineno-3-60">60</a></span>
-<span class="normal"><a href="#__codelineno-3-61">61</a></span>
-<span class="normal"><a href="#__codelineno-3-62">62</a></span>
-<span class="normal"><a href="#__codelineno-3-63">63</a></span>
-<span class="normal"><a href="#__codelineno-3-64">64</a></span>
-<span class="normal"><a href="#__codelineno-3-65">65</a></span>
-<span class="normal"><a href="#__codelineno-3-66">66</a></span>
-<span class="normal"><a href="#__codelineno-3-67">67</a></span>
-<span class="normal"><a href="#__codelineno-3-68">68</a></span>
-<span class="normal"><a href="#__codelineno-3-69">69</a></span>
-<span class="normal"><a href="#__codelineno-3-70">70</a></span>
-<span class="normal"><a href="#__codelineno-3-71">71</a></span>
-<span class="normal"><a href="#__codelineno-3-72">72</a></span>
-<span class="normal"><a href="#__codelineno-3-73">73</a></span>
-<span class="normal"><a href="#__codelineno-3-74">74</a></span>
-<span class="normal"><a href="#__codelineno-3-75">75</a></span>
-<span class="normal"><a href="#__codelineno-3-76">76</a></span>
-<span class="normal"><a href="#__codelineno-3-77">77</a></span>
-<span class="normal"><a href="#__codelineno-3-78">78</a></span>
-<span class="normal"><a href="#__codelineno-3-79">79</a></span>
-<span class="normal"><a href="#__codelineno-3-80">80</a></span>
-<span class="normal"><a href="#__codelineno-3-81">81</a></span>
-<span class="normal"><a href="#__codelineno-3-82">82</a></span>
-<span class="normal"><a href="#__codelineno-3-83">83</a></span>
-<span class="normal"><a href="#__codelineno-3-84">84</a></span>
-<span class="normal"><a href="#__codelineno-3-85">85</a></span>
-<span class="normal"><a href="#__codelineno-3-86">86</a></span>
-<span class="normal"><a href="#__codelineno-3-87">87</a></span>
-<span class="normal"><a href="#__codelineno-3-88">88</a></span>
-<span class="normal"><a href="#__codelineno-3-89">89</a></span>
-<span class="normal"><a href="#__codelineno-3-90">90</a></span>
-<span class="normal"><a href="#__codelineno-3-91">91</a></span>
-<span class="normal"><a href="#__codelineno-3-92">92</a></span>
-<span class="normal"><a href="#__codelineno-3-93">93</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nb">Write-Host</span> <span class="s2">&quot;Running Release Notes&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Yellow</span>
-</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a>
-</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a>
-</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="k">Function</span> <span class="nb">Save-CommitNotes</span><span class="p">(</span><span class="no">[int]</span><span class="nv">$commitIndex</span><span class="p">)</span> <span class="p">{</span>
-</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a>
-</span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a>    <span class="c"># Add the Release Notes</span>
-</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a>    <span class="nv">$releaseNotes</span> <span class="p">=</span> <span class="s2">&quot;# Release Notes</span><span class="se">`n`n</span><span class="s2">&quot;</span>
-</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a>    <span class="nv">$commits</span> <span class="p">=</span> <span class="n">git</span> <span class="n">log</span> <span class="p">-</span><span class="n">200</span> <span class="p">-</span><span class="n">-pretty</span><span class="p">=</span><span class="s1">&#39;%H&#39;</span>
-</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a>    <span class="nv">$commitHash</span> <span class="p">=</span> <span class="nv">$commits</span><span class="p">[</span><span class="nv">$commitIndex</span><span class="p">]</span>
-</span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a>    <span class="nv">$commitTitle</span> <span class="p">=</span> <span class="n">git</span> <span class="n">log</span> <span class="p">-</span><span class="n">1</span> <span class="p">-</span><span class="n">-pretty</span><span class="p">=</span><span class="s1">&#39;%s&#39;</span> <span class="nv">$commitHash</span>
-</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a>    <span class="nv">$date</span> <span class="p">=</span> <span class="n">git</span> <span class="n">show</span> <span class="p">-</span><span class="n">-no-patch</span> <span class="p">-</span><span class="n">-no-notes</span> <span class="p">-</span><span class="n">-pretty</span><span class="p">=</span><span class="s1">&#39;%cd&#39;</span> <span class="nv">$commitHash</span>
-</span><span id="__span-3-12"><a id="__codelineno-3-12" name="__codelineno-3-12"></a>
-</span><span id="__span-3-13"><a id="__codelineno-3-13" name="__codelineno-3-13"></a>    <span class="nb">Write-Host</span> <span class="s2">&quot;Logging $commitHash from $date at index $commitIndex.&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Yellow</span>
-</span><span id="__span-3-14"><a id="__codelineno-3-14" name="__codelineno-3-14"></a>
-</span><span id="__span-3-15"><a id="__codelineno-3-15" name="__codelineno-3-15"></a>
-</span><span id="__span-3-16"><a id="__codelineno-3-16" name="__codelineno-3-16"></a>    <span class="c"># Add the commit message and hash title.</span>
-</span><span id="__span-3-17"><a id="__codelineno-3-17" name="__codelineno-3-17"></a>    <span class="nv">$commitUrl</span> <span class="p">=</span> <span class="n">git</span> <span class="n">remote</span> <span class="nb">get-url</span> <span class="n">origin</span> <span class="p">|</span> <span class="k">Foreach</span><span class="n">-Object</span> <span class="p">{</span> <span class="nv">$_</span> <span class="o">-replace</span> <span class="s2">&quot;\.git&quot;</span><span class="p">,</span> <span class="s2">&quot;/-/commit/$commitHash&quot;</span> <span class="p">}</span>
-</span><span id="__span-3-18"><a id="__codelineno-3-18" name="__codelineno-3-18"></a>    <span class="nv">$releaseNotes</span> <span class="p">+=</span> <span class="s2">&quot;### [$commitTitle]($commitUrl)</span><span class="se">`n`n</span><span class="s2">&quot;</span>
-</span><span id="__span-3-19"><a id="__codelineno-3-19" name="__codelineno-3-19"></a>
-</span><span id="__span-3-20"><a id="__codelineno-3-20" name="__codelineno-3-20"></a>
-</span><span id="__span-3-21"><a id="__codelineno-3-21" name="__codelineno-3-21"></a>    <span class="nv">$releaseNotes</span> <span class="p">+=</span> <span class="s2">&quot;&gt; $date</span><span class="se">`n`n</span><span class="s2">&quot;</span>
-</span><span id="__span-3-22"><a id="__codelineno-3-22" name="__codelineno-3-22"></a>
-</span><span id="__span-3-23"><a id="__codelineno-3-23" name="__codelineno-3-23"></a>
-</span><span id="__span-3-24"><a id="__codelineno-3-24" name="__codelineno-3-24"></a>    <span class="c"># Get the file changes in the last commit</span>
-</span><span id="__span-3-25"><a id="__codelineno-3-25" name="__codelineno-3-25"></a>    <span class="nv">$nextCommitIndex</span> <span class="p">=</span> <span class="nv">$commitIndex</span> <span class="p">+</span> <span class="n">1</span>
-</span><span id="__span-3-26"><a id="__codelineno-3-26" name="__codelineno-3-26"></a>    <span class="c"># https://git-scm.com/docs/git-diff#Documentation/git-diff.txt---diff-filterACDMRTUXB82308203</span>
-</span><span id="__span-3-27"><a id="__codelineno-3-27" name="__codelineno-3-27"></a>    <span class="n">git</span> <span class="nb">diff </span><span class="n">HEAD</span><span class="p">~</span><span class="nv">$nextCommitIndex</span> <span class="n">HEAD</span><span class="p">~</span><span class="nv">$commitIndex</span> <span class="p">-</span><span class="n">-name-status</span> <span class="p">|</span>
-</span><span id="__span-3-28"><a id="__codelineno-3-28" name="__codelineno-3-28"></a>    <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span>
-</span><span id="__span-3-29"><a id="__codelineno-3-29" name="__codelineno-3-29"></a>        <span class="nv">$line</span> <span class="p">=</span> <span class="nv">$_</span> <span class="o">-replace</span> <span class="s2">&quot;</span><span class="se">`t</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot; &quot;</span>
-</span><span id="__span-3-30"><a id="__codelineno-3-30" name="__codelineno-3-30"></a>        <span class="c"># Remove the Status code and leading space</span>
-</span><span id="__span-3-31"><a id="__codelineno-3-31" name="__codelineno-3-31"></a>        <span class="c">#   Example:  &#39;M       .gitignore&#39;</span>
-</span><span id="__span-3-32"><a id="__codelineno-3-32" name="__codelineno-3-32"></a>        <span class="nv">$title</span> <span class="p">=</span> <span class="nv">$line</span><span class="p">.</span><span class="n">Substring</span><span class="p">(</span><span class="n">1</span><span class="p">,</span> <span class="nv">$line</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="n">1</span><span class="p">).</span><span class="n">Trim</span><span class="p">()</span>
-</span><span id="__span-3-33"><a id="__codelineno-3-33" name="__codelineno-3-33"></a>        <span class="nv">$status</span> <span class="p">=</span> <span class="nv">$line</span><span class="p">[</span><span class="n">0</span><span class="p">]</span>
-</span><span id="__span-3-34"><a id="__codelineno-3-34" name="__codelineno-3-34"></a>
-</span><span id="__span-3-35"><a id="__codelineno-3-35" name="__codelineno-3-35"></a>
-</span><span id="__span-3-36"><a id="__codelineno-3-36" name="__codelineno-3-36"></a>        <span class="k">switch</span><span class="p">(</span><span class="nv">$status</span><span class="p">)</span> <span class="p">{</span>
-</span><span id="__span-3-37"><a id="__codelineno-3-37" name="__codelineno-3-37"></a>            <span class="c"># Added</span>
-</span><span id="__span-3-38"><a id="__codelineno-3-38" name="__codelineno-3-38"></a>            <span class="s2">&quot;A&quot;</span> <span class="p">{</span> <span class="nv">$title</span> <span class="p">=</span> <span class="s2">&quot;➕ $title&quot;</span> <span class="p">}</span>
-</span><span id="__span-3-39"><a id="__codelineno-3-39" name="__codelineno-3-39"></a>            <span class="c"># Modified</span>
-</span><span id="__span-3-40"><a id="__codelineno-3-40" name="__codelineno-3-40"></a>            <span class="s2">&quot;M&quot;</span> <span class="p">{</span> <span class="nv">$title</span> <span class="p">=</span> <span class="s2">&quot;🖊 $title&quot;</span> <span class="p">}</span>
-</span><span id="__span-3-41"><a id="__codelineno-3-41" name="__codelineno-3-41"></a>            <span class="c"># Renamed</span>
-</span><span id="__span-3-42"><a id="__codelineno-3-42" name="__codelineno-3-42"></a>            <span class="s2">&quot;R&quot;</span> <span class="p">{</span> <span class="nv">$title</span> <span class="p">=</span> <span class="s2">&quot;↪ $title&quot;</span> <span class="p">}</span>
-</span><span id="__span-3-43"><a id="__codelineno-3-43" name="__codelineno-3-43"></a>            <span class="c"># Deleted</span>
-</span><span id="__span-3-44"><a id="__codelineno-3-44" name="__codelineno-3-44"></a>            <span class="s2">&quot;D&quot;</span> <span class="p">{</span> <span class="nv">$title</span> <span class="p">=</span> <span class="s2">&quot;➖ ~~$title~~&quot;</span> <span class="p">}</span>
-</span><span id="__span-3-45"><a id="__codelineno-3-45" name="__codelineno-3-45"></a>            <span class="c"># Other</span>
-</span><span id="__span-3-46"><a id="__codelineno-3-46" name="__codelineno-3-46"></a>            <span class="k">default</span> <span class="p">{</span> <span class="nv">$title</span> <span class="p">=</span> <span class="s2">&quot;($status) $title&quot;</span><span class="p">}</span>
-</span><span id="__span-3-47"><a id="__codelineno-3-47" name="__codelineno-3-47"></a>        <span class="p">}</span>
-</span><span id="__span-3-48"><a id="__codelineno-3-48" name="__codelineno-3-48"></a>
-</span><span id="__span-3-49"><a id="__codelineno-3-49" name="__codelineno-3-49"></a>        <span class="k">if</span> <span class="p">(</span><span class="nv">$line</span><span class="p">.</span><span class="n">EndsWith</span><span class="p">(</span><span class="s2">&quot;.md&quot;</span><span class="p">)</span> <span class="o">-and</span> <span class="p">(</span><span class="nv">$status</span> <span class="o">-ne</span> <span class="s2">&quot;D&quot;</span><span class="p">))</span> <span class="p">{</span>
-</span><span id="__span-3-50"><a id="__codelineno-3-50" name="__codelineno-3-50"></a>            <span class="c"># Convert the markdown file changes to links.</span>
-</span><span id="__span-3-51"><a id="__codelineno-3-51" name="__codelineno-3-51"></a>            <span class="c"># Set the url as the last segment after the space</span>
-</span><span id="__span-3-52"><a id="__codelineno-3-52" name="__codelineno-3-52"></a>            <span class="nv">$split</span> <span class="p">=</span> <span class="nv">$line</span><span class="p">.</span><span class="n">Split</span><span class="p">(</span><span class="s2">&quot; &quot;</span><span class="p">)</span>
-</span><span id="__span-3-53"><a id="__codelineno-3-53" name="__codelineno-3-53"></a>            <span class="nv">$url</span> <span class="p">=</span> <span class="nv">$split</span><span class="p">[</span><span class="nv">$split</span><span class="p">.</span><span class="n">Length</span> <span class="p">-</span> <span class="n">1</span><span class="p">]</span>
-</span><span id="__span-3-54"><a id="__codelineno-3-54" name="__codelineno-3-54"></a>            <span class="nv">$releaseNotes</span> <span class="p">+=</span> <span class="s2">&quot;- [$title]($url)</span><span class="se">`n</span><span class="s2">&quot;</span>
-</span><span id="__span-3-55"><a id="__codelineno-3-55" name="__codelineno-3-55"></a>        <span class="p">}</span>
-</span><span id="__span-3-56"><a id="__codelineno-3-56" name="__codelineno-3-56"></a>        <span class="k">else</span> <span class="p">{</span>
-</span><span id="__span-3-57"><a id="__codelineno-3-57" name="__codelineno-3-57"></a>            <span class="nv">$releaseNotes</span> <span class="p">+=</span> <span class="s2">&quot;- $title</span><span class="se">`n</span><span class="s2">&quot;</span>
-</span><span id="__span-3-58"><a id="__codelineno-3-58" name="__codelineno-3-58"></a>        <span class="p">}</span>
-</span><span id="__span-3-59"><a id="__codelineno-3-59" name="__codelineno-3-59"></a>    <span class="p">}</span>
-</span><span id="__span-3-60"><a id="__codelineno-3-60" name="__codelineno-3-60"></a>
-</span><span id="__span-3-61"><a id="__codelineno-3-61" name="__codelineno-3-61"></a>
-</span><span id="__span-3-62"><a id="__codelineno-3-62" name="__codelineno-3-62"></a>    <span class="k">if</span> <span class="p">(</span><span class="nb">Test-Path</span><span class="p">(</span><span class="s2">&quot;index.md&quot;</span><span class="p">))</span> <span class="p">{</span>
-</span><span id="__span-3-63"><a id="__codelineno-3-63" name="__codelineno-3-63"></a>        <span class="nv">$releaseNotes</span> <span class="p">=</span> <span class="p">@(</span><span class="nv">$releaseNotes</span><span class="p">)</span> <span class="p">+</span> <span class="p">(</span><span class="nb">Get-Content</span> <span class="n">index</span><span class="p">.</span><span class="nb">md </span><span class="p">|</span> <span class="nb">Select-Object</span> <span class="n">-Skip</span> <span class="n">1</span><span class="p">)</span>
-</span><span id="__span-3-64"><a id="__codelineno-3-64" name="__codelineno-3-64"></a>    <span class="p">}</span>
-</span><span id="__span-3-65"><a id="__codelineno-3-65" name="__codelineno-3-65"></a>
-</span><span id="__span-3-66"><a id="__codelineno-3-66" name="__codelineno-3-66"></a>
-</span><span id="__span-3-67"><a id="__codelineno-3-67" name="__codelineno-3-67"></a>    <span class="nv">$releaseNotes</span> <span class="p">|</span> <span class="nb">Set-Content</span> <span class="n">index</span><span class="p">.</span><span class="nb">md</span>
-</span><span id="__span-3-68"><a id="__codelineno-3-68" name="__codelineno-3-68"></a><span class="p">}</span>
-</span><span id="__span-3-69"><a id="__codelineno-3-69" name="__codelineno-3-69"></a>
-</span><span id="__span-3-70"><a id="__codelineno-3-70" name="__codelineno-3-70"></a>
-</span><span id="__span-3-71"><a id="__codelineno-3-71" name="__codelineno-3-71"></a><span class="c">### Log Previous Commits ###</span>
-</span><span id="__span-3-72"><a id="__codelineno-3-72" name="__codelineno-3-72"></a>
-</span><span id="__span-3-73"><a id="__codelineno-3-73" name="__codelineno-3-73"></a>
-</span><span id="__span-3-74"><a id="__codelineno-3-74" name="__codelineno-3-74"></a><span class="c"># Find the last saved commit if it exists.</span>
-</span><span id="__span-3-75"><a id="__codelineno-3-75" name="__codelineno-3-75"></a><span class="k">if</span> <span class="p">(</span><span class="nb">Test-Path</span> <span class="p">.\</span><span class="n">release</span><span class="p">.</span><span class="n">data</span><span class="p">)</span> <span class="p">{</span>
-</span><span id="__span-3-76"><a id="__codelineno-3-76" name="__codelineno-3-76"></a>    <span class="nv">$lastCommit</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-Content</span> <span class="p">.\</span><span class="n">release</span><span class="p">.</span><span class="n">data</span><span class="p">).</span><span class="n">Substring</span><span class="p">(</span><span class="n">0</span><span class="p">,</span> <span class="n">40</span><span class="p">)</span>
-</span><span id="__span-3-77"><a id="__codelineno-3-77" name="__codelineno-3-77"></a>    <span class="nv">$commits</span> <span class="p">=</span> <span class="n">git</span> <span class="n">log</span> <span class="p">-</span><span class="n">200</span> <span class="p">-</span><span class="n">-pretty</span><span class="p">=</span><span class="s1">&#39;%H&#39;</span>
-</span><span id="__span-3-78"><a id="__codelineno-3-78" name="__codelineno-3-78"></a>    <span class="nv">$foundIndex</span> <span class="p">=</span> <span class="no">[array]</span><span class="p">::</span><span class="n">indexof</span><span class="p">(</span><span class="nv">$commits</span><span class="p">,</span> <span class="nv">$lastCommit</span><span class="p">)</span>
-</span><span id="__span-3-79"><a id="__codelineno-3-79" name="__codelineno-3-79"></a>    <span class="nb">Write-Host</span> <span class="s2">&quot;Release Data Found:  $lastCommit at index $foundIndex&quot;</span>
-</span><span id="__span-3-80"><a id="__codelineno-3-80" name="__codelineno-3-80"></a>    <span class="k">if</span> <span class="p">(</span><span class="nv">$foundIndex</span> <span class="o">-gt</span> <span class="n">0</span><span class="p">)</span> <span class="p">{</span>
-</span><span id="__span-3-81"><a id="__codelineno-3-81" name="__codelineno-3-81"></a>        <span class="p">(</span><span class="nv">$foundIndex</span><span class="p">-</span><span class="n">1</span><span class="p">)..</span><span class="n">0</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span> <span class="nb">Save-CommitNotes</span> <span class="nv">$_</span> <span class="p">}</span>
-</span><span id="__span-3-82"><a id="__codelineno-3-82" name="__codelineno-3-82"></a>    <span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span id="__span-3-83"><a id="__codelineno-3-83" name="__codelineno-3-83"></a>        <span class="nb">Write-Host</span> <span class="s2">&quot;There are no previous commits to log.&quot;</span> <span class="n">-ForegroundColor</span> <span class="n">Yellow</span>
-</span><span id="__span-3-84"><a id="__codelineno-3-84" name="__codelineno-3-84"></a>    <span class="p">}</span>
-</span><span id="__span-3-85"><a id="__codelineno-3-85" name="__codelineno-3-85"></a><span class="p">}</span> <span class="k">else</span> <span class="p">{</span>
-</span><span id="__span-3-86"><a id="__codelineno-3-86" name="__codelineno-3-86"></a>    <span class="c"># Default the search to 20 previous commits.</span>
-</span><span id="__span-3-87"><a id="__codelineno-3-87" name="__codelineno-3-87"></a>    <span class="n">20</span><span class="p">..</span><span class="n">0</span> <span class="p">|</span> <span class="k">ForEach</span><span class="n">-Object</span> <span class="p">{</span> <span class="nb">Save-CommitNotes</span> <span class="nv">$_</span> <span class="p">}</span>
-</span><span id="__span-3-88"><a id="__codelineno-3-88" name="__codelineno-3-88"></a><span class="p">}</span>
-</span><span id="__span-3-89"><a id="__codelineno-3-89" name="__codelineno-3-89"></a>
-</span><span id="__span-3-90"><a id="__codelineno-3-90" name="__codelineno-3-90"></a>
-</span><span id="__span-3-91"><a id="__codelineno-3-91" name="__codelineno-3-91"></a>
-</span><span id="__span-3-92"><a id="__codelineno-3-92" name="__codelineno-3-92"></a><span class="c"># Save the Previous Commit</span>
-</span><span id="__span-3-93"><a id="__codelineno-3-93" name="__codelineno-3-93"></a><span class="n">git</span> <span class="n">log</span> <span class="p">-</span><span class="n">1</span> <span class="p">-</span><span class="n">-pretty</span><span class="p">=</span><span class="s1">&#39;%H&#39;</span> <span class="p">|</span> <span class="nb">Set-Content</span> <span class="p">.\</span><span class="n">release</span><span class="p">.</span><span class="n">data</span>
-</span></code></pre></div></td></tr></table></div>
-    <nav class="md-post__action">
-      <a href="../../2021/03/31/git-release-notes/">
         Continue reading
       </a>
     </nav>
