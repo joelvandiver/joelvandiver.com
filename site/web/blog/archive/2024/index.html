@@ -536,6 +536,15 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#feature-flags" class="md-nav__link">
+    <span class="md-ellipsis">
+      Feature Flags
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#generate-a-cli-readme" class="md-nav__link">
     <span class="md-ellipsis">
       Generate a CLI README
@@ -1139,6 +1148,81 @@
       <header class="md-typeset">
         <h1 id="2024">2024</h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2024-02-18 00:00:00">February 18, 2024</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/devops/" class="md-meta__link">DevOps</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="feature-flags"><a class="toclink" href="../../2024/02/18/feature-flags/">Feature Flags</a></h2>
+<p>One of the most foundational shifts I have implemented in the software development lifecycle is feature flags.  </p>
+<p>Traditionally, we would follow a process similar to:</p>
+<ol>
+<li>Design a feature.</li>
+<li>Develop a feature.</li>
+<li>Build the code for the feature.</li>
+<li>Deploy the feature to a QA environment for testing.</li>
+<li>Deploy the feature to production.</li>
+</ol>
+<p>But, that's a simplistic perspective of feature development.  Realistically, features follow a much more chaotic life cycle.  For example, a few iterations may look like:</p>
+<ol>
+<li>Design feature 1.</li>
+<li>Design feature 2 and develop feature 1.</li>
+<li>Design feature 3 and deploy feature 1 to QA.</li>
+<li>Develop feature 2 and feature 3, and fix feature 1.</li>
+<li>Fix feature 2 and deploy feature 1 and feature 3 to QA.</li>
+<li>Deploy feature 2 to QA.</li>
+<li>Deploy features 1, 2, and 3 to production.</li>
+</ol>
+<p>You can probably see how this can get unwieldy very quickly.  And, even in this complicated scenario, we haven't taken into account the need to change the final feature set at deployment.  Once a team experiences one deployment rollback, I'm sure they'll be looking to make code deployments more stable.</p>
+<h3 id="enter-flags"><a class="toclink" href="../../2024/02/18/feature-flags/#enter-flags">Enter Flags</a></h3>
+<p>The concept of feature flags is really simple.  Just provide a simple data structure at runtime to enable or disable features.</p>
+<div class="language-json highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="p">{</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="w">    </span><span class="nt">&quot;ff_sample_feature&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">    </span><span class="nt">&quot;ff_another_feature&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<p>With this new data set, we can disable new features <em>by default</em> at deployment, and then at a later date, we can turn on the feature.  </p>
+<p>We have now separated <code>code</code> deployment from <code>feature</code> deployment.  </p>
+<h3 id="other-benefits"><a class="toclink" href="../../2024/02/18/feature-flags/#other-benefits">Other benefits</a></h3>
+<p>Feature flags open the door to many other benefits.</p>
+<ol>
+<li><strong>Technical Debt Management</strong>: You can wrap existing features scoped for deprecation in feature flags. You can leave them on by default and then schedule a time to turn them off.  At a later date, you can safely remove the code for the deprecated feature.</li>
+<li><strong>Multi-Variate Flags</strong>: You can configure features with multi-variate flags.  For example, you could implement a color code feature flag to change the color of the navbar based on an environment.</li>
+<li><strong>Feature Short Circuiting</strong>: With feature flags, the development team can take more risks by putting the riskier code behind feature flags.  For example, two code paths could provide the same business requirements, but the new code could have huge performance implications and pitfalls.  With a feature flag to toggle them, the team can schedule a time to turn switch the flag to gather some more data in production.</li>
+</ol>
+<p>And, the list goes on!</p>
+    <nav class="md-post__action">
+      <a href="../../2024/02/18/feature-flags/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">

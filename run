@@ -16,6 +16,7 @@ help() {
     echo "                                                                                      "
     echo " Commands:"
     echo "   install       Install the site"
+    echo "   post          Generate a post"
     echo "   build         Build the site"
     echo "   serve         Serve the site"
     echo "   deploy        Deploy the site"
@@ -29,7 +30,7 @@ _run_complete()
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
-    opts="install build serve deploy save readme"
+    opts="install post build serve deploy save readme"
 
     if [[ ${cur} == * ]] ; then
         COMPREPLY=( $(compgen -W "${opts}"  -- ${cur}) )
@@ -124,10 +125,21 @@ readme() {
 
 case $cmd in
     "install") install;;
-    # "post")
-    #     echo "Generate a post"
-    #     touch "$PWD/Daily/$(date +%Y-%m-%d)-$1.md"
-    #     ;;
+    "post")
+        _date=$(date +%Y-%m-%d)
+        post="${1// /-}"
+        echo "Generating Post: $_date-$post"
+        file="$PWD/site/docs/blog/posts/$_date-$post.md"
+        touch $file
+        cat > $file <<EOF
+---
+title: $1
+date: $_date
+---
+
+EOF
+        code $file
+        ;;
     "build") build;;
     "serve") serve;;
     "deploy") deploy;;

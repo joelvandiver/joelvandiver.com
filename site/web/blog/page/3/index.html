@@ -1075,6 +1075,135 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
+          <time datetime="2020-05-12 00:00:00">May 12, 2020</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/devops/" class="md-meta__link">DevOps</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              1 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="use-powershell-to-spin-up-an-integration-test-api"><a class="toclink" href="../../2020/05/12/use-powershell-to-spin-up-an-integration-test-api/">Use PowerShell to Spin Up an Integration Test API</a></h2>
+<p>In developing CI/CD pipelines, I have often come across the need to spin up an api just to run integration tests against.  Below is a PowerShell script I came up with to startup an api on another process, check that it is alive, and then run the integration tests against that api.  </p>
+<blockquote>
+<p>Works like a charm!</p>
+</blockquote>
+<div class="language-powershell highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span>
+<span class="normal"><a href="#__codelineno-2-17">17</a></span>
+<span class="normal"><a href="#__codelineno-2-18">18</a></span>
+<span class="normal"><a href="#__codelineno-2-19">19</a></span>
+<span class="normal"><a href="#__codelineno-2-20">20</a></span>
+<span class="normal"><a href="#__codelineno-2-21">21</a></span>
+<span class="normal"><a href="#__codelineno-2-22">22</a></span>
+<span class="normal"><a href="#__codelineno-2-23">23</a></span>
+<span class="normal"><a href="#__codelineno-2-24">24</a></span>
+<span class="normal"><a href="#__codelineno-2-25">25</a></span>
+<span class="normal"><a href="#__codelineno-2-26">26</a></span>
+<span class="normal"><a href="#__codelineno-2-27">27</a></span>
+<span class="normal"><a href="#__codelineno-2-28">28</a></span>
+<span class="normal"><a href="#__codelineno-2-29">29</a></span>
+<span class="normal"><a href="#__codelineno-2-30">30</a></span>
+<span class="normal"><a href="#__codelineno-2-31">31</a></span>
+<span class="normal"><a href="#__codelineno-2-32">32</a></span>
+<span class="normal"><a href="#__codelineno-2-33">33</a></span>
+<span class="normal"><a href="#__codelineno-2-34">34</a></span>
+<span class="normal"><a href="#__codelineno-2-35">35</a></span>
+<span class="normal"><a href="#__codelineno-2-36">36</a></span>
+<span class="normal"><a href="#__codelineno-2-37">37</a></span>
+<span class="normal"><a href="#__codelineno-2-38">38</a></span>
+<span class="normal"><a href="#__codelineno-2-39">39</a></span>
+<span class="normal"><a href="#__codelineno-2-40">40</a></span>
+<span class="normal"><a href="#__codelineno-2-41">41</a></span>
+<span class="normal"><a href="#__codelineno-2-42">42</a></span>
+<span class="normal"><a href="#__codelineno-2-43">43</a></span>
+<span class="normal"><a href="#__codelineno-2-44">44</a></span>
+<span class="normal"><a href="#__codelineno-2-45">45</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="c"># Assume the API is not alive.</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nv">$isAlive</span> <span class="p">=</span> <span class="nv">$false</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="nb">Set-Location</span> <span class="s2">&quot;path/to/integration/test/api&quot;</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="c"># Start Test API in the Background</span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="nb">start </span><span class="n">dotnet</span> <span class="n">run</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="c"># Wait for Process</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="c"># Define a Check-Process Function</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="no">[Net.ServicePointManager]</span><span class="p">::</span><span class="n">SecurityProtocol</span> <span class="p">=</span> <span class="no">[Net.SecurityProtocolType]</span><span class="p">::</span><span class="n">Tls12</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="k">Function</span> <span class="n">Check-Process</span><span class="p">()</span> <span class="p">{</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a>    <span class="k">return</span> <span class="nb">Invoke-RestMethod</span> <span class="n">-Method</span> <span class="n">get</span> <span class="p">`</span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15"></a>        <span class="n">-ContentType</span> <span class="s1">&#39;Application/Json&#39;</span> <span class="p">`</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16"></a>        <span class="n">-Uri</span> <span class="s2">&quot;https://localhost:5001/health&quot;</span> <span class="p">`</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17"></a>        <span class="n">-ErrorAction</span> <span class="n">SilentlyContinue</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="p">}</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19"></a>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="c"># Check if the API is alive at most 10 times.</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="k">For</span> <span class="p">(</span><span class="nv">$i</span> <span class="p">=</span> <span class="n">0</span><span class="p">;</span> <span class="nv">$i</span> <span class="o">-le</span> <span class="n">10</span><span class="p">;</span> <span class="nv">$i</span><span class="p">++)</span> <span class="p">{</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22"></a>    <span class="nb">Write-Output</span> <span class="s2">&quot;Sleeping for 5 seconds.&quot;</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23"></a>    <span class="nb">Start-Sleep</span> <span class="n">-Seconds</span> <span class="n">5</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24"></a>    <span class="nb">Write-Output</span> <span class="s2">&quot;Trying https://localhost:5001/health&quot;</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25"></a>    <span class="nv">$isAlive</span> <span class="p">=</span> <span class="n">Check-Process</span> <span class="o">-eq</span> <span class="s2">&quot;Healthy&quot;</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26"></a>    <span class="k">if</span> <span class="p">(</span><span class="nv">$isAlive</span><span class="p">)</span> <span class="p">{</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27"></a>        <span class="k">Break</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28"></a>    <span class="p">}</span>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29"></a><span class="p">}</span>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30"></a>
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31"></a><span class="c"># Stop if the api is not alive at this point.</span>
+</span><span id="__span-2-32"><a id="__codelineno-2-32" name="__codelineno-2-32"></a><span class="k">if</span> <span class="p">(</span><span class="o">-Not</span><span class="p">(</span><span class="nv">$isAlive</span><span class="p">))</span> <span class="p">{</span>
+</span><span id="__span-2-33"><a id="__codelineno-2-33" name="__codelineno-2-33"></a>    <span class="k">Throw</span> <span class="s2">&quot;The Integration Src API is not alive after 50 seconds.&quot;</span>
+</span><span id="__span-2-34"><a id="__codelineno-2-34" name="__codelineno-2-34"></a><span class="p">}</span>
+</span><span id="__span-2-35"><a id="__codelineno-2-35" name="__codelineno-2-35"></a>
+</span><span id="__span-2-36"><a id="__codelineno-2-36" name="__codelineno-2-36"></a><span class="nb">Set-Location</span> <span class="s2">&quot;path/to/integration/tests&quot;</span>
+</span><span id="__span-2-37"><a id="__codelineno-2-37" name="__codelineno-2-37"></a>
+</span><span id="__span-2-38"><a id="__codelineno-2-38" name="__codelineno-2-38"></a><span class="c"># Run Integration Tests</span>
+</span><span id="__span-2-39"><a id="__codelineno-2-39" name="__codelineno-2-39"></a><span class="n">dotnet</span> <span class="n">run</span>
+</span><span id="__span-2-40"><a id="__codelineno-2-40" name="__codelineno-2-40"></a>
+</span><span id="__span-2-41"><a id="__codelineno-2-41" name="__codelineno-2-41"></a><span class="c"># Get Process Id so that we can kill it later.</span>
+</span><span id="__span-2-42"><a id="__codelineno-2-42" name="__codelineno-2-42"></a><span class="nv">$api_pid</span> <span class="p">=</span> <span class="p">(</span><span class="nb">Get-NetTCPConnection</span> <span class="n">-LocalPort</span> <span class="n">5001</span><span class="p">).</span><span class="n">OwningProcess</span><span class="p">[</span><span class="n">0</span><span class="p">]</span>
+</span><span id="__span-2-43"><a id="__codelineno-2-43" name="__codelineno-2-43"></a>
+</span><span id="__span-2-44"><a id="__codelineno-2-44" name="__codelineno-2-44"></a><span class="c"># Kill the API Process</span>
+</span><span id="__span-2-45"><a id="__codelineno-2-45" name="__codelineno-2-45"></a><span class="nb">Stop-Process</span> <span class="n">-Id</span> <span class="nv">$api_pid</span>
+</span></code></pre></div></td></tr></table></div>
+    <nav class="md-post__action">
+      <a href="../../2020/05/12/use-powershell-to-spin-up-an-integration-test-api/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
           <time datetime="2020-04-26 00:00:00">April 26, 2020</time></li>
         
           <li class="md-meta__item">
@@ -2162,180 +2291,6 @@ Output:
   </div>
 </article>
       
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2019-04-06 00:00:00">April 6, 2019</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../category/fsharp/" class="md-meta__link">FSharp</a>, 
-              <a href="../../category/testing/" class="md-meta__link">Testing</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              2 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="test-with-clone-and-generator"><a class="toclink" href="../../2019/04/06/test-with-clone-and-generator/">Test with Clone and Generator</a></h2>
-<p>One of the primary goals of each unit test is to ensure that the test code is as decoupled from the source code as possible.  Usually, the test should only have code specific to its concerns.  </p>
-<blockquote>
-<p><strong>Key Problem:</strong> Generating test data is usually where the largest amount of coupling to production code exits.</p>
-</blockquote>
-<p>Let's setup some code to test.</p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-15-10">10</a></span>
-<span class="normal"><a href="#__codelineno-15-11">11</a></span>
-<span class="normal"><a href="#__codelineno-15-12">12</a></span>
-<span class="normal"><a href="#__codelineno-15-13">13</a></span>
-<span class="normal"><a href="#__codelineno-15-14">14</a></span>
-<span class="normal"><a href="#__codelineno-15-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="k">open</span><span class="w"> </span><span class="nn">System</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2"></a>
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="k">type</span><span class="w"> </span><span class="nc">Role</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="o">|</span><span class="w"> </span><span class="n">Senator</span>
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="o">|</span><span class="w"> </span><span class="n">Jedi</span>
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6"></a><span class="o">|</span><span class="w"> </span><span class="n">Sith</span>
-</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7"></a>
-</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="k">type</span><span class="w"> </span><span class="nc">Character</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9"></a><span class="w">    </span><span class="o">{</span><span class="w">   </span><span class="n">id</span><span class="w">          </span><span class="o">:</span><span class="w"> </span><span class="n">Guid</span>
-</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10"></a><span class="w">        </span><span class="n">firstname</span><span class="w">   </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11"></a><span class="w">        </span><span class="n">lastname</span><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12"></a><span class="w">        </span><span class="n">role</span><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">Role</span>
-</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13"></a><span class="w">        </span><span class="o">}</span>
-</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14"></a>
-</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15"></a><span class="k">let</span><span class="w"> </span><span class="nv">isSithLord</span><span class="w"> </span><span class="n">character</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">character</span><span class="o">.</span><span class="n">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Sith</span>
-</span></code></pre></div></td></tr></table></div>
-<blockquote>
-<p><strong>Requirement</strong>:  isSithLord should return true if the role is Sith.</p>
-</blockquote>
-<h3 id="creating-test-data-in-the-test"><a class="toclink" href="../../2019/04/06/test-with-clone-and-generator/#creating-test-data-in-the-test">Creating Test Data in the Test</a></h3>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-16-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-16-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-16-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-16-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-16-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-16-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-16-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-16-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-16-10">10</a></span>
-<span class="normal"><a href="#__codelineno-16-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">testA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">palpatine</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="w">        </span><span class="o">{</span><span class="w">   </span><span class="n">id</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="nn">Guid</span><span class="p">.</span><span class="n">NewGuid</span><span class="bp">()</span>
-</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="w">            </span><span class="n">firstname</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Darth&quot;</span>
-</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5"></a><span class="w">            </span><span class="n">lastname</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Sidious&quot;</span>
-</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6"></a><span class="w">            </span><span class="n">role</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="n">Sith</span>
-</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7"></a><span class="w">            </span><span class="o">}</span>
-</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8"></a><span class="w">    </span><span class="n">printfn</span><span class="w"> </span><span class="s">&quot;%A&quot;</span><span class="w"> </span><span class="n">palpatine</span>
-</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">actual</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">isSithLord</span><span class="w"> </span><span class="n">palpatine</span>
-</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10"></a><span class="w">    </span><span class="n">printfn</span><span class="w"> </span><span class="s">&quot;Palpatine is a Sith Lord:  %b&quot;</span><span class="w"> </span><span class="n">actual</span>
-</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11"></a><span class="w">    </span><span class="n">actual</span>
-</span></code></pre></div></td></tr></table></div>
-<blockquote>
-<p>Output:
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
-<span class="normal"><a href="#__codelineno-17-2">2</a></span>
-<span class="normal"><a href="#__codelineno-17-3">3</a></span>
-<span class="normal"><a href="#__codelineno-17-4">4</a></span>
-<span class="normal"><a href="#__codelineno-17-5">5</a></span>
-<span class="normal"><a href="#__codelineno-17-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="o">{</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">489</span><span class="n">c7a10</span><span class="o">-</span><span class="n">f872</span><span class="o">-</span><span class="mi">4</span><span class="n">cfa</span><span class="o">-</span><span class="n">a79f</span><span class="o">-</span><span class="n">cf0e48fbb2d1</span><span class="o">;</span>
-</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="w"> </span><span class="n">firstname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Darth&quot;</span><span class="o">;</span>
-</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="w"> </span><span class="n">lastname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Sidious&quot;</span><span class="o">;</span>
-</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="w"> </span><span class="n">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Sith</span><span class="o">;}</span>
-</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="n">Palpatine</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">Sith</span><span class="w"> </span><span class="n">Lord</span><span class="o">:</span><span class="w">  </span><span class="k">true</span>
-</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="k">val</span><span class="w"> </span><span class="n">testA</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span>
-</span></code></pre></div></td></tr></table></div></p>
-</blockquote>
-<p>Key Points:</p>
-<ol>
-<li>The data for the test (palpatine) was created within the test itself.  </li>
-<li>The only necessary data to test is that the role of Palpatine is Sith.</li>
-</ol>
-<h3 id="abstracting-test-data-creation-into-a-generator"><a class="toclink" href="../../2019/04/06/test-with-clone-and-generator/#abstracting-test-data-creation-into-a-generator">Abstracting Test Data Creation into a Generator</a></h3>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-18-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-18-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-18-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-18-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-18-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-18-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-18-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-18-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-18-10">10</a></span>
-<span class="normal"><a href="#__codelineno-18-11">11</a></span>
-<span class="normal"><a href="#__codelineno-18-12">12</a></span>
-<span class="normal"><a href="#__codelineno-18-13">13</a></span>
-<span class="normal"><a href="#__codelineno-18-14">14</a></span>
-<span class="normal"><a href="#__codelineno-18-15">15</a></span>
-<span class="normal"><a href="#__codelineno-18-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">generateCharacter</span><span class="w"> </span><span class="bp">()</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2"></a><span class="w">    </span><span class="o">{</span><span class="w">   </span><span class="n">id</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="nn">Guid</span><span class="p">.</span><span class="n">NewGuid</span><span class="bp">()</span>
-</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3"></a><span class="w">        </span><span class="n">firstname</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Some First Name&quot;</span>
-</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4"></a><span class="w">        </span><span class="n">lastname</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Some Last Name&quot;</span>
-</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5"></a><span class="w">        </span><span class="n">role</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="n">Senator</span>
-</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6"></a><span class="w">        </span><span class="o">}</span>
-</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7"></a>
-</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8"></a><span class="k">let</span><span class="w"> </span><span class="nv">testB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">character</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10"></a><span class="w">        </span><span class="o">{</span><span class="w"> </span><span class="n">generateCharacter</span><span class="bp">()</span><span class="w"> </span><span class="k">with</span><span class="w">  </span>
-</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11"></a><span class="w">            </span><span class="n">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Sith</span>
-</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12"></a><span class="w">            </span><span class="o">}</span>
-</span><span id="__span-18-13"><a id="__codelineno-18-13" name="__codelineno-18-13"></a><span class="w">    </span><span class="n">printfn</span><span class="w"> </span><span class="s">&quot;%A&quot;</span><span class="w"> </span><span class="n">character</span>
-</span><span id="__span-18-14"><a id="__codelineno-18-14" name="__codelineno-18-14"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">actual</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">isSithLord</span><span class="w"> </span><span class="n">character</span>
-</span><span id="__span-18-15"><a id="__codelineno-18-15" name="__codelineno-18-15"></a><span class="w">    </span><span class="n">printfn</span><span class="w"> </span><span class="s">&quot;A Sith Character is a Sith Lord:  %b&quot;</span><span class="w"> </span><span class="n">actual</span>
-</span><span id="__span-18-16"><a id="__codelineno-18-16" name="__codelineno-18-16"></a><span class="w">    </span><span class="n">actual</span>
-</span></code></pre></div></td></tr></table></div>
-<blockquote>
-<p>Output:
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
-<span class="normal"><a href="#__codelineno-19-2">2</a></span>
-<span class="normal"><a href="#__codelineno-19-3">3</a></span>
-<span class="normal"><a href="#__codelineno-19-4">4</a></span>
-<span class="normal"><a href="#__codelineno-19-5">5</a></span>
-<span class="normal"><a href="#__codelineno-19-6">6</a></span>
-<span class="normal"><a href="#__codelineno-19-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="o">{</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="n">aa8abac</span><span class="o">-</span><span class="mi">57</span><span class="n">e4</span><span class="o">-</span><span class="mi">4</span><span class="n">fcd</span><span class="o">-</span><span class="n">ac15</span><span class="o">-</span><span class="n">f0f05509f8cf</span><span class="o">;</span>
-</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2"></a><span class="w"> </span><span class="n">firstname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Some First Name&quot;</span><span class="o">;</span>
-</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3"></a><span class="w"> </span><span class="n">lastname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Some Last Name&quot;</span><span class="o">;</span>
-</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4"></a><span class="w"> </span><span class="n">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Sith</span><span class="o">;}</span>
-</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5"></a><span class="n">A</span><span class="w"> </span><span class="n">Sith</span><span class="w"> </span><span class="n">Character</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">Sith</span><span class="w"> </span><span class="n">Lord</span><span class="o">:</span><span class="w">  </span><span class="k">true</span>
-</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6"></a><span class="k">val</span><span class="w"> </span><span class="n">generateCharacter</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unit</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Character</span>
-</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7"></a><span class="k">val</span><span class="w"> </span><span class="n">testB</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span>
-</span></code></pre></div></td></tr></table></div></p>
-</blockquote>
-<p>Key Points:</p>
-<ol>
-<li>Generating the data has been abstracted in a utility function.</li>
-<li>testB is only coupled to the role field of the Character type.</li>
-<li>The test data is more generic in that it doesn't reference a specific character such as Palpatine.</li>
-</ol>
-<p>Abstracting generation of test data can go further by generating all strings with a Random string generator.  This will aide in testing uniqueness of a given string.</p>
-    <nav class="md-post__action">
-      <a href="../../2019/04/06/test-with-clone-and-generator/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
       
         
           
@@ -2343,7 +2298,7 @@ Output:
 
 
 <nav class="md-pagination">
-  <a class="md-pagination__link" href="../../"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 7.41 17 6l-6 6 6 6 1.41-1.41L13.83 12l4.58-4.59m-6 0L11 6l-6 6 6 6 1.41-1.41L7.83 12l4.58-4.59Z"/></svg></a> <a class="md-pagination__link" href="../2/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.41 16.58 10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.42Z"/></svg></a> <a class="md-pagination__link" href="../../">1</a> <a class="md-pagination__link" href="../2/">2</a> <span class="md-pagination__current">3</span>  
+  <a class="md-pagination__link" href="../../"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M18.41 7.41 17 6l-6 6 6 6 1.41-1.41L13.83 12l4.58-4.59m-6 0L11 6l-6 6 6 6 1.41-1.41L7.83 12l4.58-4.59Z"/></svg></a> <a class="md-pagination__link" href="../2/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M15.41 16.58 10.83 12l4.58-4.59L14 6l-6 6 6 6 1.41-1.42Z"/></svg></a> <a class="md-pagination__link" href="../../">1</a> <a class="md-pagination__link" href="../2/">2</a> <span class="md-pagination__current">3</span> <a class="md-pagination__link" href="../4/">4</a> <a class="md-pagination__link" href="../4/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42Z"/></svg></a> <a class="md-pagination__link" href="../4/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.59 7.41 7 6l6 6-6 6-1.41-1.41L10.17 12 5.59 7.41m6 0L13 6l6 6-6 6-1.41-1.41L16.17 12l-4.58-4.59Z"/></svg></a>
 </nav>
         
       

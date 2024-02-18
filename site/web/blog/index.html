@@ -1075,6 +1075,81 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
+          <time datetime="2024-02-18 00:00:00">February 18, 2024</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="category/devops/" class="md-meta__link">DevOps</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="feature-flags"><a class="toclink" href="2024/02/18/feature-flags/">Feature Flags</a></h2>
+<p>One of the most foundational shifts I have implemented in the software development lifecycle is feature flags.  </p>
+<p>Traditionally, we would follow a process similar to:</p>
+<ol>
+<li>Design a feature.</li>
+<li>Develop a feature.</li>
+<li>Build the code for the feature.</li>
+<li>Deploy the feature to a QA environment for testing.</li>
+<li>Deploy the feature to production.</li>
+</ol>
+<p>But, that's a simplistic perspective of feature development.  Realistically, features follow a much more chaotic life cycle.  For example, a few iterations may look like:</p>
+<ol>
+<li>Design feature 1.</li>
+<li>Design feature 2 and develop feature 1.</li>
+<li>Design feature 3 and deploy feature 1 to QA.</li>
+<li>Develop feature 2 and feature 3, and fix feature 1.</li>
+<li>Fix feature 2 and deploy feature 1 and feature 3 to QA.</li>
+<li>Deploy feature 2 to QA.</li>
+<li>Deploy features 1, 2, and 3 to production.</li>
+</ol>
+<p>You can probably see how this can get unwieldy very quickly.  And, even in this complicated scenario, we haven't taken into account the need to change the final feature set at deployment.  Once a team experiences one deployment rollback, I'm sure they'll be looking to make code deployments more stable.</p>
+<h3 id="enter-flags"><a class="toclink" href="2024/02/18/feature-flags/#enter-flags">Enter Flags</a></h3>
+<p>The concept of feature flags is really simple.  Just provide a simple data structure at runtime to enable or disable features.</p>
+<div class="language-json highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
+<span class="normal"><a href="#__codelineno-0-2">2</a></span>
+<span class="normal"><a href="#__codelineno-0-3">3</a></span>
+<span class="normal"><a href="#__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="p">{</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="w">    </span><span class="nt">&quot;ff_sample_feature&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">    </span><span class="nt">&quot;ff_another_feature&quot;</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<p>With this new data set, we can disable new features <em>by default</em> at deployment, and then at a later date, we can turn on the feature.  </p>
+<p>We have now separated <code>code</code> deployment from <code>feature</code> deployment.  </p>
+<h3 id="other-benefits"><a class="toclink" href="2024/02/18/feature-flags/#other-benefits">Other benefits</a></h3>
+<p>Feature flags open the door to many other benefits.</p>
+<ol>
+<li><strong>Technical Debt Management</strong>: You can wrap existing features scoped for deprecation in feature flags. You can leave them on by default and then schedule a time to turn them off.  At a later date, you can safely remove the code for the deprecated feature.</li>
+<li><strong>Multi-Variate Flags</strong>: You can configure features with multi-variate flags.  For example, you could implement a color code feature flag to change the color of the navbar based on an environment.</li>
+<li><strong>Feature Short Circuiting</strong>: With feature flags, the development team can take more risks by putting the riskier code behind feature flags.  For example, two code paths could provide the same business requirements, but the new code could have huge performance implications and pitfalls.  With a feature flag to toggle them, the team can schedule a time to turn switch the flag to gather some more data in production.</li>
+</ol>
+<p>And, the list goes on!</p>
+    <nav class="md-post__action">
+      <a href="2024/02/18/feature-flags/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
           <time datetime="2024-01-13 00:00:00">January 13, 2024</time></li>
         
           <li class="md-meta__item">
@@ -2040,101 +2115,6 @@
   </div>
 </article>
       
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2021-06-08 00:00:00">June 8, 2021</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="category/fsharp/" class="md-meta__link">FSharp</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              2 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="functional-dependency-injection"><a class="toclink" href="2021/06/08/functional-dependency-injection/">Functional <em>Dependency Injection</em></a></h2>
-<p>If you've been developing for at least a year or two with an object oriented language, then you probably have come across the idea of <em>Dependency Injection</em>.  <em>Dependency Injection</em> is useful to isolate dependencies and provide loose coupling of components.  </p>
-<p>Typically, in C# you define interfaces that provide the required dependencies and constructors (and properties) that require those dependencies.  Then, you would implement an IoC container that does the work to construct the actual dependencies at runtime.  </p>
-<p><em>Dependency Injection</em> is great for handling external connections since testing code that calls external connections without injection requires integration.</p>
-<p>I remember struggling with the idea of <em>Dependency Injection</em> for a few years.  I understood the mechanics of what I needed to do to get the system to work, but I didn't really understand <em>why</em> I needed to do them.  </p>
-<p>I then began to break apart the phrase.  What qualifies as a "dependency"?  What does it mean to inject them?  What's the smallest possible interface of a dependency?  </p>
-<p>Later, through my study of F#, I came across the idea that a function is the <em>smallest</em> possible interface.  It defines a name, some input, and some output.  That's it.  </p>
-<p>Aren't all parameters dependencies?  In one sense, yes, but in context to <em>Dependency Injection</em>, no.  The focus on <em>Dependency Injection</em> is on separating the construction of objects from the behavior.  Functions that require parameters may not be created by the client directly.  </p>
-<p>But, to setup functional <em>Dependency Injection</em> with F#, you can put your dependencies behind a computed function.</p>
-<p>Let's take a real world example.</p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-0-10">10</a></span>
-<span class="normal"><a href="#__codelineno-0-11">11</a></span>
-<span class="normal"><a href="#__codelineno-0-12">12</a></span>
-<span class="normal"><a href="#__codelineno-0-13">13</a></span>
-<span class="normal"><a href="#__codelineno-0-14">14</a></span>
-<span class="normal"><a href="#__codelineno-0-15">15</a></span>
-<span class="normal"><a href="#__codelineno-0-16">16</a></span>
-<span class="normal"><a href="#__codelineno-0-17">17</a></span>
-<span class="normal"><a href="#__codelineno-0-18">18</a></span>
-<span class="normal"><a href="#__codelineno-0-19">19</a></span>
-<span class="normal"><a href="#__codelineno-0-20">20</a></span>
-<span class="normal"><a href="#__codelineno-0-21">21</a></span>
-<span class="normal"><a href="#__codelineno-0-22">22</a></span>
-<span class="normal"><a href="#__codelineno-0-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">type</span><span class="w"> </span><span class="nc">HttpResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="c1">// Type to capture the results of an HttpResponseMessage</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="sd">/// Encapsulates the HttpClient SendAsync </span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="k">let</span><span class="w"> </span><span class="nv">request</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">HttpRequestMessage</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Async</span><span class="o">&lt;</span><span class="n">HttpResult</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="w">    </span><span class="k">fun</span><span class="w"> </span><span class="o">(</span><span class="n">req</span><span class="o">:</span><span class="w"> </span><span class="n">HttpRequestMessage</span><span class="o">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">        </span><span class="n">async</span><span class="w"> </span><span class="o">{</span>
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">            </span><span class="c1">// Handle the lifetime of the client.</span>
-</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">            </span><span class="k">use</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HttpClient</span><span class="bp">()</span>
-</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">            </span><span class="c1">// Await the response.</span>
-</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w">            </span><span class="k">let!</span><span class="w"> </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="o">.</span><span class="n">SendAsync</span><span class="o">(</span><span class="n">req</span><span class="o">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Async</span><span class="p">.</span><span class="n">AwaitTask</span>
-</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">            </span><span class="c1">// Map the repsonse to a result </span>
-</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">            </span><span class="c1">// since the client will soon be disposed.</span>
-</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">mapToHttpResult</span>
-</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">        </span><span class="o">}</span>
-</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a>
-</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="k">module</span><span class="w"> </span><span class="nn">Lib</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="w">    </span><span class="sd">/// Fetch the user by name with the `request` function.</span>
-</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">fetchUserByName</span><span class="w"> </span><span class="o">(</span><span class="n">request</span><span class="o">:</span><span class="w"> </span><span class="n">HttpRequestMessage</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Async</span><span class="o">&lt;</span><span class="n">HttpResult</span><span class="o">&gt;)</span><span class="w"> </span><span class="o">(</span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="w">        </span><span class="c1">// Use `request` to call web service.</span>
-</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="w">        </span><span class="o">...</span>
-</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a>
-</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">/// Get the user by name.</span>
-</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="k">let</span><span class="w"> </span><span class="nv">getUser</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">Lib</span><span class="p">.</span><span class="n">fetchUserByName</span><span class="w"> </span><span class="n">request</span>
-</span></code></pre></div></td></tr></table></div>
-<p>The critical dependency of <code>Lib.fetchUserByName</code> is required <em>first</em>:  <code>request: HttpRequestMessage -&gt; Async&lt;HttpResult&gt;</code>.  This function will likely make an actual web request and has a pretty hefty, disposable object, <code>HttpClient</code>, backing it.  </p>
-<p>The function, <code>Lib.fetchUserByName</code>, doesn't care about <em>how</em> the http request is made or how the connections and objects are disposed. The <code>getUser</code> also shouldn't care about how to make an http request or even how.  We can now use <code>getUser</code> like this:</p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">johnOption</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getUser</span><span class="w"> </span><span class="s">&quot;John&quot;</span>
-</span></code></pre></div></td></tr></table></div>
-<p>But, probably the coolest part of all this is that you can swap out dependencies in computing the <code>getUser</code> function as long as the final computed function resolves to <code>string -&gt; User option</code>.  You could, for example, get the user from a SQL database or a NoSQL data store, or whatever!</p>
-    <nav class="md-post__action">
-      <a href="2021/06/08/functional-dependency-injection/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
       
         
           
@@ -2142,7 +2122,7 @@
 
 
 <nav class="md-pagination">
-    <span class="md-pagination__current">1</span> <a class="md-pagination__link" href="page/2/">2</a> <a class="md-pagination__link" href="page/3/">3</a> <a class="md-pagination__link" href="page/2/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42Z"/></svg></a> <a class="md-pagination__link" href="page/3/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.59 7.41 7 6l6 6-6 6-1.41-1.41L10.17 12 5.59 7.41m6 0L13 6l6 6-6 6-1.41-1.41L16.17 12l-4.58-4.59Z"/></svg></a>
+    <span class="md-pagination__current">1</span> <a class="md-pagination__link" href="page/2/">2</a> <a class="md-pagination__link" href="page/3/">3</a> <a class="md-pagination__link" href="page/4/">4</a> <a class="md-pagination__link" href="page/2/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M8.59 16.58 13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.42Z"/></svg></a> <a class="md-pagination__link" href="page/4/"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M5.59 7.41 7 6l6 6-6 6-1.41-1.41L10.17 12 5.59 7.41m6 0L13 6l6 6-6 6-1.41-1.41L16.17 12l-4.58-4.59Z"/></svg></a>
 </nav>
         
       

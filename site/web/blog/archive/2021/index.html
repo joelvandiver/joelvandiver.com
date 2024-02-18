@@ -1440,55 +1440,55 @@
 <p>Aren't all parameters dependencies?  In one sense, yes, but in context to <em>Dependency Injection</em>, no.  The focus on <em>Dependency Injection</em> is on separating the construction of objects from the behavior.  Functions that require parameters may not be created by the client directly.  </p>
 <p>But, to setup functional <em>Dependency Injection</em> with F#, you can put your dependencies behind a computed function.</p>
 <p>Let's take a real world example.</p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-2-10">10</a></span>
-<span class="normal"><a href="#__codelineno-2-11">11</a></span>
-<span class="normal"><a href="#__codelineno-2-12">12</a></span>
-<span class="normal"><a href="#__codelineno-2-13">13</a></span>
-<span class="normal"><a href="#__codelineno-2-14">14</a></span>
-<span class="normal"><a href="#__codelineno-2-15">15</a></span>
-<span class="normal"><a href="#__codelineno-2-16">16</a></span>
-<span class="normal"><a href="#__codelineno-2-17">17</a></span>
-<span class="normal"><a href="#__codelineno-2-18">18</a></span>
-<span class="normal"><a href="#__codelineno-2-19">19</a></span>
-<span class="normal"><a href="#__codelineno-2-20">20</a></span>
-<span class="normal"><a href="#__codelineno-2-21">21</a></span>
-<span class="normal"><a href="#__codelineno-2-22">22</a></span>
-<span class="normal"><a href="#__codelineno-2-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="k">type</span><span class="w"> </span><span class="nc">HttpResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="c1">// Type to capture the results of an HttpResponseMessage</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="sd">/// Encapsulates the HttpClient SendAsync </span>
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="k">let</span><span class="w"> </span><span class="nv">request</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">HttpRequestMessage</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Async</span><span class="o">&lt;</span><span class="n">HttpResult</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">    </span><span class="k">fun</span><span class="w"> </span><span class="o">(</span><span class="n">req</span><span class="o">:</span><span class="w"> </span><span class="n">HttpRequestMessage</span><span class="o">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">        </span><span class="n">async</span><span class="w"> </span><span class="o">{</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">            </span><span class="c1">// Handle the lifetime of the client.</span>
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">            </span><span class="k">use</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HttpClient</span><span class="bp">()</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">            </span><span class="c1">// Await the response.</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">            </span><span class="k">let!</span><span class="w"> </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="o">.</span><span class="n">SendAsync</span><span class="o">(</span><span class="n">req</span><span class="o">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Async</span><span class="p">.</span><span class="n">AwaitTask</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="w">            </span><span class="c1">// Map the repsonse to a result </span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="w">            </span><span class="c1">// since the client will soon be disposed.</span>
-</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">mapToHttpResult</span>
-</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="w">        </span><span class="o">}</span>
-</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15"></a>
-</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="k">module</span><span class="w"> </span><span class="nn">Lib</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="w">    </span><span class="sd">/// Fetch the user by name with the `request` function.</span>
-</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">fetchUserByName</span><span class="w"> </span><span class="o">(</span><span class="n">request</span><span class="o">:</span><span class="w"> </span><span class="n">HttpRequestMessage</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Async</span><span class="o">&lt;</span><span class="n">HttpResult</span><span class="o">&gt;)</span><span class="w"> </span><span class="o">(</span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="w">        </span><span class="c1">// Use `request` to call web service.</span>
-</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="w">        </span><span class="o">...</span>
-</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21"></a>
-</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22"></a><span class="sd">/// Get the user by name.</span>
-</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="k">let</span><span class="w"> </span><span class="nv">getUser</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">Lib</span><span class="p">.</span><span class="n">fetchUserByName</span><span class="w"> </span><span class="n">request</span>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span>
+<span class="normal"><a href="#__codelineno-0-22">22</a></span>
+<span class="normal"><a href="#__codelineno-0-23">23</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="k">type</span><span class="w"> </span><span class="nc">HttpResult</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">...</span><span class="w"> </span><span class="c1">// Type to capture the results of an HttpResponseMessage</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="sd">/// Encapsulates the HttpClient SendAsync </span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="k">let</span><span class="w"> </span><span class="nv">request</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">HttpRequestMessage</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Async</span><span class="o">&lt;</span><span class="n">HttpResult</span><span class="o">&gt;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="w">    </span><span class="k">fun</span><span class="w"> </span><span class="o">(</span><span class="n">req</span><span class="o">:</span><span class="w"> </span><span class="n">HttpRequestMessage</span><span class="o">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span>
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">        </span><span class="n">async</span><span class="w"> </span><span class="o">{</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">            </span><span class="c1">// Handle the lifetime of the client.</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">            </span><span class="k">use</span><span class="w"> </span><span class="n">client</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HttpClient</span><span class="bp">()</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">            </span><span class="c1">// Await the response.</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="w">            </span><span class="k">let!</span><span class="w"> </span><span class="nv">response</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">client</span><span class="o">.</span><span class="n">SendAsync</span><span class="o">(</span><span class="n">req</span><span class="o">)</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">Async</span><span class="p">.</span><span class="n">AwaitTask</span>
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">            </span><span class="c1">// Map the repsonse to a result </span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="w">            </span><span class="c1">// since the client will soon be disposed.</span>
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="w">            </span><span class="k">return</span><span class="w"> </span><span class="n">response</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">mapToHttpResult</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">        </span><span class="o">}</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="k">module</span><span class="w"> </span><span class="nn">Lib</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="w">    </span><span class="sd">/// Fetch the user by name with the `request` function.</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">fetchUserByName</span><span class="w"> </span><span class="o">(</span><span class="n">request</span><span class="o">:</span><span class="w"> </span><span class="n">HttpRequestMessage</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Async</span><span class="o">&lt;</span><span class="n">HttpResult</span><span class="o">&gt;)</span><span class="w"> </span><span class="o">(</span><span class="n">name</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="o">)</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="w">        </span><span class="c1">// Use `request` to call web service.</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="w">        </span><span class="o">...</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a>
+</span><span id="__span-0-22"><a id="__codelineno-0-22" name="__codelineno-0-22"></a><span class="sd">/// Get the user by name.</span>
+</span><span id="__span-0-23"><a id="__codelineno-0-23" name="__codelineno-0-23"></a><span class="k">let</span><span class="w"> </span><span class="nv">getUser</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">Lib</span><span class="p">.</span><span class="n">fetchUserByName</span><span class="w"> </span><span class="n">request</span>
 </span></code></pre></div></td></tr></table></div>
 <p>The critical dependency of <code>Lib.fetchUserByName</code> is required <em>first</em>:  <code>request: HttpRequestMessage -&gt; Async&lt;HttpResult&gt;</code>.  This function will likely make an actual web request and has a pretty hefty, disposable object, <code>HttpClient</code>, backing it.  </p>
 <p>The function, <code>Lib.fetchUserByName</code>, doesn't care about <em>how</em> the http request is made or how the connections and objects are disposed. The <code>getUser</code> also shouldn't care about how to make an http request or even how.  We can now use <code>getUser</code> like this:</p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">johnOption</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getUser</span><span class="w"> </span><span class="s">&quot;John&quot;</span>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">johnOption</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">User</span><span class="w"> </span><span class="n">option</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">getUser</span><span class="w"> </span><span class="s">&quot;John&quot;</span>
 </span></code></pre></div></td></tr></table></div>
 <p>But, probably the coolest part of all this is that you can swap out dependencies in computing the <code>getUser</code> function as long as the final computed function resolves to <code>string -&gt; User option</code>.  You could, for example, get the user from a SQL database or a NoSQL data store, or whatever!</p>
     <nav class="md-post__action">
