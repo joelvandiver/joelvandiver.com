@@ -2,6 +2,9 @@
 title: Generate a CLI README
 date: 2024-01-13
 description: Convert the CLI help output to a README.
+categories:
+    - DevOps
+    - CLI
 ---
 
 # Generate a CLI README

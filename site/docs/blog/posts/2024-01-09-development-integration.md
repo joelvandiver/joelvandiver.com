@@ -2,6 +2,8 @@
 title: Development Integration
 date: 2024-01-08
 description: Design a development workflow that takes different levels of integration into account.
+categories:
+    - DevOps
 ---
 
 # Development Integration

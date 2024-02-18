@@ -1,10 +1,6 @@
 site_name: Joel Vandiver
 repo_url: https://github.com/joelvandiver/joelvandiver.com
 repo_name: joelvandiver.com
-# nav:
-#   - Blog:
-#     - blog/index.md
-    # - blog/authors.md
 plugins:
   # ref:  https://squidfunk.github.io/mkdocs-material/plugins/blog/
   - blog:
@@ -36,6 +32,8 @@ theme:
         icon: material/brightness-7 
         name: Switch to dark mode
   features:
+    - toc.follow
+    - toc.integrate
     - content.code.copy
     - content.code.select
     - search.share

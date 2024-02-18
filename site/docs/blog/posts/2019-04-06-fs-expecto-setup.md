@@ -5,6 +5,7 @@ date: 2019-04-06
 description: "Here's a simple example of setting up an Expecto test project."
 categories:
     - FSharp
+    - Testing
 ---
 
 

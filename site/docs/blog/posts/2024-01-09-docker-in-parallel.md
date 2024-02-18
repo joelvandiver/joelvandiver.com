@@ -3,8 +3,8 @@ title: Parallelized Docker Builds
 date: 2024-01-09
 description: Docker supports parallelized, multistage builds.
 categories:
-- DevOps
-- Docker
+    - DevOps
+    - Docker
 ---
 
 # Parallelized Docker Builds
