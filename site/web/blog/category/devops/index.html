@@ -9,7 +9,7 @@
       
       
       
-        <link rel="prev" href="../bash/">
+        <link rel="prev" href="../cli/">
       
       
         <link rel="next" href="../docker/">
@@ -639,6 +639,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -742,6 +746,29 @@
                 
   
   
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CLI
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
     
   
   
@@ -795,9 +822,27 @@
     <ul class="md-nav__list" data-md-component="toc" data-md-scrollfix>
       
         <li class="md-nav__item">
+  <a href="#generate-a-cli-readme" class="md-nav__link">
+    <span class="md-ellipsis">
+      Generate a CLI README
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#parallelized-docker-builds" class="md-nav__link">
     <span class="md-ellipsis">
       Parallelized Docker Builds
+    </span>
+  </a>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#development-integration" class="md-nav__link">
+    <span class="md-ellipsis">
+      Development Integration
     </span>
   </a>
   
@@ -1064,6 +1109,29 @@
   
   
     <li class="md-nav__item">
+      <a href="../testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Testing
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../typescript/" class="md-nav__link">
         
   
@@ -1107,6 +1175,96 @@
       <header class="md-typeset">
         <h1 id="devops">DevOps</h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2024-01-13 00:00:00">January 13, 2024</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="./" class="md-meta__link">DevOps</a>, 
+              <a href="../cli/" class="md-meta__link">CLI</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              1 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="generate-a-cli-readme"><a class="toclink" href="../../2024/01/13/generate-a-cli-readme/">Generate a CLI README</a></h2>
+<p>I find it useful sometimes to generate documentation directly from the CLI.</p>
+<p>Let's setup a simple <code>readme</code> <code>bash</code> function.  I'll use a simple command I use for working on this blog:  <code>run help</code>.  The command could be anything that you want to generate help from.</p>
+<div class="language-bash highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span>
+<span class="normal"><a href="#__codelineno-2-17">17</a></span>
+<span class="normal"><a href="#__codelineno-2-18">18</a></span>
+<span class="normal"><a href="#__codelineno-2-19">19</a></span>
+<span class="normal"><a href="#__codelineno-2-20">20</a></span>
+<span class="normal"><a href="#__codelineno-2-21">21</a></span>
+<span class="normal"><a href="#__codelineno-2-22">22</a></span>
+<span class="normal"><a href="#__codelineno-2-23">23</a></span>
+<span class="normal"><a href="#__codelineno-2-24">24</a></span>
+<span class="normal"><a href="#__codelineno-2-25">25</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>readme<span class="o">()</span><span class="w"> </span><span class="o">{</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="w">    </span><span class="nv">cmd</span><span class="o">=</span><span class="s2">&quot;run help&quot;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">    </span><span class="nv">title</span><span class="o">=</span><span class="s2">&quot;Run Help&quot;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">    </span><span class="nv">html</span><span class="o">=</span>help.html
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="w">    </span><span class="nv">pdf</span><span class="o">=</span>help.pdf
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">    </span><span class="c1"># Install tools, if necessary.</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span>!<span class="w"> </span><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>aha<span class="w"> </span><span class="p">&amp;</span>&gt;<span class="w"> </span>/dev/null
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">    </span><span class="k">then</span><span class="w">    </span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Installing aha&quot;</span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="w">        </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>aha
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="w">    </span><span class="k">fi</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="w">    </span><span class="k">if</span><span class="w"> </span>!<span class="w"> </span><span class="nb">command</span><span class="w"> </span>-v<span class="w"> </span>wkhtmltopdf<span class="w"> </span><span class="p">&amp;</span>&gt;<span class="w"> </span>/dev/null
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="w">    </span><span class="k">then</span><span class="w">    </span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="w">        </span><span class="nb">echo</span><span class="w"> </span><span class="s2">&quot;Installing wkhtmltopdf&quot;</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="w">        </span>sudo<span class="w"> </span>apt<span class="w"> </span>install<span class="w"> </span>wkhtmltopdf
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18"></a><span class="w">    </span><span class="k">fi</span>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19"></a>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="w">    </span><span class="c1"># Generate the html from the command.</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="w">    </span>script<span class="w"> </span>-qc<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$cmd</span><span class="s2">&quot;</span><span class="w"> </span>/dev/null<span class="w"> </span><span class="p">|</span><span class="w"> </span>aha<span class="w"> </span>--black<span class="w"> </span>--title<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$title</span><span class="s2">&quot;</span><span class="w"> </span>&gt;<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$html</span><span class="s2">&quot;</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22"></a>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="w">    </span><span class="c1"># Generate a pdf of the html file.</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24"></a><span class="w">    </span>wkhtmltopdf<span class="w"> </span>-s<span class="w"> </span>Letter<span class="w"> </span><span class="s2">&quot;</span><span class="nv">$html</span><span class="s2">&quot;</span><span class="w"> </span><span class="s2">&quot;</span><span class="nv">$pdf</span><span class="s2">&quot;</span>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25"></a><span class="o">}</span>
+</span></code></pre></div></td></tr></table></div>
+<p><img alt="" src="../../assets/2024-01-13-12-49-32.png" /></p>
+<p>For a little fun, I usually like throw in a little ASCII art.  For this one, I used:  <a href="https://textkool.com/en/test-ascii-art-generator?text=JV%20Blog%20Run">Test ~330 fonts ASCII art generator | TextKool</a></p>
+    <nav class="md-post__action">
+      <a href="../../2024/01/13/generate-a-cli-readme/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
@@ -1403,6 +1561,63 @@
 </ul>
     <nav class="md-post__action">
       <a href="../../2024/01/09/parallelized-docker-builds/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2024-01-08 00:00:00">January 8, 2024</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="./" class="md-meta__link">DevOps</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="development-integration"><a class="toclink" href="../../2024/01/08/development-integration/">Development Integration</a></h2>
+<h3 id="problem"><a class="toclink" href="../../2024/01/08/development-integration/#problem">Problem</a></h3>
+<p>When developing microservices, we often run into the problem of needing other services to be available to test our application.  Our development flow should have different levels of integration.</p>
+<h3 id="levels-of-integration"><a class="toclink" href="../../2024/01/08/development-integration/#levels-of-integration">Levels of Integration</a></h3>
+<ol>
+<li><strong>Isolate:</strong> Develop the service in isolation from other services.</li>
+<li><strong>Relate:</strong> Develop the service alongside other, highly related services.</li>
+<li><strong>Complete:</strong> Deploy the service to a test environment with the full suite of services available.</li>
+</ol>
+<h4 id="complete"><a class="toclink" href="../../2024/01/08/development-integration/#complete">Complete</a></h4>
+<p>It is tempting to develop with the <strong>complete</strong> suite of services, but this doesn't scale well.  Developer systems cannot handle the full scope of distributed systems in a cloud native environment.  We should only strive to have remote test environments include the full suite of services available.</p>
+<h4 id="relate"><a class="toclink" href="../../2024/01/08/development-integration/#relate">Relate</a></h4>
+<p>It is critical that we develop the related services together.  For instance, we may have the following services closely related to a business domain:</p>
+<ol>
+<li>Nginx Static File Server</li>
+<li>Python REST API</li>
+<li>NodeJS Templating Engine</li>
+<li>MongoDB Service</li>
+</ol>
+<p>Developer systems can easily manage this workload for development.  And, it is useful to see a fully working application with data, frontend UIs, and backend services working together to solve a particular business problem.  </p>
+<p>At this level of integration, we'll also need to isolate dependencies on other services.  I usually create stub services that provide the full interface of the dependency while at the same time providing simulations of how the actual service will behave.</p>
+<h4 id="isolate"><a class="toclink" href="../../2024/01/08/development-integration/#isolate">Isolate</a></h4>
+<p>At the first level, we should develop our service in complete isolation from all other services.  This gives us the freedom to prototype and to iterate on our service more rapidly.  We can use our standard tooling for development a service in a given framework.</p>
+    <nav class="md-post__action">
+      <a href="../../2024/01/08/development-integration/">
         Continue reading
       </a>
     </nav>

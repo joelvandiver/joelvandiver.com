@@ -637,6 +637,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -727,6 +731,29 @@
   
   <span class="md-ellipsis">
     Bash
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../category/cli/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    CLI
   </span>
   
 
@@ -957,6 +984,29 @@
   
   <span class="md-ellipsis">
     T-SQL
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../category/testing/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Testing
   </span>
   
 
@@ -1994,7 +2044,8 @@ Output:
           <li class="md-meta__item">
             in
             
-              <a href="../../category/fsharp/" class="md-meta__link">FSharp</a></li>
+              <a href="../../category/fsharp/" class="md-meta__link">FSharp</a>, 
+              <a href="../../category/testing/" class="md-meta__link">Testing</a></li>
         
         
           
@@ -2012,96 +2063,96 @@ Output:
     <h2 id="basic-f-expecto-example"><a class="toclink" href="../../2019/04/06/basic-f-expecto-example/">Basic F# Expecto Example</a></h2>
 <p>First, let's gather our dependencies.</p>
 <h3 id="define-a-simple-test-case"><a class="toclink" href="../../2019/04/06/basic-f-expecto-example/#define-a-simple-test-case">Define a simple test case.</a></h3>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-8-10">10</a></span>
-<span class="normal"><a href="#__codelineno-8-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">@&quot;C:\Users\joelv\.nuget\packages\NETStandard.Library\2.0.3\build\netstandard2.0\ref\netstandard.dll&quot;</span>
-</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">@&quot;C:\git\joelvandiver.com\packages\Expecto\lib\netstandard2.0\Expecto.dll&quot;</span>
-</span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a>
-</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="k">open</span><span class="w"> </span><span class="nn">Expecto</span>
-</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a>
-</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="k">let</span><span class="w"> </span><span class="nv">toBeTest</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">  </span><span class="n">testCase</span><span class="w"> </span><span class="s">&quot;To be or not to be&quot;</span><span class="w"> </span><span class="o">&lt;|</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="bp">()</span><span class="w"> </span><span class="o">-&gt;</span>
-</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">toBe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span>
-</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9"></a><span class="w">    </span><span class="nn">Expect</span><span class="p">.</span><span class="n">isTrue</span><span class="w"> </span><span class="n">toBe</span><span class="w"> </span><span class="s">&quot;You do not exist.&quot;</span>
-</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10"></a>
-</span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11"></a><span class="n">runTests</span><span class="w"> </span><span class="n">defaultConfig</span><span class="w"> </span><span class="n">toBeTest</span>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-12-10">10</a></span>
+<span class="normal"><a href="#__codelineno-12-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">@&quot;C:\Users\joelv\.nuget\packages\NETStandard.Library\2.0.3\build\netstandard2.0\ref\netstandard.dll&quot;</span>
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">@&quot;C:\git\joelvandiver.com\packages\Expecto\lib\netstandard2.0\Expecto.dll&quot;</span>
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a>
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="k">open</span><span class="w"> </span><span class="nn">Expecto</span>
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a>
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="k">let</span><span class="w"> </span><span class="nv">toBeTest</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="w">  </span><span class="n">testCase</span><span class="w"> </span><span class="s">&quot;To be or not to be&quot;</span><span class="w"> </span><span class="o">&lt;|</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="bp">()</span><span class="w"> </span><span class="o">-&gt;</span>
+</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">toBe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span>
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9"></a><span class="w">    </span><span class="nn">Expect</span><span class="p">.</span><span class="n">isTrue</span><span class="w"> </span><span class="n">toBe</span><span class="w"> </span><span class="s">&quot;You do not exist.&quot;</span>
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10"></a>
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11"></a><span class="n">runTests</span><span class="w"> </span><span class="n">defaultConfig</span><span class="w"> </span><span class="n">toBeTest</span>
 </span></code></pre></div></td></tr></table></div>
 <p><em>Output:</em>
-<div class="language-console highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
-<span class="normal"><a href="#__codelineno-9-2">2</a></span>
-<span class="normal"><a href="#__codelineno-9-3">3</a></span>
-<span class="normal"><a href="#__codelineno-9-4">4</a></span>
-<span class="normal"><a href="#__codelineno-9-5">5</a></span>
-<span class="normal"><a href="#__codelineno-9-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="go">[15:36:13 INF] EXPECTO? Running tests... &lt;Expecto&gt;</span>
-</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="go">[15:36:13 INF] EXPECTO! 1 tests run in 00:00:00.0109563 for To be or not to be – 1 passed, 0 ignored, 0 failed, 0 errored. Success! &lt;Expecto&gt;</span>
-</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="go">val toBeTest : Test =</span>
-</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="go">  TestLabel</span>
-</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="go">    (&quot;To be or not to be&quot;,TestCase (Sync &lt;fun:toBeTest@5-1&gt;,Normal),Normal)</span>
-</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="go">val it : int = 0</span>
+<div class="language-console highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
+<span class="normal"><a href="#__codelineno-13-2">2</a></span>
+<span class="normal"><a href="#__codelineno-13-3">3</a></span>
+<span class="normal"><a href="#__codelineno-13-4">4</a></span>
+<span class="normal"><a href="#__codelineno-13-5">5</a></span>
+<span class="normal"><a href="#__codelineno-13-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="go">[15:36:13 INF] EXPECTO? Running tests... &lt;Expecto&gt;</span>
+</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="go">[15:36:13 INF] EXPECTO! 1 tests run in 00:00:00.0109563 for To be or not to be – 1 passed, 0 ignored, 0 failed, 0 errored. Success! &lt;Expecto&gt;</span>
+</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="go">val toBeTest : Test =</span>
+</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="go">  TestLabel</span>
+</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="go">    (&quot;To be or not to be&quot;,TestCase (Sync &lt;fun:toBeTest@5-1&gt;,Normal),Normal)</span>
+</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="go">val it : int = 0</span>
 </span></code></pre></div></td></tr></table></div></p>
 <h3 id="combine-multiple-tests-into-a-list"><a class="toclink" href="../../2019/04/06/basic-f-expecto-example/#combine-multiple-tests-into-a-list">Combine multiple tests into a list.</a></h3>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
-<span class="normal"><a href="#__codelineno-10-2">2</a></span>
-<span class="normal"><a href="#__codelineno-10-3">3</a></span>
-<span class="normal"><a href="#__codelineno-10-4">4</a></span>
-<span class="normal"><a href="#__codelineno-10-5">5</a></span>
-<span class="normal"><a href="#__codelineno-10-6">6</a></span>
-<span class="normal"><a href="#__codelineno-10-7">7</a></span>
-<span class="normal"><a href="#__codelineno-10-8">8</a></span>
-<span class="normal"><a href="#__codelineno-10-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">toThinkTest</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="w">  </span><span class="n">test</span><span class="w"> </span><span class="s">&quot;I think therefore I am.&quot;</span><span class="w"> </span><span class="o">{</span>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">iThink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="w">    </span><span class="nn">Expect</span><span class="p">.</span><span class="n">isTrue</span><span class="w"> </span><span class="n">iThink</span><span class="w"> </span><span class="s">&quot;You do not think so you do not exist.&quot;</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="w">  </span><span class="o">}</span><span class="w"> </span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6"></a>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="k">let</span><span class="w"> </span><span class="nv">existenceTests</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">testList</span><span class="w"> </span><span class="s">&quot;Test for Existence&quot;</span><span class="w"> </span><span class="o">[</span><span class="n">toBeTest</span><span class="o">;</span><span class="w"> </span><span class="n">toThinkTest</span><span class="o">]</span>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8"></a>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="n">runTests</span><span class="w"> </span><span class="n">defaultConfig</span><span class="w"> </span><span class="n">existenceTests</span>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
+<span class="normal"><a href="#__codelineno-14-2">2</a></span>
+<span class="normal"><a href="#__codelineno-14-3">3</a></span>
+<span class="normal"><a href="#__codelineno-14-4">4</a></span>
+<span class="normal"><a href="#__codelineno-14-5">5</a></span>
+<span class="normal"><a href="#__codelineno-14-6">6</a></span>
+<span class="normal"><a href="#__codelineno-14-7">7</a></span>
+<span class="normal"><a href="#__codelineno-14-8">8</a></span>
+<span class="normal"><a href="#__codelineno-14-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">toThinkTest</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="w">  </span><span class="n">test</span><span class="w"> </span><span class="s">&quot;I think therefore I am.&quot;</span><span class="w"> </span><span class="o">{</span>
+</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">iThink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span>
+</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="w">    </span><span class="nn">Expect</span><span class="p">.</span><span class="n">isTrue</span><span class="w"> </span><span class="n">iThink</span><span class="w"> </span><span class="s">&quot;You do not think so you do not exist.&quot;</span>
+</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="w">  </span><span class="o">}</span><span class="w"> </span>
+</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6"></a>
+</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7"></a><span class="k">let</span><span class="w"> </span><span class="nv">existenceTests</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">testList</span><span class="w"> </span><span class="s">&quot;Test for Existence&quot;</span><span class="w"> </span><span class="o">[</span><span class="n">toBeTest</span><span class="o">;</span><span class="w"> </span><span class="n">toThinkTest</span><span class="o">]</span>
+</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8"></a>
+</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9"></a><span class="n">runTests</span><span class="w"> </span><span class="n">defaultConfig</span><span class="w"> </span><span class="n">existenceTests</span>
 </span></code></pre></div></td></tr></table></div>
 <p><em>Output:</em>
-<div class="language-console highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-11-10">10</a></span>
-<span class="normal"><a href="#__codelineno-11-11">11</a></span>
-<span class="normal"><a href="#__codelineno-11-12">12</a></span>
-<span class="normal"><a href="#__codelineno-11-13">13</a></span>
-<span class="normal"><a href="#__codelineno-11-14">14</a></span>
-<span class="normal"><a href="#__codelineno-11-15">15</a></span>
-<span class="normal"><a href="#__codelineno-11-16">16</a></span>
-<span class="normal"><a href="#__codelineno-11-17">17</a></span>
-<span class="normal"><a href="#__codelineno-11-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="go">[15:36:46 INF] EXPECTO? Running tests... &lt;Expecto&gt;</span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="go">[15:36:47 INF] EXPECTO! 2 tests run in 00:00:00.0219511 for Test for Existence – 2 passed, 0 ignored, 0 failed, 0 errored. Success! &lt;Expecto&gt;</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="go">val toThinkTest : Test =</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="go">  TestLabel</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="go">    (&quot;I think therefore I am.&quot;,TestCase (Sync &lt;fun:toThinkTest@11-1&gt;,Normal),</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="go">     Normal)</span>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="go">val existenceTests : Test =</span>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="go">  TestLabel</span>
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="go">    (&quot;Test for Existence&quot;,</span>
-</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="go">     TestList</span>
-</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11"></a><span class="go">       ([TestLabel</span>
-</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12"></a><span class="go">           (&quot;To be or not to be&quot;,TestCase (Sync &lt;fun:toBeTest@5-1&gt;,Normal),</span>
-</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13"></a><span class="go">            Normal);</span>
-</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14"></a><span class="go">         TestLabel</span>
-</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15"></a><span class="go">           (&quot;I think therefore I am.&quot;,</span>
-</span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16"></a><span class="go">            TestCase (Sync &lt;fun:toThinkTest@11-1&gt;,Normal),Normal)],Normal),</span>
-</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17"></a><span class="go">     Normal)</span>
-</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18"></a><span class="go">val it : int = 0</span>
+<div class="language-console highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-15-10">10</a></span>
+<span class="normal"><a href="#__codelineno-15-11">11</a></span>
+<span class="normal"><a href="#__codelineno-15-12">12</a></span>
+<span class="normal"><a href="#__codelineno-15-13">13</a></span>
+<span class="normal"><a href="#__codelineno-15-14">14</a></span>
+<span class="normal"><a href="#__codelineno-15-15">15</a></span>
+<span class="normal"><a href="#__codelineno-15-16">16</a></span>
+<span class="normal"><a href="#__codelineno-15-17">17</a></span>
+<span class="normal"><a href="#__codelineno-15-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="go">[15:36:46 INF] EXPECTO? Running tests... &lt;Expecto&gt;</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="go">[15:36:47 INF] EXPECTO! 2 tests run in 00:00:00.0219511 for Test for Existence – 2 passed, 0 ignored, 0 failed, 0 errored. Success! &lt;Expecto&gt;</span>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="go">val toThinkTest : Test =</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="go">  TestLabel</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="go">    (&quot;I think therefore I am.&quot;,TestCase (Sync &lt;fun:toThinkTest@11-1&gt;,Normal),</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6"></a><span class="go">     Normal)</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="go">val existenceTests : Test =</span>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="go">  TestLabel</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9"></a><span class="go">    (&quot;Test for Existence&quot;,</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10"></a><span class="go">     TestList</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11"></a><span class="go">       ([TestLabel</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12"></a><span class="go">           (&quot;To be or not to be&quot;,TestCase (Sync &lt;fun:toBeTest@5-1&gt;,Normal),</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13"></a><span class="go">            Normal);</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14"></a><span class="go">         TestLabel</span>
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15"></a><span class="go">           (&quot;I think therefore I am.&quot;,</span>
+</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16"></a><span class="go">            TestCase (Sync &lt;fun:toThinkTest@11-1&gt;,Normal),Normal)],Normal),</span>
+</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17"></a><span class="go">     Normal)</span>
+</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18"></a><span class="go">val it : int = 0</span>
 </span></code></pre></div></td></tr></table></div></p>
     <nav class="md-post__action">
       <a href="../../2019/04/06/basic-f-expecto-example/">
@@ -2122,7 +2173,8 @@ Output:
           <li class="md-meta__item">
             in
             
-              <a href="../../category/fsharp/" class="md-meta__link">FSharp</a></li>
+              <a href="../../category/fsharp/" class="md-meta__link">FSharp</a>, 
+              <a href="../../category/testing/" class="md-meta__link">Testing</a></li>
         
         
           
@@ -2143,75 +2195,75 @@ Output:
 <p><strong>Key Problem:</strong> Generating test data is usually where the largest amount of coupling to production code exits.</p>
 </blockquote>
 <p>Let's setup some code to test.</p>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-10-10">10</a></span>
-<span class="normal"><a href="#__codelineno-10-11">11</a></span>
-<span class="normal"><a href="#__codelineno-10-12">12</a></span>
-<span class="normal"><a href="#__codelineno-10-13">13</a></span>
-<span class="normal"><a href="#__codelineno-10-14">14</a></span>
-<span class="normal"><a href="#__codelineno-10-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="k">open</span><span class="w"> </span><span class="nn">System</span>
-</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a>
-</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="k">type</span><span class="w"> </span><span class="nc">Role</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="o">|</span><span class="w"> </span><span class="n">Senator</span>
-</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5"></a><span class="o">|</span><span class="w"> </span><span class="n">Jedi</span>
-</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="o">|</span><span class="w"> </span><span class="n">Sith</span>
-</span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7"></a>
-</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8"></a><span class="k">type</span><span class="w"> </span><span class="nc">Character</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="w">    </span><span class="o">{</span><span class="w">   </span><span class="n">id</span><span class="w">          </span><span class="o">:</span><span class="w"> </span><span class="n">Guid</span>
-</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10"></a><span class="w">        </span><span class="n">firstname</span><span class="w">   </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11"></a><span class="w">        </span><span class="n">lastname</span><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
-</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12"></a><span class="w">        </span><span class="n">role</span><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">Role</span>
-</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="w">        </span><span class="o">}</span>
-</span><span id="__span-10-14"><a id="__codelineno-10-14" name="__codelineno-10-14"></a>
-</span><span id="__span-10-15"><a id="__codelineno-10-15" name="__codelineno-10-15"></a><span class="k">let</span><span class="w"> </span><span class="nv">isSithLord</span><span class="w"> </span><span class="n">character</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">character</span><span class="o">.</span><span class="n">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Sith</span>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-15-10">10</a></span>
+<span class="normal"><a href="#__codelineno-15-11">11</a></span>
+<span class="normal"><a href="#__codelineno-15-12">12</a></span>
+<span class="normal"><a href="#__codelineno-15-13">13</a></span>
+<span class="normal"><a href="#__codelineno-15-14">14</a></span>
+<span class="normal"><a href="#__codelineno-15-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="k">open</span><span class="w"> </span><span class="nn">System</span>
+</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2"></a>
+</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="k">type</span><span class="w"> </span><span class="nc">Role</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="o">|</span><span class="w"> </span><span class="n">Senator</span>
+</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="o">|</span><span class="w"> </span><span class="n">Jedi</span>
+</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6"></a><span class="o">|</span><span class="w"> </span><span class="n">Sith</span>
+</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7"></a>
+</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="k">type</span><span class="w"> </span><span class="nc">Character</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9"></a><span class="w">    </span><span class="o">{</span><span class="w">   </span><span class="n">id</span><span class="w">          </span><span class="o">:</span><span class="w"> </span><span class="n">Guid</span>
+</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10"></a><span class="w">        </span><span class="n">firstname</span><span class="w">   </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11"></a><span class="w">        </span><span class="n">lastname</span><span class="w">    </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12"></a><span class="w">        </span><span class="n">role</span><span class="w">        </span><span class="o">:</span><span class="w"> </span><span class="n">Role</span>
+</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13"></a><span class="w">        </span><span class="o">}</span>
+</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14"></a>
+</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15"></a><span class="k">let</span><span class="w"> </span><span class="nv">isSithLord</span><span class="w"> </span><span class="n">character</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">character</span><span class="o">.</span><span class="n">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Sith</span>
 </span></code></pre></div></td></tr></table></div>
 <blockquote>
 <p><strong>Requirement</strong>:  isSithLord should return true if the role is Sith.</p>
 </blockquote>
 <h3 id="creating-test-data-in-the-test"><a class="toclink" href="../../2019/04/06/test-with-clone-and-generator/#creating-test-data-in-the-test">Creating Test Data in the Test</a></h3>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-11-10">10</a></span>
-<span class="normal"><a href="#__codelineno-11-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">testA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">palpatine</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="w">        </span><span class="o">{</span><span class="w">   </span><span class="n">id</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="nn">Guid</span><span class="p">.</span><span class="n">NewGuid</span><span class="bp">()</span>
-</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">            </span><span class="n">firstname</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Darth&quot;</span>
-</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="w">            </span><span class="n">lastname</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Sidious&quot;</span>
-</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">            </span><span class="n">role</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="n">Sith</span>
-</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="w">            </span><span class="o">}</span>
-</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="w">    </span><span class="n">printfn</span><span class="w"> </span><span class="s">&quot;%A&quot;</span><span class="w"> </span><span class="n">palpatine</span>
-</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">actual</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">isSithLord</span><span class="w"> </span><span class="n">palpatine</span>
-</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="w">    </span><span class="n">printfn</span><span class="w"> </span><span class="s">&quot;Palpatine is a Sith Lord:  %b&quot;</span><span class="w"> </span><span class="n">actual</span>
-</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11"></a><span class="w">    </span><span class="n">actual</span>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-16-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-16-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-16-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-16-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-16-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-16-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-16-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-16-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-16-10">10</a></span>
+<span class="normal"><a href="#__codelineno-16-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">testA</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+</span><span id="__span-16-2"><a id="__codelineno-16-2" name="__codelineno-16-2"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">palpatine</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-16-3"><a id="__codelineno-16-3" name="__codelineno-16-3"></a><span class="w">        </span><span class="o">{</span><span class="w">   </span><span class="n">id</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="nn">Guid</span><span class="p">.</span><span class="n">NewGuid</span><span class="bp">()</span>
+</span><span id="__span-16-4"><a id="__codelineno-16-4" name="__codelineno-16-4"></a><span class="w">            </span><span class="n">firstname</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Darth&quot;</span>
+</span><span id="__span-16-5"><a id="__codelineno-16-5" name="__codelineno-16-5"></a><span class="w">            </span><span class="n">lastname</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Sidious&quot;</span>
+</span><span id="__span-16-6"><a id="__codelineno-16-6" name="__codelineno-16-6"></a><span class="w">            </span><span class="n">role</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="n">Sith</span>
+</span><span id="__span-16-7"><a id="__codelineno-16-7" name="__codelineno-16-7"></a><span class="w">            </span><span class="o">}</span>
+</span><span id="__span-16-8"><a id="__codelineno-16-8" name="__codelineno-16-8"></a><span class="w">    </span><span class="n">printfn</span><span class="w"> </span><span class="s">&quot;%A&quot;</span><span class="w"> </span><span class="n">palpatine</span>
+</span><span id="__span-16-9"><a id="__codelineno-16-9" name="__codelineno-16-9"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">actual</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">isSithLord</span><span class="w"> </span><span class="n">palpatine</span>
+</span><span id="__span-16-10"><a id="__codelineno-16-10" name="__codelineno-16-10"></a><span class="w">    </span><span class="n">printfn</span><span class="w"> </span><span class="s">&quot;Palpatine is a Sith Lord:  %b&quot;</span><span class="w"> </span><span class="n">actual</span>
+</span><span id="__span-16-11"><a id="__codelineno-16-11" name="__codelineno-16-11"></a><span class="w">    </span><span class="n">actual</span>
 </span></code></pre></div></td></tr></table></div>
 <blockquote>
 <p>Output:
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1">1</a></span>
-<span class="normal"><a href="#__codelineno-12-2">2</a></span>
-<span class="normal"><a href="#__codelineno-12-3">3</a></span>
-<span class="normal"><a href="#__codelineno-12-4">4</a></span>
-<span class="normal"><a href="#__codelineno-12-5">5</a></span>
-<span class="normal"><a href="#__codelineno-12-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="o">{</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">489</span><span class="n">c7a10</span><span class="o">-</span><span class="n">f872</span><span class="o">-</span><span class="mi">4</span><span class="n">cfa</span><span class="o">-</span><span class="n">a79f</span><span class="o">-</span><span class="n">cf0e48fbb2d1</span><span class="o">;</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="w"> </span><span class="n">firstname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Darth&quot;</span><span class="o">;</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a><span class="w"> </span><span class="n">lastname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Sidious&quot;</span><span class="o">;</span>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="w"> </span><span class="n">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Sith</span><span class="o">;}</span>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a><span class="n">Palpatine</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">Sith</span><span class="w"> </span><span class="n">Lord</span><span class="o">:</span><span class="w">  </span><span class="k">true</span>
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="k">val</span><span class="w"> </span><span class="n">testA</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span>
+<span class="normal"><a href="#__codelineno-17-2">2</a></span>
+<span class="normal"><a href="#__codelineno-17-3">3</a></span>
+<span class="normal"><a href="#__codelineno-17-4">4</a></span>
+<span class="normal"><a href="#__codelineno-17-5">5</a></span>
+<span class="normal"><a href="#__codelineno-17-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="o">{</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">489</span><span class="n">c7a10</span><span class="o">-</span><span class="n">f872</span><span class="o">-</span><span class="mi">4</span><span class="n">cfa</span><span class="o">-</span><span class="n">a79f</span><span class="o">-</span><span class="n">cf0e48fbb2d1</span><span class="o">;</span>
+</span><span id="__span-17-2"><a id="__codelineno-17-2" name="__codelineno-17-2"></a><span class="w"> </span><span class="n">firstname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Darth&quot;</span><span class="o">;</span>
+</span><span id="__span-17-3"><a id="__codelineno-17-3" name="__codelineno-17-3"></a><span class="w"> </span><span class="n">lastname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Sidious&quot;</span><span class="o">;</span>
+</span><span id="__span-17-4"><a id="__codelineno-17-4" name="__codelineno-17-4"></a><span class="w"> </span><span class="n">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Sith</span><span class="o">;}</span>
+</span><span id="__span-17-5"><a id="__codelineno-17-5" name="__codelineno-17-5"></a><span class="n">Palpatine</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">Sith</span><span class="w"> </span><span class="n">Lord</span><span class="o">:</span><span class="w">  </span><span class="k">true</span>
+</span><span id="__span-17-6"><a id="__codelineno-17-6" name="__codelineno-17-6"></a><span class="k">val</span><span class="w"> </span><span class="n">testA</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span>
 </span></code></pre></div></td></tr></table></div></p>
 </blockquote>
 <p>Key Points:</p>
@@ -2220,53 +2272,53 @@ Output:
 <li>The only necessary data to test is that the role of Palpatine is Sith.</li>
 </ol>
 <h3 id="abstracting-test-data-creation-into-a-generator"><a class="toclink" href="../../2019/04/06/test-with-clone-and-generator/#abstracting-test-data-creation-into-a-generator">Abstracting Test Data Creation into a Generator</a></h3>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-13-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-13-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-13-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-13-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-13-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-13-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-13-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-13-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-13-10">10</a></span>
-<span class="normal"><a href="#__codelineno-13-11">11</a></span>
-<span class="normal"><a href="#__codelineno-13-12">12</a></span>
-<span class="normal"><a href="#__codelineno-13-13">13</a></span>
-<span class="normal"><a href="#__codelineno-13-14">14</a></span>
-<span class="normal"><a href="#__codelineno-13-15">15</a></span>
-<span class="normal"><a href="#__codelineno-13-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">generateCharacter</span><span class="w"> </span><span class="bp">()</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="w">    </span><span class="o">{</span><span class="w">   </span><span class="n">id</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="nn">Guid</span><span class="p">.</span><span class="n">NewGuid</span><span class="bp">()</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="w">        </span><span class="n">firstname</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Some First Name&quot;</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="w">        </span><span class="n">lastname</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Some Last Name&quot;</span>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="w">        </span><span class="n">role</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="n">Senator</span>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="w">        </span><span class="o">}</span>
-</span><span id="__span-13-7"><a id="__codelineno-13-7" name="__codelineno-13-7"></a>
-</span><span id="__span-13-8"><a id="__codelineno-13-8" name="__codelineno-13-8"></a><span class="k">let</span><span class="w"> </span><span class="nv">testB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
-</span><span id="__span-13-9"><a id="__codelineno-13-9" name="__codelineno-13-9"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">character</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-13-10"><a id="__codelineno-13-10" name="__codelineno-13-10"></a><span class="w">        </span><span class="o">{</span><span class="w"> </span><span class="n">generateCharacter</span><span class="bp">()</span><span class="w"> </span><span class="k">with</span><span class="w">  </span>
-</span><span id="__span-13-11"><a id="__codelineno-13-11" name="__codelineno-13-11"></a><span class="w">            </span><span class="n">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Sith</span>
-</span><span id="__span-13-12"><a id="__codelineno-13-12" name="__codelineno-13-12"></a><span class="w">            </span><span class="o">}</span>
-</span><span id="__span-13-13"><a id="__codelineno-13-13" name="__codelineno-13-13"></a><span class="w">    </span><span class="n">printfn</span><span class="w"> </span><span class="s">&quot;%A&quot;</span><span class="w"> </span><span class="n">character</span>
-</span><span id="__span-13-14"><a id="__codelineno-13-14" name="__codelineno-13-14"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">actual</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">isSithLord</span><span class="w"> </span><span class="n">character</span>
-</span><span id="__span-13-15"><a id="__codelineno-13-15" name="__codelineno-13-15"></a><span class="w">    </span><span class="n">printfn</span><span class="w"> </span><span class="s">&quot;A Sith Character is a Sith Lord:  %b&quot;</span><span class="w"> </span><span class="n">actual</span>
-</span><span id="__span-13-16"><a id="__codelineno-13-16" name="__codelineno-13-16"></a><span class="w">    </span><span class="n">actual</span>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-18-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-18-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-18-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-18-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-18-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-18-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-18-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-18-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-18-10">10</a></span>
+<span class="normal"><a href="#__codelineno-18-11">11</a></span>
+<span class="normal"><a href="#__codelineno-18-12">12</a></span>
+<span class="normal"><a href="#__codelineno-18-13">13</a></span>
+<span class="normal"><a href="#__codelineno-18-14">14</a></span>
+<span class="normal"><a href="#__codelineno-18-15">15</a></span>
+<span class="normal"><a href="#__codelineno-18-16">16</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">generateCharacter</span><span class="w"> </span><span class="bp">()</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-18-2"><a id="__codelineno-18-2" name="__codelineno-18-2"></a><span class="w">    </span><span class="o">{</span><span class="w">   </span><span class="n">id</span><span class="w">          </span><span class="o">=</span><span class="w"> </span><span class="nn">Guid</span><span class="p">.</span><span class="n">NewGuid</span><span class="bp">()</span>
+</span><span id="__span-18-3"><a id="__codelineno-18-3" name="__codelineno-18-3"></a><span class="w">        </span><span class="n">firstname</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Some First Name&quot;</span>
+</span><span id="__span-18-4"><a id="__codelineno-18-4" name="__codelineno-18-4"></a><span class="w">        </span><span class="n">lastname</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Some Last Name&quot;</span>
+</span><span id="__span-18-5"><a id="__codelineno-18-5" name="__codelineno-18-5"></a><span class="w">        </span><span class="n">role</span><span class="w">        </span><span class="o">=</span><span class="w"> </span><span class="n">Senator</span>
+</span><span id="__span-18-6"><a id="__codelineno-18-6" name="__codelineno-18-6"></a><span class="w">        </span><span class="o">}</span>
+</span><span id="__span-18-7"><a id="__codelineno-18-7" name="__codelineno-18-7"></a>
+</span><span id="__span-18-8"><a id="__codelineno-18-8" name="__codelineno-18-8"></a><span class="k">let</span><span class="w"> </span><span class="nv">testB</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+</span><span id="__span-18-9"><a id="__codelineno-18-9" name="__codelineno-18-9"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">character</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-18-10"><a id="__codelineno-18-10" name="__codelineno-18-10"></a><span class="w">        </span><span class="o">{</span><span class="w"> </span><span class="n">generateCharacter</span><span class="bp">()</span><span class="w"> </span><span class="k">with</span><span class="w">  </span>
+</span><span id="__span-18-11"><a id="__codelineno-18-11" name="__codelineno-18-11"></a><span class="w">            </span><span class="n">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Sith</span>
+</span><span id="__span-18-12"><a id="__codelineno-18-12" name="__codelineno-18-12"></a><span class="w">            </span><span class="o">}</span>
+</span><span id="__span-18-13"><a id="__codelineno-18-13" name="__codelineno-18-13"></a><span class="w">    </span><span class="n">printfn</span><span class="w"> </span><span class="s">&quot;%A&quot;</span><span class="w"> </span><span class="n">character</span>
+</span><span id="__span-18-14"><a id="__codelineno-18-14" name="__codelineno-18-14"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">actual</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">isSithLord</span><span class="w"> </span><span class="n">character</span>
+</span><span id="__span-18-15"><a id="__codelineno-18-15" name="__codelineno-18-15"></a><span class="w">    </span><span class="n">printfn</span><span class="w"> </span><span class="s">&quot;A Sith Character is a Sith Lord:  %b&quot;</span><span class="w"> </span><span class="n">actual</span>
+</span><span id="__span-18-16"><a id="__codelineno-18-16" name="__codelineno-18-16"></a><span class="w">    </span><span class="n">actual</span>
 </span></code></pre></div></td></tr></table></div>
 <blockquote>
 <p>Output:
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
-<span class="normal"><a href="#__codelineno-14-2">2</a></span>
-<span class="normal"><a href="#__codelineno-14-3">3</a></span>
-<span class="normal"><a href="#__codelineno-14-4">4</a></span>
-<span class="normal"><a href="#__codelineno-14-5">5</a></span>
-<span class="normal"><a href="#__codelineno-14-6">6</a></span>
-<span class="normal"><a href="#__codelineno-14-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="o">{</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="n">aa8abac</span><span class="o">-</span><span class="mi">57</span><span class="n">e4</span><span class="o">-</span><span class="mi">4</span><span class="n">fcd</span><span class="o">-</span><span class="n">ac15</span><span class="o">-</span><span class="n">f0f05509f8cf</span><span class="o">;</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="w"> </span><span class="n">firstname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Some First Name&quot;</span><span class="o">;</span>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="w"> </span><span class="n">lastname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Some Last Name&quot;</span><span class="o">;</span>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="w"> </span><span class="n">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Sith</span><span class="o">;}</span>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="n">A</span><span class="w"> </span><span class="n">Sith</span><span class="w"> </span><span class="n">Character</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">Sith</span><span class="w"> </span><span class="n">Lord</span><span class="o">:</span><span class="w">  </span><span class="k">true</span>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6"></a><span class="k">val</span><span class="w"> </span><span class="n">generateCharacter</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unit</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Character</span>
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7"></a><span class="k">val</span><span class="w"> </span><span class="n">testB</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span>
+<span class="normal"><a href="#__codelineno-19-2">2</a></span>
+<span class="normal"><a href="#__codelineno-19-3">3</a></span>
+<span class="normal"><a href="#__codelineno-19-4">4</a></span>
+<span class="normal"><a href="#__codelineno-19-5">5</a></span>
+<span class="normal"><a href="#__codelineno-19-6">6</a></span>
+<span class="normal"><a href="#__codelineno-19-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="o">{</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">1</span><span class="n">aa8abac</span><span class="o">-</span><span class="mi">57</span><span class="n">e4</span><span class="o">-</span><span class="mi">4</span><span class="n">fcd</span><span class="o">-</span><span class="n">ac15</span><span class="o">-</span><span class="n">f0f05509f8cf</span><span class="o">;</span>
+</span><span id="__span-19-2"><a id="__codelineno-19-2" name="__codelineno-19-2"></a><span class="w"> </span><span class="n">firstname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Some First Name&quot;</span><span class="o">;</span>
+</span><span id="__span-19-3"><a id="__codelineno-19-3" name="__codelineno-19-3"></a><span class="w"> </span><span class="n">lastname</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;Some Last Name&quot;</span><span class="o">;</span>
+</span><span id="__span-19-4"><a id="__codelineno-19-4" name="__codelineno-19-4"></a><span class="w"> </span><span class="n">role</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Sith</span><span class="o">;}</span>
+</span><span id="__span-19-5"><a id="__codelineno-19-5" name="__codelineno-19-5"></a><span class="n">A</span><span class="w"> </span><span class="n">Sith</span><span class="w"> </span><span class="n">Character</span><span class="w"> </span><span class="n">is</span><span class="w"> </span><span class="n">a</span><span class="w"> </span><span class="n">Sith</span><span class="w"> </span><span class="n">Lord</span><span class="o">:</span><span class="w">  </span><span class="k">true</span>
+</span><span id="__span-19-6"><a id="__codelineno-19-6" name="__codelineno-19-6"></a><span class="k">val</span><span class="w"> </span><span class="n">generateCharacter</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">unit</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">Character</span>
+</span><span id="__span-19-7"><a id="__codelineno-19-7" name="__codelineno-19-7"></a><span class="k">val</span><span class="w"> </span><span class="n">testB</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">bool</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span>
 </span></code></pre></div></td></tr></table></div></p>
 </blockquote>
 <p>Key Points:</p>
