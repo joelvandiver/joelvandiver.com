@@ -18,7 +18,7 @@ help() {
     echo "   install       Install the site"
     echo "   post          Generate a post"
     echo "   build         Build the site"
-    echo "   serve         Serve the site"
+    echo "   start         Serve the site"
     echo "   deploy        Deploy the site"
     echo "   save          Save the site"
     echo "   readme        Generate the readme"
@@ -30,7 +30,7 @@ _run_complete()
     COMPREPLY=()
     cur="${COMP_WORDS[COMP_CWORD]}"
     prev="${COMP_WORDS[COMP_CWORD-1]}"
-    opts="install post build serve deploy save readme"
+    opts="install post build start deploy save readme"
 
     if [[ ${cur} == * ]] ; then
         COMPREPLY=( $(compgen -W "${opts}"  -- ${cur}) )
@@ -141,7 +141,7 @@ EOF
         code $file
         ;;
     "build") build;;
-    "serve") serve;;
+    "start") serve;;
     "deploy") deploy;;
     "save") save;;
     "readme") readme;;
