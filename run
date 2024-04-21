@@ -52,7 +52,7 @@ install() {
     if [[ -d venv ]]; then rm -rf venv/; fi
     python -m venv venv
     . ./venv/bin/activate
-    poetry install
+    poetry install --no-root
 }
 
 load() {

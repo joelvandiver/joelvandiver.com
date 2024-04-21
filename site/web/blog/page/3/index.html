@@ -1075,6 +1075,187 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
+          <time datetime="2020-05-17 00:00:00">May 17, 2020</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/fsharp/" class="md-meta__link">FSharp</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="stringbuilder"><a class="toclink" href="../../2020/05/17/stringbuilder/">StringBuilder</a></h2>
+<p>Numerous .NET resources reference <code>StringBuilder</code> as the preferred method for building strings rather than concatentating.  </p>
+<p>The Microsoft docs describe it this way:</p>
+<blockquote>
+<p>"The String object is immutable. Every time you use one of the methods in the System.String class, you create a new string object in memory, which requires a new allocation of space for that new object. In situations where you need to perform repeated modifications to a string, the overhead associated with creating a new String object can be costly."</p>
+<p><strong><em>Ref</em></strong>:  https://docs.microsoft.com/en-us/dotnet/standard/base-types/stringbuilder</p>
+</blockquote>
+<p>But, just how costly is it?  Let's setup a quick performance test to investigate.  We'll create two functions:  <code>stringAdder</code>, <code>stringBuilder</code>.  Both will ignore the final results since we are investigating performance only.  Also, let's use a simple string of the alphabet.</p>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span>
+<span class="normal"><a href="#__codelineno-2-15">15</a></span>
+<span class="normal"><a href="#__codelineno-2-16">16</a></span>
+<span class="normal"><a href="#__codelineno-2-17">17</a></span>
+<span class="normal"><a href="#__codelineno-2-18">18</a></span>
+<span class="normal"><a href="#__codelineno-2-19">19</a></span>
+<span class="normal"><a href="#__codelineno-2-20">20</a></span>
+<span class="normal"><a href="#__codelineno-2-21">21</a></span>
+<span class="normal"><a href="#__codelineno-2-22">22</a></span>
+<span class="normal"><a href="#__codelineno-2-23">23</a></span>
+<span class="normal"><a href="#__codelineno-2-24">24</a></span>
+<span class="normal"><a href="#__codelineno-2-25">25</a></span>
+<span class="normal"><a href="#__codelineno-2-26">26</a></span>
+<span class="normal"><a href="#__codelineno-2-27">27</a></span>
+<span class="normal"><a href="#__codelineno-2-28">28</a></span>
+<span class="normal"><a href="#__codelineno-2-29">29</a></span>
+<span class="normal"><a href="#__codelineno-2-30">30</a></span>
+<span class="normal"><a href="#__codelineno-2-31">31</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="k">open</span><span class="w"> </span><span class="nn">System</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="c1">// Simple concatentation</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="k">let</span><span class="w"> </span><span class="nv">stringAdder</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">unit</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">reduce</span><span class="w"> </span><span class="o">(+)</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">ignore</span>
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="c1">// Build up the final string with StringBuilder</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="k">let</span><span class="w"> </span><span class="nv">stringBuilder</span><span class="w"> </span><span class="o">(</span><span class="n">xs</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="kt">list</span><span class="o">)</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">buf</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nn">Text</span><span class="p">.</span><span class="n">StringBuilder</span><span class="bp">()</span>
+</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a><span class="w">    </span><span class="n">buf</span><span class="o">.</span><span class="n">Append</span><span class="w"> </span><span class="n">xs</span><span class="o">.</span><span class="n">Head</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span>
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a><span class="w">    </span><span class="n">xs</span><span class="o">.</span><span class="n">Tail</span>
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">iter</span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">buf</span><span class="o">.</span><span class="n">Append</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span><span class="o">)</span>
+</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a><span class="w">    </span><span class="n">buf</span><span class="w"> </span>
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="kt">string</span>
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">ignore</span>
+</span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a><span class="k">let</span><span class="w"> </span><span class="nv">genText</span><span class="w"> </span><span class="o">(</span><span class="n">folder</span><span class="o">:</span><span class="w"> </span><span class="kt">string</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">unit</span><span class="o">)</span><span class="w"> </span><span class="n">count</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>
+</span><span id="__span-2-15"><a id="__codelineno-2-15" name="__codelineno-2-15"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">xs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="k">for</span><span class="w"> </span><span class="o">_</span><span class="w"> </span><span class="k">in</span><span class="w"> </span><span class="mi">0</span><span class="o">..</span><span class="n">count</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="s">&quot;abcdefghijklmnopqrstuvwxyz&quot;</span><span class="o">]</span>
+</span><span id="__span-2-16"><a id="__codelineno-2-16" name="__codelineno-2-16"></a><span class="w">    </span><span class="n">xs</span>
+</span><span id="__span-2-17"><a id="__codelineno-2-17" name="__codelineno-2-17"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">folder</span>
+</span><span id="__span-2-18"><a id="__codelineno-2-18" name="__codelineno-2-18"></a>
+</span><span id="__span-2-19"><a id="__codelineno-2-19" name="__codelineno-2-19"></a><span class="mi">10</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
+</span><span id="__span-2-20"><a id="__codelineno-2-20" name="__codelineno-2-20"></a><span class="mi">100</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
+</span><span id="__span-2-21"><a id="__codelineno-2-21" name="__codelineno-2-21"></a><span class="mi">1000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
+</span><span id="__span-2-22"><a id="__codelineno-2-22" name="__codelineno-2-22"></a><span class="mi">10000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
+</span><span id="__span-2-23"><a id="__codelineno-2-23" name="__codelineno-2-23"></a><span class="mi">100000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringAdder</span>
+</span><span id="__span-2-24"><a id="__codelineno-2-24" name="__codelineno-2-24"></a>
+</span><span id="__span-2-25"><a id="__codelineno-2-25" name="__codelineno-2-25"></a><span class="mi">10</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span><span id="__span-2-26"><a id="__codelineno-2-26" name="__codelineno-2-26"></a><span class="mi">100</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span><span id="__span-2-27"><a id="__codelineno-2-27" name="__codelineno-2-27"></a><span class="mi">1000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span><span id="__span-2-28"><a id="__codelineno-2-28" name="__codelineno-2-28"></a><span class="mi">10000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span><span id="__span-2-29"><a id="__codelineno-2-29" name="__codelineno-2-29"></a><span class="mi">100000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span><span id="__span-2-30"><a id="__codelineno-2-30" name="__codelineno-2-30"></a><span class="mi">1000000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span><span id="__span-2-31"><a id="__codelineno-2-31" name="__codelineno-2-31"></a><span class="mi">10000000</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="n">genText</span><span class="w"> </span><span class="n">stringBuilder</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Wrapping each of working lines above with <code>#time</code> in fsi generates the following stats.</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Count</th>
+<th>Time</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Adder</td>
+<td>10</td>
+<td>00:00:00.002</td>
+</tr>
+<tr>
+<td>Adder</td>
+<td>100</td>
+<td>00:00:00.000</td>
+</tr>
+<tr>
+<td>Adder</td>
+<td>1,000</td>
+<td>00:00:00.020</td>
+</tr>
+<tr>
+<td>Adder</td>
+<td>10,000</td>
+<td>00:00:01.629</td>
+</tr>
+<tr>
+<td>Adder</td>
+<td>100,000</td>
+<td>***Overflow</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>10</td>
+<td>00:00:00.001</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>100</td>
+<td>00:00:00.000</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>1,000</td>
+<td>00:00:00.000</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>10,000</td>
+<td>00:00:00.001</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>100,000</td>
+<td>00:00:00.031</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>1,000,000</td>
+<td>00:00:00.292</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>10,000,000</td>
+<td>00:00:03.078</td>
+</tr>
+<tr>
+<td>Builder</td>
+<td>100,000,000</td>
+<td>***Overflow</td>
+</tr>
+</tbody>
+</table>
+    <nav class="md-post__action">
+      <a href="../../2020/05/17/stringbuilder/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
           <time datetime="2020-05-12 00:00:00">May 12, 2020</time></li>
         
           <li class="md-meta__item">
@@ -2156,135 +2337,6 @@ Output:
 <p>To avoid the error, send both the <code>auto</code> function value and the computed <code>auto2</code> value to FSI.</p>
     <nav class="md-post__action">
       <a href="../../2019/06/18/implicit-vs-explicit-type-declarations/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2019-04-06 00:00:00">April 6, 2019</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="../../category/fsharp/" class="md-meta__link">FSharp</a>, 
-              <a href="../../category/testing/" class="md-meta__link">Testing</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              2 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="basic-f-expecto-example"><a class="toclink" href="../../2019/04/06/basic-f-expecto-example/">Basic F# Expecto Example</a></h2>
-<p>First, let's gather our dependencies.</p>
-<h3 id="define-a-simple-test-case"><a class="toclink" href="../../2019/04/06/basic-f-expecto-example/#define-a-simple-test-case">Define a simple test case.</a></h3>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-12-10">10</a></span>
-<span class="normal"><a href="#__codelineno-12-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a><span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">@&quot;C:\Users\joelv\.nuget\packages\NETStandard.Library\2.0.3\build\netstandard2.0\ref\netstandard.dll&quot;</span>
-</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a><span class="o">#</span><span class="n">r</span><span class="w"> </span><span class="s">@&quot;C:\git\joelvandiver.com\packages\Expecto\lib\netstandard2.0\Expecto.dll&quot;</span>
-</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a>
-</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a><span class="k">open</span><span class="w"> </span><span class="nn">Expecto</span>
-</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a>
-</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a><span class="k">let</span><span class="w"> </span><span class="nv">toBeTest</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="w">  </span><span class="n">testCase</span><span class="w"> </span><span class="s">&quot;To be or not to be&quot;</span><span class="w"> </span><span class="o">&lt;|</span><span class="w"> </span><span class="k">fun</span><span class="w"> </span><span class="bp">()</span><span class="w"> </span><span class="o">-&gt;</span>
-</span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">toBe</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span>
-</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9"></a><span class="w">    </span><span class="nn">Expect</span><span class="p">.</span><span class="n">isTrue</span><span class="w"> </span><span class="n">toBe</span><span class="w"> </span><span class="s">&quot;You do not exist.&quot;</span>
-</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10"></a>
-</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11"></a><span class="n">runTests</span><span class="w"> </span><span class="n">defaultConfig</span><span class="w"> </span><span class="n">toBeTest</span>
-</span></code></pre></div></td></tr></table></div>
-<p><em>Output:</em>
-<div class="language-console highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-13-1">1</a></span>
-<span class="normal"><a href="#__codelineno-13-2">2</a></span>
-<span class="normal"><a href="#__codelineno-13-3">3</a></span>
-<span class="normal"><a href="#__codelineno-13-4">4</a></span>
-<span class="normal"><a href="#__codelineno-13-5">5</a></span>
-<span class="normal"><a href="#__codelineno-13-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-13-1"><a id="__codelineno-13-1" name="__codelineno-13-1"></a><span class="go">[15:36:13 INF] EXPECTO? Running tests... &lt;Expecto&gt;</span>
-</span><span id="__span-13-2"><a id="__codelineno-13-2" name="__codelineno-13-2"></a><span class="go">[15:36:13 INF] EXPECTO! 1 tests run in 00:00:00.0109563 for To be or not to be – 1 passed, 0 ignored, 0 failed, 0 errored. Success! &lt;Expecto&gt;</span>
-</span><span id="__span-13-3"><a id="__codelineno-13-3" name="__codelineno-13-3"></a><span class="go">val toBeTest : Test =</span>
-</span><span id="__span-13-4"><a id="__codelineno-13-4" name="__codelineno-13-4"></a><span class="go">  TestLabel</span>
-</span><span id="__span-13-5"><a id="__codelineno-13-5" name="__codelineno-13-5"></a><span class="go">    (&quot;To be or not to be&quot;,TestCase (Sync &lt;fun:toBeTest@5-1&gt;,Normal),Normal)</span>
-</span><span id="__span-13-6"><a id="__codelineno-13-6" name="__codelineno-13-6"></a><span class="go">val it : int = 0</span>
-</span></code></pre></div></td></tr></table></div></p>
-<h3 id="combine-multiple-tests-into-a-list"><a class="toclink" href="../../2019/04/06/basic-f-expecto-example/#combine-multiple-tests-into-a-list">Combine multiple tests into a list.</a></h3>
-<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span>
-<span class="normal"><a href="#__codelineno-14-2">2</a></span>
-<span class="normal"><a href="#__codelineno-14-3">3</a></span>
-<span class="normal"><a href="#__codelineno-14-4">4</a></span>
-<span class="normal"><a href="#__codelineno-14-5">5</a></span>
-<span class="normal"><a href="#__codelineno-14-6">6</a></span>
-<span class="normal"><a href="#__codelineno-14-7">7</a></span>
-<span class="normal"><a href="#__codelineno-14-8">8</a></span>
-<span class="normal"><a href="#__codelineno-14-9">9</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">toThinkTest</span><span class="w"> </span><span class="o">=</span>
-</span><span id="__span-14-2"><a id="__codelineno-14-2" name="__codelineno-14-2"></a><span class="w">  </span><span class="n">test</span><span class="w"> </span><span class="s">&quot;I think therefore I am.&quot;</span><span class="w"> </span><span class="o">{</span>
-</span><span id="__span-14-3"><a id="__codelineno-14-3" name="__codelineno-14-3"></a><span class="w">    </span><span class="k">let</span><span class="w"> </span><span class="nv">iThink</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">true</span>
-</span><span id="__span-14-4"><a id="__codelineno-14-4" name="__codelineno-14-4"></a><span class="w">    </span><span class="nn">Expect</span><span class="p">.</span><span class="n">isTrue</span><span class="w"> </span><span class="n">iThink</span><span class="w"> </span><span class="s">&quot;You do not think so you do not exist.&quot;</span>
-</span><span id="__span-14-5"><a id="__codelineno-14-5" name="__codelineno-14-5"></a><span class="w">  </span><span class="o">}</span><span class="w"> </span>
-</span><span id="__span-14-6"><a id="__codelineno-14-6" name="__codelineno-14-6"></a>
-</span><span id="__span-14-7"><a id="__codelineno-14-7" name="__codelineno-14-7"></a><span class="k">let</span><span class="w"> </span><span class="nv">existenceTests</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">testList</span><span class="w"> </span><span class="s">&quot;Test for Existence&quot;</span><span class="w"> </span><span class="o">[</span><span class="n">toBeTest</span><span class="o">;</span><span class="w"> </span><span class="n">toThinkTest</span><span class="o">]</span>
-</span><span id="__span-14-8"><a id="__codelineno-14-8" name="__codelineno-14-8"></a>
-</span><span id="__span-14-9"><a id="__codelineno-14-9" name="__codelineno-14-9"></a><span class="n">runTests</span><span class="w"> </span><span class="n">defaultConfig</span><span class="w"> </span><span class="n">existenceTests</span>
-</span></code></pre></div></td></tr></table></div>
-<p><em>Output:</em>
-<div class="language-console highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-15-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-15-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-15-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-15-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-15-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-15-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-15-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-15-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-15-10">10</a></span>
-<span class="normal"><a href="#__codelineno-15-11">11</a></span>
-<span class="normal"><a href="#__codelineno-15-12">12</a></span>
-<span class="normal"><a href="#__codelineno-15-13">13</a></span>
-<span class="normal"><a href="#__codelineno-15-14">14</a></span>
-<span class="normal"><a href="#__codelineno-15-15">15</a></span>
-<span class="normal"><a href="#__codelineno-15-16">16</a></span>
-<span class="normal"><a href="#__codelineno-15-17">17</a></span>
-<span class="normal"><a href="#__codelineno-15-18">18</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="go">[15:36:46 INF] EXPECTO? Running tests... &lt;Expecto&gt;</span>
-</span><span id="__span-15-2"><a id="__codelineno-15-2" name="__codelineno-15-2"></a><span class="go">[15:36:47 INF] EXPECTO! 2 tests run in 00:00:00.0219511 for Test for Existence – 2 passed, 0 ignored, 0 failed, 0 errored. Success! &lt;Expecto&gt;</span>
-</span><span id="__span-15-3"><a id="__codelineno-15-3" name="__codelineno-15-3"></a><span class="go">val toThinkTest : Test =</span>
-</span><span id="__span-15-4"><a id="__codelineno-15-4" name="__codelineno-15-4"></a><span class="go">  TestLabel</span>
-</span><span id="__span-15-5"><a id="__codelineno-15-5" name="__codelineno-15-5"></a><span class="go">    (&quot;I think therefore I am.&quot;,TestCase (Sync &lt;fun:toThinkTest@11-1&gt;,Normal),</span>
-</span><span id="__span-15-6"><a id="__codelineno-15-6" name="__codelineno-15-6"></a><span class="go">     Normal)</span>
-</span><span id="__span-15-7"><a id="__codelineno-15-7" name="__codelineno-15-7"></a><span class="go">val existenceTests : Test =</span>
-</span><span id="__span-15-8"><a id="__codelineno-15-8" name="__codelineno-15-8"></a><span class="go">  TestLabel</span>
-</span><span id="__span-15-9"><a id="__codelineno-15-9" name="__codelineno-15-9"></a><span class="go">    (&quot;Test for Existence&quot;,</span>
-</span><span id="__span-15-10"><a id="__codelineno-15-10" name="__codelineno-15-10"></a><span class="go">     TestList</span>
-</span><span id="__span-15-11"><a id="__codelineno-15-11" name="__codelineno-15-11"></a><span class="go">       ([TestLabel</span>
-</span><span id="__span-15-12"><a id="__codelineno-15-12" name="__codelineno-15-12"></a><span class="go">           (&quot;To be or not to be&quot;,TestCase (Sync &lt;fun:toBeTest@5-1&gt;,Normal),</span>
-</span><span id="__span-15-13"><a id="__codelineno-15-13" name="__codelineno-15-13"></a><span class="go">            Normal);</span>
-</span><span id="__span-15-14"><a id="__codelineno-15-14" name="__codelineno-15-14"></a><span class="go">         TestLabel</span>
-</span><span id="__span-15-15"><a id="__codelineno-15-15" name="__codelineno-15-15"></a><span class="go">           (&quot;I think therefore I am.&quot;,</span>
-</span><span id="__span-15-16"><a id="__codelineno-15-16" name="__codelineno-15-16"></a><span class="go">            TestCase (Sync &lt;fun:toThinkTest@11-1&gt;,Normal),Normal)],Normal),</span>
-</span><span id="__span-15-17"><a id="__codelineno-15-17" name="__codelineno-15-17"></a><span class="go">     Normal)</span>
-</span><span id="__span-15-18"><a id="__codelineno-15-18" name="__codelineno-15-18"></a><span class="go">val it : int = 0</span>
-</span></code></pre></div></td></tr></table></div></p>
-    <nav class="md-post__action">
-      <a href="../../2019/04/06/basic-f-expecto-example/">
         Continue reading
       </a>
     </nav>
