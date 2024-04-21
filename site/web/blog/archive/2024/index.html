@@ -1196,7 +1196,7 @@
 </span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">    </span><span class="k">return</span><span class="w"> </span><span class="nx">addUserDB</span><span class="p">(</span><span class="nx">username</span><span class="p">,</span><span class="w"> </span><span class="kc">true</span><span class="p">);</span>
 </span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="p">}</span>
 </span></code></pre></div></td></tr></table></div>
-<p>The TypeScript implementation is rather straightforward.  You could imagine there there is an expensive function with IO to the db that you would like to test.  By writing a function in this style, you can stub the <code>addUserDB</code> in your tests.  Then, you're testing library doesn't have to worry about maintaining connections to a live database.</p>
+<p>The TypeScript implementation is rather straightforward.  You could imagine there is an expensive function with IO to the db that you would like to test.  By writing a function in this style, you can stub the <code>addUserDB</code> in your tests.  Then, you're testing library doesn't have to worry about maintaining connections to a live database.</p>
 <p>But, what would be the corollary for Python?  The most straightforward approach would be to use the <code>Callable</code> from the <code>typing</code> module:</p>
 <div class="language-python highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
 <span class="normal"><a href="#__codelineno-4-2">2</a></span>

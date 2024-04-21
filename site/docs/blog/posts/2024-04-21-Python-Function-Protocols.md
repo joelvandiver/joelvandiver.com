@@ -17,7 +17,7 @@ const addAdminUser = (
 }
 ```
 
-The TypeScript implementation is rather straightforward.  You could imagine there there is an expensive function with IO to the db that you would like to test.  By writing a function in this style, you can stub the `addUserDB` in your tests.  Then, you're testing library doesn't have to worry about maintaining connections to a live database.
+The TypeScript implementation is rather straightforward.  You could imagine there is an expensive function with IO to the db that you would like to test.  By writing a function in this style, you can stub the `addUserDB` in your tests.  Then, you're testing library doesn't have to worry about maintaining connections to a live database.
 
 
 But, what would be the corollary for Python?  The most straightforward approach would be to use the `Callable` from the `typing` module:
