@@ -53,4 +53,4 @@ def add_admin_user(
 
 ```
 
-Obviously, the Python syntax is a little bit more verbose than the TypeScript, but at least with this implementation you get the same benefits for test isolation.
+Obviously, the Python syntax is a little bit more verbose than the TypeScript version, but at least with this implementation you get the same benefits for test isolation.
