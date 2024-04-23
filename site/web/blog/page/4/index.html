@@ -641,6 +641,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -933,6 +937,52 @@
   
   
     <li class="md-nav__item">
+      <a href="../../category/microservices/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Microservices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../category/nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../../category/python/" class="md-nav__link">
         
   
@@ -1068,6 +1118,83 @@
       <header class="md-typeset">
         <h1 id="blog">Blog</h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2019-06-18 00:00:00">June 18, 2019</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/fsharp/" class="md-meta__link">FSharp</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              1 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="implicit-vs-explicit-type-declarations"><a class="toclink" href="../../2019/06/18/implicit-vs-explicit-type-declarations/">Implicit vs Explicit Type Declarations</a></h2>
+<h3 id="implicit"><a class="toclink" href="../../2019/06/18/implicit-vs-explicit-type-declarations/#implicit">Implicit</a></h3>
+<p>F# supports implicit type declarations.  This can be a powerful technique because the F# type system will:</p>
+<ol>
+<li>Infer the Type - Inference allows for more succinct code with less <code>code noise</code>.</li>
+<li>Auto-Generalize Variable Types - Auto-Generalization leads to more efficient <code>code reuse</code>.</li>
+</ol>
+<h4 id="inference-example"><a class="toclink" href="../../2019/06/18/implicit-vs-explicit-type-declarations/#inference-example">Inference Example:</a></h4>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-14-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-14-1"><a id="__codelineno-14-1" name="__codelineno-14-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">inf1</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">3</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">x</span>
+</span></code></pre></div></td></tr></table></div>
+<blockquote>
+<p>Output:
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-15-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-15-1"><a id="__codelineno-15-1" name="__codelineno-15-1"></a><span class="k">val</span><span class="w"> </span><span class="n">inf1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="n">int</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">int</span>
+</span></code></pre></div></td></tr></table></div>
+Note:  The <code>x</code> has been inferred to be of type <code>int</code>.  The F# compiler is smart enough to know that only an <code>int</code> parameter type for <code>x</code> will suffice.</p>
+</blockquote>
+<h4 id="auto-generalization-example"><a class="toclink" href="../../2019/06/18/implicit-vs-explicit-type-declarations/#auto-generalization-example">Auto-Generalization Example:</a></h4>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-16-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-16-1"><a id="__codelineno-16-1" name="__codelineno-16-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">auto1</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">y</span>
+</span></code></pre></div></td></tr></table></div>
+<blockquote>
+<p>Output:
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-17-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-17-1"><a id="__codelineno-17-1" name="__codelineno-17-1"></a><span class="k">val</span><span class="w"> </span><span class="n">auto1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="n">int</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">y</span><span class="o">:</span><span class="n">int</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">int</span>
+</span></code></pre></div></td></tr></table></div>
+Note:  The types for <code>x</code> and <code>y</code> were declared to be of type <code>int</code>.  However, providing an implementation of float values <code>1.</code> and <code>2.</code> values below will resolve the types as <code>float</code>.</p>
+</blockquote>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-18-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-18-1"><a id="__codelineno-18-1" name="__codelineno-18-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">auto2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">auto1</span><span class="w"> </span><span class="mi">1</span><span class="o">.</span><span class="w"> </span><span class="mi">2</span><span class="o">.</span>
+</span></code></pre></div></td></tr></table></div>
+<blockquote>
+<p>Output:
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-19-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-19-1"><a id="__codelineno-19-1" name="__codelineno-19-1"></a><span class="k">val</span><span class="w"> </span><span class="n">auto1</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="kt">float</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">y</span><span class="o">:</span><span class="kt">float</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="kt">float</span>
+</span></code></pre></div></td></tr></table></div></p>
+<p>Note:  The FSI environment will throw an error when defining a <code>resolved</code> generic function:
+Output:
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-20-1">1</a></span>
+<span class="normal"><a href="#__codelineno-20-2">2</a></span>
+<span class="normal"><a href="#__codelineno-20-3">3</a></span>
+<span class="normal"><a href="#__codelineno-20-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-20-1"><a id="__codelineno-20-1" name="__codelineno-20-1"></a><span class="n">index</span><span class="o">.</span><span class="n">fsx</span><span class="o">(</span><span class="mi">6</span><span class="o">,</span><span class="mi">19</span><span class="o">):</span><span class="w"> </span><span class="n">error</span><span class="w"> </span><span class="n">FS0001</span><span class="o">:</span><span class="w"> </span><span class="n">This</span><span class="w"> </span><span class="n">expression</span><span class="w"> </span><span class="n">was</span><span class="w"> </span><span class="n">expected</span><span class="w"> </span><span class="k">to</span><span class="w"> </span><span class="n">have</span><span class="w"> </span><span class="k">type</span>
+</span><span id="__span-20-2"><a id="__codelineno-20-2" name="__codelineno-20-2"></a><span class="w">    </span><span class="k">&#39;</span><span class="n">int&#39;</span><span class="w">    </span>
+</span><span id="__span-20-3"><a id="__codelineno-20-3" name="__codelineno-20-3"></a><span class="n">but</span><span class="w"> </span><span class="n">here</span><span class="w"> </span><span class="n">has</span><span class="w"> </span><span class="k">type</span>
+</span><span id="__span-20-4"><a id="__codelineno-20-4" name="__codelineno-20-4"></a><span class="w">    </span><span class="k">&#39;</span><span class="kt">float</span><span class="k">&#39;</span><span class="w">  </span>
+</span></code></pre></div></td></tr></table></div></p>
+</blockquote>
+<p>To avoid the error, send both the <code>auto</code> function value and the computed <code>auto2</code> value to FSI.</p>
+    <nav class="md-post__action">
+      <a href="../../2019/06/18/implicit-vs-explicit-type-declarations/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">

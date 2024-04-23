@@ -641,6 +641,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -933,6 +937,52 @@
   
   
     <li class="md-nav__item">
+      <a href="../../category/microservices/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Microservices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="../../category/nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="../../category/python/" class="md-nav__link">
         
   
@@ -1068,6 +1118,121 @@
       <header class="md-typeset">
         <h1 id="blog">Blog</h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2021-12-03 00:00:00">December 3, 2021</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/git/" class="md-meta__link">Git</a>, 
+              <a href="../../category/devops/" class="md-meta__link">DevOps</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="git-flow-simplified"><a class="toclink" href="../../2021/12/03/git-flow-simplified/">Git Flow Simplified</a></h2>
+<p>Oh, there are so many ways of managing git repositories.  I've written on this topic before, but as usual, things have changed.  I recently changed teams at work, and with a new team comes a new culture of devops.  </p>
+<h3 id="tldr"><a class="toclink" href="../../2021/12/03/git-flow-simplified/#tldr">TL;DR</a></h3>
+<blockquote>
+<p>"CI" means to continuously integrate, so sync often.</p>
+</blockquote>
+<h3 id="simple-git-flow"><a class="toclink" href="../../2021/12/03/git-flow-simplified/#simple-git-flow">Simple Git Flow</a></h3>
+<ol>
+<li>Keep to a single trunk (such as <code>/develop</code>)</li>
+<li>Commit on <em>all</em> logically complete units of code.</li>
+<li>Fetch from remote.</li>
+<li>Rebase.</li>
+<li>Push.</li>
+<li>Repeat &gt; 5x/day</li>
+</ol>
+<p>I usually script the above like this:</p>
+<blockquote>
+<p>sync.sh</p>
+</blockquote>
+<div class="language-sh highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1">1</a></span>
+<span class="normal"><a href="#__codelineno-9-2">2</a></span>
+<span class="normal"><a href="#__codelineno-9-3">3</a></span>
+<span class="normal"><a href="#__codelineno-9-4">4</a></span>
+<span class="normal"><a href="#__codelineno-9-5">5</a></span>
+<span class="normal"><a href="#__codelineno-9-6">6</a></span>
+<span class="normal"><a href="#__codelineno-9-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="ch">#!/bin/sh</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="nv">message</span><span class="o">=</span><span class="nv">$1</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a>git<span class="w"> </span>add<span class="w"> </span>-A
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">message</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a>git<span class="w"> </span>fetch
+</span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a>git<span class="w"> </span>rebase
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7"></a>git<span class="w"> </span>push
+</span></code></pre></div></td></tr></table></div>
+<h3 id="ci-vs-branching"><a class="toclink" href="../../2021/12/03/git-flow-simplified/#ci-vs-branching">CI vs Branching</a></h3>
+<p>By definition "continuous integration" and "branching" are antithetical to each other.  I used to think of "CI" as something the server does to integrate developers code.  But, I now see that the developers' systems are also a point of integration.  </p>
+<p>The goal is to integrate as quickly as possible (hence "continuous").  </p>
+<h3 id="still-branch"><a class="toclink" href="../../2021/12/03/git-flow-simplified/#still-branch">Still Branch?</a></h3>
+<p>Ok, ok, I have to be pragmatic and say that I still branch.  I now use branching for experimental coding, prototyping, and just figuring things out.  But I try to get off the branch within a couple of hours.  </p>
+<p>Quite frankily, if I knew everything about all code that I'll ever need to write, <em>then</em> I would avoid branching completely.  </p>
+<p>So, for branching, I usually script it such as this:</p>
+<blockquote>
+<p>branch.sh</p>
+</blockquote>
+<div class="language-sh highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1">1</a></span>
+<span class="normal"><a href="#__codelineno-10-2">2</a></span>
+<span class="normal"><a href="#__codelineno-10-3">3</a></span>
+<span class="normal"><a href="#__codelineno-10-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="ch">#!/bin/sh</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a><span class="nv">branch</span><span class="o">=</span><span class="nv">$1</span>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span><span class="nv">$branch</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span><span class="nv">$branch</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Then, when I'm ready to merge back to trunk (<code>/develop</code>) I complete my branch:</p>
+<blockquote>
+<p>complete.sh</p>
+</blockquote>
+<div class="language-sh highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-11-10">10</a></span>
+<span class="normal"><a href="#__codelineno-11-11">11</a></span>
+<span class="normal"><a href="#__codelineno-11-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="ch">#!/bin/sh</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="nv">message</span><span class="o">=</span><span class="nv">$1</span>
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a>git<span class="w"> </span>add<span class="w"> </span>-A
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">message</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a>git<span class="w"> </span>push
+</span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="nv">current_branch</span><span class="o">=</span><span class="k">$(</span>git<span class="w"> </span>branch<span class="w"> </span>--show-current<span class="k">)</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7"></a>git<span class="w"> </span>checkout<span class="w"> </span>develop
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8"></a>git<span class="w"> </span>merge<span class="w"> </span>--squash<span class="w"> </span><span class="nv">$current_branch</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">message</span><span class="si">}</span><span class="s2">&quot;</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10"></a>git<span class="w"> </span>push<span class="w"> </span><span class="nv">$1</span>
+</span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11"></a>git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span><span class="nv">$current_branch</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--delete<span class="w"> </span><span class="nv">$current_branch</span>
+</span></code></pre></div></td></tr></table></div>
+<p><strong>Note:</strong> I use <code>git merge --squash $current_branch</code> to keep the commits on trunk (<code>/develop</code>) clean.</p>
+    <nav class="md-post__action">
+      <a href="../../2021/12/03/git-flow-simplified/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
@@ -2237,72 +2402,6 @@
 <p>I'm able to apply <em>Duck Typing</em> to types and have the compiler tell me as I'm developing if the type <strong><em>is a duck!</em></strong></p>
     <nav class="md-post__action">
       <a href="../../2020/06/07/duck-typing/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2020-05-17 00:00:00">May 17, 2020</time></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              3 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="lib-and-coffee"><a class="toclink" href="../../2020/05/17/lib-and-coffee/">Lib and Coffee</a></h2>
-<blockquote>
-<p>There's more to software development than code.</p>
-</blockquote>
-<p>You have to verify the system works from end to end.  At some point in the dev cycle you will need to plug it all together to make sure it works as expected.  </p>
-<p>Too much of my career has been focused on ensuring everything works all the time <em>on my system</em>.  As I've grown as a developer, my career has gone through several phases.</p>
-<h3 id="phase-i-manually-verify"><a class="toclink" href="../../2020/05/17/lib-and-coffee/#phase-i-manually-verify">Phase I - Manually Verify</a></h3>
-<p>Change a line of code, then manually verify it worked as expected and didn't break anything else.  Keep the code on your system fully operating with each of the following:</p>
-<ol>
-<li>Database</li>
-<li>API</li>
-<li>Web Services</li>
-<li>UI</li>
-</ol>
-<p>But, a problem quickly arises:  Can you truly verify everyting all the time?</p>
-<h3 id="phase-ii-automatically-verify"><a class="toclink" href="../../2020/05/17/lib-and-coffee/#phase-ii-automatically-verify">Phase II - Automatically Verify</a></h3>
-<p>Enter automated integration testing.  Here's few flavors of integration tests I've written:</p>
-<ol>
-<li>SQL Client Database Tests</li>
-<li>REST API Tests</li>
-<li>Selenium/E2E Tests</li>
-<li>Generative Data LOAD Tests</li>
-<li>PERF Repetition Tests</li>
-</ol>
-<p>It never ceases to amaze me how much there is to do with automated testing.</p>
-<p>These have been great to gain greater confidence in the quality of software.  But, there's a catch.</p>
-<p>Integration testing by definition is more computationally expensive, time extensive, and generally more involved than UNIT testing.  Putting your integration tests into a CI/CD pipeline also proves to be tricky and can be <em>brittle</em>.  </p>
-<h3 id="phase-iii-focus-on-the-unit"><a class="toclink" href="../../2020/05/17/lib-and-coffee/#phase-iii-focus-on-the-unit">Phase III - Focus on the UNIT</a></h3>
-<p>During the next phase in my career, I turned my attention to UNIT testing.  UNIT testing requires direct inheritance of the production code.  This allows the tests to be decoupled from external concerns such as HTTP connections, database connections, file system access and the like.</p>
-<p>I can write what seems like 100s of UNIT tests for every integration test.</p>
-<p>Great!  Now, I can write tests and shorten the feedback loop.  I want to know if I've broken some requirement as soon as possible in the software development cycle.</p>
-<p>Even here there's a <em>catch</em> though.  External dependencies have to be <strong>mocked</strong> out.  Through mocking, you can tell the system to do something <em>instead</em> of actually doing the external work.  But, this process has proved to be pain.  The test code is more complicated, takes longer to write, and is harder to maintain.  </p>
-<h3 id="phase-iv-lib-it"><a class="toclink" href="../../2020/05/17/lib-and-coffee/#phase-iv-lib-it">Phase IV - Lib It!</a></h3>
-<p>Let me just say that one thing I look forward to everyday is what I call "Lib and Coffee".  It's the type of coding that just requires my thoughts, my code, and probably a cup of coffee.  I just have the problem at hand, the knowledge in my mind, and the code on the screen.  </p>
-<p>I startup watchers that run unit tests on file save.  I write a test failure, write the code, then watch the test turn green.  I can be in this zone for hours on end, and at the end, it feels very satisfying to deliver a quality product that is fully tested.  Very nice!</p>
-<p>From a functional programming perspective, the <code>Lib</code> is the library where you put your purely functional code.  The functions are transparent in that they declare the names, their input types, and their output types.  External dependencies are handled some where else.   </p>
-<p>This is the truly <em>zen</em> mode of coding!</p>
-    <nav class="md-post__action">
-      <a href="../../2020/05/17/lib-and-coffee/">
         Continue reading
       </a>
     </nav>

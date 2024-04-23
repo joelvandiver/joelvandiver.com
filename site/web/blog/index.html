@@ -641,6 +641,10 @@
       
         
       
+        
+      
+        
+      
     
     
     
@@ -933,6 +937,52 @@
   
   
     <li class="md-nav__item">
+      <a href="category/microservices/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Microservices
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
+      <a href="category/nginx/" class="md-nav__link">
+        
+  
+  <span class="md-ellipsis">
+    Nginx
+  </span>
+  
+
+      </a>
+    </li>
+  
+
+              
+            
+              
+                
+  
+  
+  
+    
+  
+  
+    <li class="md-nav__item">
       <a href="category/python/" class="md-nav__link">
         
   
@@ -1068,6 +1118,123 @@
       <header class="md-typeset">
         <h1 id="blog">Blog</h1>
       </header>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
+          <time datetime="2024-04-23 00:00:00">April 23, 2024</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="category/nginx/" class="md-meta__link">Nginx</a>, 
+              <a href="category/microservices/" class="md-meta__link">Microservices</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="resilient-gateway"><a class="toclink" href="2024/04/23/resilient-gateway/">Resilient Gateway</a></h2>
+<p>Creating a "Resilient Gateway" using Nginx as a reverse proxy is a great way to ensure that your web infrastructure can handle failures gracefully. Let's explore how to configure Nginx to start up and remain operational even if the backend services are down or not yet up and running. This setup enhances the resilience and availability of your web applications, making them more robust against backend instabilities.</p>
+<h3 id="understand-the-challenge"><a class="toclink" href="2024/04/23/resilient-gateway/#understand-the-challenge">Understand: The Challenge</a></h3>
+<p>Typically, when Nginx is configured to proxy to a backend service and that service is unavailable at startup, Nginx will not come up!</p>
+<p>Let's take this <code>nginx.conf</code> as an example:</p>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a>events {
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a>    worker_connections 1024;
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>}
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>http {
+</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>    server {
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>        listen 80;
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a>        location /flaky {
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a>            proxy_pass http://flaky:8000;
+</span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a>        }
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a>    }
+</span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a>}
+</span></code></pre></div></td></tr></table></div>
+<p>If the <code>http://flaky:8000</code> service is not running, then Nginx will not start.  By default, Nginx requires all backend services to be up and running when it comes up.</p>
+<h3 id="the-solution-resilient-gateway"><a class="toclink" href="2024/04/23/resilient-gateway/#the-solution-resilient-gateway">The Solution: Resilient Gateway</a></h3>
+<p>To make our Nginx gateway resilient, we can use a combination of configuration strategies that include service discovery and DNS resolution. This setup ensures that Nginx can start up without needing the backend services to be available and can continue to operate if they go down.</p>
+<blockquote>
+<p>Step 1: Defining a Variable</p>
+</blockquote>
+<p>Nginx evaluates variables lazily. This means that the resolution of the hostname happens at the time of the request, allowing for dynamic changes in the backend's status.</p>
+<p><code>set $backend "flaky:8000";</code></p>
+<p>Here, <code>$backend</code> is a variable, and its resolution is deferred until a request is made. This setup allows for dynamic reconfiguration if the status of flaky changes.</p>
+<blockquote>
+<p>Step 2: Add the Internal DNS Resolver</p>
+</blockquote>
+<p><code>resolver 127.0.0.11 valid=30s;  # Docker's internal DNS resolver</code></p>
+<p>The <code>resolver</code> directive specifies the DNS server to use for name resolution since the service is discovered at the time of the request.</p>
+<blockquote>
+<p>All Together</p>
+</blockquote>
+<div class="language-text highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-1-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-1-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-1-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-1-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-1-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-1-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-1-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-1-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-1-10">10</a></span>
+<span class="normal"><a href="#__codelineno-1-11">11</a></span>
+<span class="normal"><a href="#__codelineno-1-12">12</a></span>
+<span class="normal"><a href="#__codelineno-1-13">13</a></span>
+<span class="normal"><a href="#__codelineno-1-14">14</a></span>
+<span class="normal"><a href="#__codelineno-1-15">15</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a>events {
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a>    worker_connections 1024;
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>}
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>
+</span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a>http {
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a>    server {
+</span><span id="__span-1-7"><a id="__codelineno-1-7" name="__codelineno-1-7"></a>        listen 80;
+</span><span id="__span-1-8"><a id="__codelineno-1-8" name="__codelineno-1-8"></a>
+</span><span id="__span-1-9"><a id="__codelineno-1-9" name="__codelineno-1-9"></a>        set $backend &quot;flaky:8000&quot;;
+</span><span id="__span-1-10"><a id="__codelineno-1-10" name="__codelineno-1-10"></a>
+</span><span id="__span-1-11"><a id="__codelineno-1-11" name="__codelineno-1-11"></a>        location /flaky {
+</span><span id="__span-1-12"><a id="__codelineno-1-12" name="__codelineno-1-12"></a>            proxy_pass http://$backend;
+</span><span id="__span-1-13"><a id="__codelineno-1-13" name="__codelineno-1-13"></a>        }
+</span><span id="__span-1-14"><a id="__codelineno-1-14" name="__codelineno-1-14"></a>    }
+</span><span id="__span-1-15"><a id="__codelineno-1-15" name="__codelineno-1-15"></a>}
+</span></code></pre></div></td></tr></table></div>
+<p>In this configuration, if the flaky service is down, users will encounter an error when trying to access it through the gateway.  Serving error pages is by far a better experience than not responding at all.  Also, other services may be up and running and can respond to requests even if a particular backend service is down.</p>
+<h3 id="conclusion"><a class="toclink" href="2024/04/23/resilient-gateway/#conclusion">Conclusion</a></h3>
+<p>By making these changes, your Nginx reverse proxy becomes a "Resilient Gateway" that enhances the availability and stability of your applications. This configuration is especially useful in microservices architectures where individual service availability can vary.</p>
+<p>This approach not only minimizes downtime but also improves the overall user experience by providing a more reliable entry point to your backend services. Whether you're managing a complex system or just want to ensure uptime for critical applications, these strategies can help your infrastructure become more resilient against failures.</p>
+    <nav class="md-post__action">
+      <a href="2024/04/23/resilient-gateway/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
       
         <article class="md-post md-post--excerpt">
   <header class="md-post__header">
@@ -2025,121 +2192,6 @@
 <p>Pretty cool, eh?</p>
     <nav class="md-post__action">
       <a href="2021/12/07/docker-scratchpad/">
-        Continue reading
-      </a>
-    </nav>
-  </div>
-</article>
-      
-        <article class="md-post md-post--excerpt">
-  <header class="md-post__header">
-    
-    <div class="md-post__meta md-meta">
-      <ul class="md-meta__list">
-        <li class="md-meta__item">
-          <time datetime="2021-12-03 00:00:00">December 3, 2021</time></li>
-        
-          <li class="md-meta__item">
-            in
-            
-              <a href="category/git/" class="md-meta__link">Git</a>, 
-              <a href="category/devops/" class="md-meta__link">DevOps</a></li>
-        
-        
-          
-          <li class="md-meta__item">
-            
-              2 min read
-            
-          </li>
-        
-      </ul>
-      
-    </div>
-  </header>
-  <div class="md-post__content md-typeset">
-    <h2 id="git-flow-simplified"><a class="toclink" href="2021/12/03/git-flow-simplified/">Git Flow Simplified</a></h2>
-<p>Oh, there are so many ways of managing git repositories.  I've written on this topic before, but as usual, things have changed.  I recently changed teams at work, and with a new team comes a new culture of devops.  </p>
-<h3 id="tldr"><a class="toclink" href="2021/12/03/git-flow-simplified/#tldr">TL;DR</a></h3>
-<blockquote>
-<p>"CI" means to continuously integrate, so sync often.</p>
-</blockquote>
-<h3 id="simple-git-flow"><a class="toclink" href="2021/12/03/git-flow-simplified/#simple-git-flow">Simple Git Flow</a></h3>
-<ol>
-<li>Keep to a single trunk (such as <code>/develop</code>)</li>
-<li>Commit on <em>all</em> logically complete units of code.</li>
-<li>Fetch from remote.</li>
-<li>Rebase.</li>
-<li>Push.</li>
-<li>Repeat &gt; 5x/day</li>
-</ol>
-<p>I usually script the above like this:</p>
-<blockquote>
-<p>sync.sh</p>
-</blockquote>
-<div class="language-sh highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1">1</a></span>
-<span class="normal"><a href="#__codelineno-0-2">2</a></span>
-<span class="normal"><a href="#__codelineno-0-3">3</a></span>
-<span class="normal"><a href="#__codelineno-0-4">4</a></span>
-<span class="normal"><a href="#__codelineno-0-5">5</a></span>
-<span class="normal"><a href="#__codelineno-0-6">6</a></span>
-<span class="normal"><a href="#__codelineno-0-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="ch">#!/bin/sh</span>
-</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="nv">message</span><span class="o">=</span><span class="nv">$1</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a>git<span class="w"> </span>add<span class="w"> </span>-A
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">message</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a>git<span class="w"> </span>fetch
-</span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a>git<span class="w"> </span>rebase
-</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a>git<span class="w"> </span>push
-</span></code></pre></div></td></tr></table></div>
-<h3 id="ci-vs-branching"><a class="toclink" href="2021/12/03/git-flow-simplified/#ci-vs-branching">CI vs Branching</a></h3>
-<p>By definition "continuous integration" and "branching" are antithetical to each other.  I used to think of "CI" as something the server does to integrate developers code.  But, I now see that the developers' systems are also a point of integration.  </p>
-<p>The goal is to integrate as quickly as possible (hence "continuous").  </p>
-<h3 id="still-branch"><a class="toclink" href="2021/12/03/git-flow-simplified/#still-branch">Still Branch?</a></h3>
-<p>Ok, ok, I have to be pragmatic and say that I still branch.  I now use branching for experimental coding, prototyping, and just figuring things out.  But I try to get off the branch within a couple of hours.  </p>
-<p>Quite frankily, if I knew everything about all code that I'll ever need to write, <em>then</em> I would avoid branching completely.  </p>
-<p>So, for branching, I usually script it such as this:</p>
-<blockquote>
-<p>branch.sh</p>
-</blockquote>
-<div class="language-sh highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
-<span class="normal"><a href="#__codelineno-1-2">2</a></span>
-<span class="normal"><a href="#__codelineno-1-3">3</a></span>
-<span class="normal"><a href="#__codelineno-1-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="ch">#!/bin/sh</span>
-</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="nv">branch</span><span class="o">=</span><span class="nv">$1</span>
-</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a>git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span><span class="nv">$branch</span>
-</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a>git<span class="w"> </span>push<span class="w"> </span>-u<span class="w"> </span>origin<span class="w"> </span><span class="nv">$branch</span>
-</span></code></pre></div></td></tr></table></div>
-<p>Then, when I'm ready to merge back to trunk (<code>/develop</code>) I complete my branch:</p>
-<blockquote>
-<p>complete.sh</p>
-</blockquote>
-<div class="language-sh highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-2-10">10</a></span>
-<span class="normal"><a href="#__codelineno-2-11">11</a></span>
-<span class="normal"><a href="#__codelineno-2-12">12</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="ch">#!/bin/sh</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nv">message</span><span class="o">=</span><span class="nv">$1</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a>git<span class="w"> </span>add<span class="w"> </span>-A
-</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">message</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a>git<span class="w"> </span>push
-</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="nv">current_branch</span><span class="o">=</span><span class="k">$(</span>git<span class="w"> </span>branch<span class="w"> </span>--show-current<span class="k">)</span>
-</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a>git<span class="w"> </span>checkout<span class="w"> </span>develop
-</span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a>git<span class="w"> </span>merge<span class="w"> </span>--squash<span class="w"> </span><span class="nv">$current_branch</span>
-</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a>git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">&quot;</span><span class="si">${</span><span class="nv">message</span><span class="si">}</span><span class="s2">&quot;</span>
-</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a>git<span class="w"> </span>push<span class="w"> </span><span class="nv">$1</span>
-</span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a>git<span class="w"> </span>branch<span class="w"> </span>-d<span class="w"> </span><span class="nv">$current_branch</span>
-</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a>git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>--delete<span class="w"> </span><span class="nv">$current_branch</span>
-</span></code></pre></div></td></tr></table></div>
-<p><strong>Note:</strong> I use <code>git merge --squash $current_branch</code> to keep the commits on trunk (<code>/develop</code>) clean.</p>
-    <nav class="md-post__action">
-      <a href="2021/12/03/git-flow-simplified/">
         Continue reading
       </a>
     </nav>
