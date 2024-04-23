@@ -1125,6 +1125,122 @@
     <div class="md-post__meta md-meta">
       <ul class="md-meta__list">
         <li class="md-meta__item">
+          <time datetime="2019-07-13 00:00:00">July 13, 2019</time></li>
+        
+          <li class="md-meta__item">
+            in
+            
+              <a href="../../category/architecture/" class="md-meta__link">Architecture</a>, 
+              <a href="../../category/fsharp/" class="md-meta__link">FSharp</a></li>
+        
+        
+          
+          <li class="md-meta__item">
+            
+              2 min read
+            
+          </li>
+        
+      </ul>
+      
+    </div>
+  </header>
+  <div class="md-post__content md-typeset">
+    <h2 id="immutability-reduces-information-domain"><a class="toclink" href="../../2019/07/13/immutability-reduces-information-domain/">Immutability Reduces Information Domain</a></h2>
+<p>I have heard many developers who come from non-functional programming languages such as C++ and C# claim that immutability is overly restrictive.  It is true that immutability is restrictive, but this restriction comes at one huge benefit:  reduction of possible outcomes.  </p>
+<p><code>Information</code> may be informally defined as the element of surprise.  The more surprises a system has, the more information it contains.  Note the distinction between actual information and possible information.  Typically as developers we focus our algorithms on the actual information that our system processes.  But, of equal (or greater) concern is of the possible information the system will proccess.  Let's call this the <code>Information Domain</code>.  Effectively, it is the concern of the developer to process the Information Domain.  We have to anticipate all of the possible outcomes of our system.  </p>
+<p>Mutability at its core allows for surprise.  </p>
+<p>Let's take a simple mathematical function and restricted domain for example.</p>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-24-1">1</a></span>
+<span class="normal"><a href="#__codelineno-24-2">2</a></span>
+<span class="normal"><a href="#__codelineno-24-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-24-1"><a id="__codelineno-24-1" name="__codelineno-24-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">f</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span>
+</span><span id="__span-24-2"><a id="__codelineno-24-2" name="__codelineno-24-2"></a><span class="k">let</span><span class="w"> </span><span class="nv">domainX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[-</span><span class="mi">2</span><span class="o">;-</span><span class="mi">1</span><span class="o">;</span><span class="mi">0</span><span class="o">;</span><span class="mi">1</span><span class="o">;</span><span class="mi">2</span><span class="o">]</span>
+</span><span id="__span-24-3"><a id="__codelineno-24-3" name="__codelineno-24-3"></a><span class="k">let</span><span class="w"> </span><span class="nv">table</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">domainX</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="n">f</span>
+</span></code></pre></div></td></tr></table></div>
+<blockquote>
+<p>Output:
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-25-1">1</a></span>
+<span class="normal"><a href="#__codelineno-25-2">2</a></span>
+<span class="normal"><a href="#__codelineno-25-3">3</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-25-1"><a id="__codelineno-25-1" name="__codelineno-25-1"></a><span class="k">val</span><span class="w"> </span><span class="n">f</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="n">int</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">int</span>
+</span><span id="__span-25-2"><a id="__codelineno-25-2" name="__codelineno-25-2"></a><span class="k">val</span><span class="w"> </span><span class="n">domainX</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[-</span><span class="mi">2</span><span class="o">;</span><span class="w"> </span><span class="o">-</span><span class="mi">1</span><span class="o">;</span><span class="w"> </span><span class="mi">0</span><span class="o">;</span><span class="w"> </span><span class="mi">1</span><span class="o">;</span><span class="w"> </span><span class="mi">2</span><span class="o">]</span>
+</span><span id="__span-25-3"><a id="__codelineno-25-3" name="__codelineno-25-3"></a><span class="k">val</span><span class="w"> </span><span class="n">table</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="mi">1</span><span class="o">;</span><span class="w"> </span><span class="mi">2</span><span class="o">;</span><span class="w"> </span><span class="mi">3</span><span class="o">;</span><span class="w"> </span><span class="mi">4</span><span class="o">;</span><span class="w"> </span><span class="mi">5</span><span class="o">]</span>
+</span></code></pre></div></td></tr></table></div></p>
+</blockquote>
+<p>Now, let's explore the same function with a mutable side-effect:</p>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-26-1">1</a></span>
+<span class="normal"><a href="#__codelineno-26-2">2</a></span>
+<span class="normal"><a href="#__codelineno-26-3">3</a></span>
+<span class="normal"><a href="#__codelineno-26-4">4</a></span>
+<span class="normal"><a href="#__codelineno-26-5">5</a></span>
+<span class="normal"><a href="#__codelineno-26-6">6</a></span>
+<span class="normal"><a href="#__codelineno-26-7">7</a></span>
+<span class="normal"><a href="#__codelineno-26-8">8</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-26-1"><a id="__codelineno-26-1" name="__codelineno-26-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">mutable</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">4</span>
+</span><span id="__span-26-2"><a id="__codelineno-26-2" name="__codelineno-26-2"></a>
+</span><span id="__span-26-3"><a id="__codelineno-26-3" name="__codelineno-26-3"></a><span class="k">let</span><span class="w"> </span><span class="nv">f</span><span class="k">&#39;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-26-4"><a id="__codelineno-26-4" name="__codelineno-26-4"></a><span class="w">    </span><span class="n">X</span><span class="w"> </span><span class="o">&lt;-</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span>
+</span><span id="__span-26-5"><a id="__codelineno-26-5" name="__codelineno-26-5"></a><span class="w">    </span><span class="n">X</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span>
+</span><span id="__span-26-6"><a id="__codelineno-26-6" name="__codelineno-26-6"></a>
+</span><span id="__span-26-7"><a id="__codelineno-26-7" name="__codelineno-26-7"></a><span class="k">let</span><span class="w"> </span><span class="nv">table</span><span class="k">&#39;</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">domainX</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="n">f&#39;</span>
+</span><span id="__span-26-8"><a id="__codelineno-26-8" name="__codelineno-26-8"></a><span class="k">let</span><span class="w"> </span><span class="nv">table</span><span class="k">&#39;</span><span class="mi">2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">domainX</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="n">f&#39;</span>
+</span></code></pre></div></td></tr></table></div>
+<blockquote>
+<p>Output:
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-27-1">1</a></span>
+<span class="normal"><a href="#__codelineno-27-2">2</a></span>
+<span class="normal"><a href="#__codelineno-27-3">3</a></span>
+<span class="normal"><a href="#__codelineno-27-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-27-1"><a id="__codelineno-27-1" name="__codelineno-27-1"></a><span class="k">val</span><span class="w"> </span><span class="k">mutable</span><span class="w"> </span><span class="n">X</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">14</span>
+</span><span id="__span-27-2"><a id="__codelineno-27-2" name="__codelineno-27-2"></a><span class="k">val</span><span class="w"> </span><span class="n">f&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="n">int</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">int</span>
+</span><span id="__span-27-3"><a id="__codelineno-27-3" name="__codelineno-27-3"></a><span class="k">val</span><span class="w"> </span><span class="n">table&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="mi">6</span><span class="o">;</span><span class="w"> </span><span class="mi">8</span><span class="o">;</span><span class="w"> </span><span class="mi">10</span><span class="o">;</span><span class="w"> </span><span class="mi">12</span><span class="o">;</span><span class="w"> </span><span class="mi">14</span><span class="o">]</span>
+</span><span id="__span-27-4"><a id="__codelineno-27-4" name="__codelineno-27-4"></a><span class="k">val</span><span class="w"> </span><span class="n">table&#39;2</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="mi">11</span><span class="o">;</span><span class="w"> </span><span class="mi">13</span><span class="o">;</span><span class="w"> </span><span class="mi">15</span><span class="o">;</span><span class="w"> </span><span class="mi">17</span><span class="o">;</span><span class="w"> </span><span class="mi">19</span><span class="o">]</span>
+</span></code></pre></div></td></tr></table></div>
+Note the <code>table'2</code> has different values from the values in <code>table'</code> as expected.</p>
+</blockquote>
+<p>This may seem simple when you can <em>read</em> the source code as we are doing here, but if you did not have access to the source code, this behavior would surely be a <strong>surprise</strong>.</p>
+<p>The <code>f'</code> can be restructured to make the behavior less of a surprise:</p>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-28-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-28-1"><a id="__codelineno-28-1" name="__codelineno-28-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">f</span><span class="k">&#39;&#39;</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">y</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">3</span>
+</span></code></pre></div></td></tr></table></div>
+<p>Here, we've removed the mutable call, and instead declared a new param, <code>y</code>, that declares the dependency for <code>f''</code> to operate.  </p>
+<p>Now, we can provide another restricted domain for the <code>y</code> param:</p>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-29-1">1</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-29-1"><a id="__codelineno-29-1" name="__codelineno-29-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">domainY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="mi">4</span><span class="o">;</span><span class="mi">5</span><span class="o">;</span><span class="mi">6</span><span class="o">;</span><span class="mi">7</span><span class="o">;</span><span class="mi">8</span><span class="o">;</span><span class="mi">9</span><span class="o">]</span>
+</span></code></pre></div></td></tr></table></div>
+<p>This has the effect of combining both <code>domainX</code> and <code>domainY</code> through a cartesian product:</p>
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-30-1">1</a></span>
+<span class="normal"><a href="#__codelineno-30-2">2</a></span>
+<span class="normal"><a href="#__codelineno-30-3">3</a></span>
+<span class="normal"><a href="#__codelineno-30-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-30-1"><a id="__codelineno-30-1" name="__codelineno-30-1"></a><span class="k">let</span><span class="w"> </span><span class="nv">table</span><span class="k">&#39;</span><span class="mi">3</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-30-2"><a id="__codelineno-30-2" name="__codelineno-30-2"></a><span class="w">    </span><span class="n">domainX</span>
+</span><span id="__span-30-3"><a id="__codelineno-30-3" name="__codelineno-30-3"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">map</span><span class="o">(</span><span class="k">fun</span><span class="w"> </span><span class="n">x</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">domainY</span><span class="w"> </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">map</span><span class="w"> </span><span class="o">(</span><span class="n">f&#39;&#39;</span><span class="w"> </span><span class="n">x</span><span class="o">))</span>
+</span><span id="__span-30-4"><a id="__codelineno-30-4" name="__codelineno-30-4"></a><span class="w">    </span><span class="o">|&gt;</span><span class="w"> </span><span class="nn">List</span><span class="p">.</span><span class="n">concat</span>
+</span></code></pre></div></td></tr></table></div>
+<blockquote>
+<p>Output:
+<div class="language-fsharp highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-31-1">1</a></span>
+<span class="normal"><a href="#__codelineno-31-2">2</a></span>
+<span class="normal"><a href="#__codelineno-31-3">3</a></span>
+<span class="normal"><a href="#__codelineno-31-4">4</a></span>
+<span class="normal"><a href="#__codelineno-31-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-31-1"><a id="__codelineno-31-1" name="__codelineno-31-1"></a><span class="k">val</span><span class="w"> </span><span class="n">f&#39;&#39;</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">x</span><span class="o">:</span><span class="n">int</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">y</span><span class="o">:</span><span class="n">int</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">int</span>
+</span><span id="__span-31-2"><a id="__codelineno-31-2" name="__codelineno-31-2"></a><span class="k">val</span><span class="w"> </span><span class="n">domainY</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="o">[</span><span class="mi">4</span><span class="o">;</span><span class="w"> </span><span class="mi">5</span><span class="o">;</span><span class="w"> </span><span class="mi">6</span><span class="o">;</span><span class="w"> </span><span class="mi">7</span><span class="o">;</span><span class="w"> </span><span class="mi">8</span><span class="o">;</span><span class="w"> </span><span class="mi">9</span><span class="o">]</span>
+</span><span id="__span-31-3"><a id="__codelineno-31-3" name="__codelineno-31-3"></a><span class="k">val</span><span class="w"> </span><span class="n">table&#39;3</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">int</span><span class="w"> </span><span class="kt">list</span><span class="w"> </span><span class="o">=</span>
+</span><span id="__span-31-4"><a id="__codelineno-31-4" name="__codelineno-31-4"></a><span class="w">  </span><span class="o">[</span><span class="mi">5</span><span class="o">;</span><span class="w"> </span><span class="mi">6</span><span class="o">;</span><span class="w"> </span><span class="mi">7</span><span class="o">;</span><span class="w"> </span><span class="mi">8</span><span class="o">;</span><span class="w"> </span><span class="mi">9</span><span class="o">;</span><span class="w"> </span><span class="mi">10</span><span class="o">;</span><span class="w"> </span><span class="mi">6</span><span class="o">;</span><span class="w"> </span><span class="mi">7</span><span class="o">;</span><span class="w"> </span><span class="mi">8</span><span class="o">;</span><span class="w"> </span><span class="mi">9</span><span class="o">;</span><span class="w"> </span><span class="mi">10</span><span class="o">;</span><span class="w"> </span><span class="mi">11</span><span class="o">;</span><span class="w"> </span><span class="mi">7</span><span class="o">;</span><span class="w"> </span><span class="mi">8</span><span class="o">;</span><span class="w"> </span><span class="mi">9</span><span class="o">;</span><span class="w"> </span><span class="mi">10</span><span class="o">;</span><span class="w"> </span><span class="mi">11</span><span class="o">;</span><span class="w"> </span><span class="mi">12</span><span class="o">;</span><span class="w"> </span><span class="mi">8</span><span class="o">;</span><span class="w"> </span><span class="mi">9</span><span class="o">;</span><span class="w"> </span><span class="mi">10</span><span class="o">;</span><span class="w"> </span><span class="mi">11</span><span class="o">;</span>
+</span><span id="__span-31-5"><a id="__codelineno-31-5" name="__codelineno-31-5"></a><span class="w">   </span><span class="mi">12</span><span class="o">;</span><span class="w"> </span><span class="mi">13</span><span class="o">;</span><span class="w"> </span><span class="mi">9</span><span class="o">;</span><span class="w"> </span><span class="mi">10</span><span class="o">;</span><span class="w"> </span><span class="mi">11</span><span class="o">;</span><span class="w"> </span><span class="mi">12</span><span class="o">;</span><span class="w"> </span><span class="mi">13</span><span class="o">;</span><span class="w"> </span><span class="mi">14</span><span class="o">]</span>
+</span></code></pre></div></td></tr></table></div></p>
+</blockquote>
+<p>By allowing mutation, we've increased the element of surprise.  I have found this aspect of mutation especially difficult to reason about in large code bases.  </p>
+<p>Restrictions are not always an inhibitor, rather they can play a central role in improving the speed and effeciency in development.</p>
+    <nav class="md-post__action">
+      <a href="../../2019/07/13/immutability-reduces-information-domain/">
+        Continue reading
+      </a>
+    </nav>
+  </div>
+</article>
+      
+        <article class="md-post md-post--excerpt">
+  <header class="md-post__header">
+    
+    <div class="md-post__meta md-meta">
+      <ul class="md-meta__list">
+        <li class="md-meta__item">
           <time datetime="2019-06-18 00:00:00">June 18, 2019</time></li>
         
           <li class="md-meta__item">
